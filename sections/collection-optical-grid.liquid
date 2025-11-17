@@ -531,14 +531,14 @@
 
                 <!-- Quick Actions -->
                 <div class="nvc-product-actions">
-                  <button class="nvc-action-btn" title="Quick View" onclick="quickView({{ product.id }})">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <button class="nvc-action-btn" data-quick-view="{{ product.id }}" aria-label="Quick view {{ product.title }}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                       <circle cx="12" cy="12" r="3"></circle>
                     </svg>
                   </button>
-                  <button class="nvc-action-btn" title="Add to Wishlist">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <button class="nvc-action-btn" data-add-wishlist="{{ product.id }}" aria-label="Add {{ product.title }} to wishlist">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                     </svg>
                   </button>
@@ -570,7 +570,7 @@
                 </div>
                 {%- endif -%}
 
-                <button class="nvc-quick-add" onclick="quickAdd({{ product.variants.first.id }})">
+                <button class="nvc-quick-add" data-quick-add="{{ product.variants.first.id }}" aria-label="Quick add {{ product.title }} to cart">
                   Quick Add
                 </button>
               </div>
@@ -583,29 +583,74 @@
 </div>
 
 <script>
-  function quickView(productId) {
-    // Open quick view modal
-    console.log('Quick view for product:', productId);
-    alert('Quick View modal will open here');
-  }
+  // Collection Grid - Accessible Event Handlers
+  (function() {
+    'use strict';
 
-  function quickAdd(variantId) {
-    // Quick add to cart
-    fetch('/cart/add.js', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id: variantId,
-        quantity: 1
+    function quickView(productId) {
+      // Open quick view modal
+      console.log('Quick view for product:', productId);
+      alert('Quick View modal will open here');
+    }
+
+    function addToWishlist(productId) {
+      console.log('Add to wishlist:', productId);
+      // Trigger wishlist event
+      window.dispatchEvent(new CustomEvent('add-to-wishlist', {
+        detail: { productId: productId }
+      }));
+    }
+
+    function quickAdd(variantId) {
+      // Quick add to cart
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: variantId,
+          quantity: 1
+        })
       })
-    })
-    .then(response => response.json())
-    .then(data => {
-      alert('Added to cart!');
+      .then(response => response.json())
+      .then(data => {
+        alert('Added to cart!');
+        // Trigger cart update event
+        window.dispatchEvent(new CustomEvent('cart:updated'));
+      })
+      .catch(error => {
+        alert('Error adding to cart. Please try again.');
+      });
+    }
+
+    // Initialize event listeners when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      // Quick view buttons
+      document.querySelectorAll('[data-quick-view]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const productId = this.dataset.quickView;
+          quickView(productId);
+        });
+      });
+
+      // Wishlist buttons
+      document.querySelectorAll('[data-add-wishlist]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const productId = this.dataset.addWishlist;
+          addToWishlist(productId);
+        });
+      });
+
+      // Quick add buttons
+      document.querySelectorAll('[data-quick-add]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const variantId = this.dataset.quickAdd;
+          quickAdd(variantId);
+        });
+      });
     });
-  }
+  })();
 </script>
 
 {% schema %}

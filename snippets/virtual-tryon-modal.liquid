@@ -416,8 +416,48 @@
   }
 </style>
 
+<!-- Noscript Fallback for Virtual Try-On -->
+<noscript>
+  <style>
+    .nvc-requires-js {
+      display: none !important;
+    }
+    .nvc-noscript-message {
+      padding: 2rem;
+      background: #fff3cd;
+      border: 2px solid #ffc107;
+      border-radius: 8px;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    .nvc-noscript-message h3 {
+      color: #856404;
+      margin-bottom: 1rem;
+    }
+    .nvc-noscript-message p {
+      color: #856404;
+      margin-bottom: 1rem;
+    }
+    .nvc-noscript-message a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: #a76111;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+  </style>
+  <div class="nvc-noscript-message">
+    <h3>JavaScript Required</h3>
+    <p>Virtual try-on and prescription builder require JavaScript to be enabled in your browser.</p>
+    <p>Please enable JavaScript or visit one of our stores for in-person service.</p>
+    <a href="/pages/store-locator">Find a Store Near You</a>
+  </div>
+</noscript>
+
 <!-- Virtual Try-On Modal -->
-<div id="nvcVirtualTryonModal" class="nvc-modal-overlay">
+<div id="nvcVirtualTryonModal" class="nvc-modal-overlay nvc-requires-js">
   <div class="nvc-modal">
     <div class="nvc-modal-header">
       <h2 class="nvc-modal-title">
@@ -427,8 +467,8 @@
         </svg>
         Virtual Try-On
       </h2>
-      <button class="nvc-modal-close" onclick="closeVirtualTryon()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <button class="nvc-modal-close" data-close-tryon aria-label="Close virtual try-on">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
@@ -447,7 +487,11 @@
             </svg>
             <h3 style="margin-bottom: 0.5rem;">Enable Your Camera</h3>
             <p style="opacity: 0.8;">Click "Start Camera" to begin virtual try-on</p>
-            <button class="nvc-modal-btn nvc-modal-btn-primary" style="margin-top: 1rem;" onclick="startCamera()">
+            <p class="privacy-notice" style="font-size: 12px; opacity: 0.7; margin-top: 0.5rem;">
+              Your camera feed is processed locally and never stored or transmitted.
+              <a href="/pages/privacy-policy" style="text-decoration: underline;">Privacy Policy</a>
+            </p>
+            <button class="nvc-modal-btn nvc-modal-btn-primary" style="margin-top: 1rem;" data-start-camera aria-label="Start camera for virtual try-on">
               Start Camera
             </button>
           </div>
@@ -456,19 +500,19 @@
           <canvas id="tryonCanvas" style="display: none;"></canvas>
 
           <div class="nvc-camera-controls" style="display: none;">
-            <button class="nvc-camera-btn" onclick="switchCamera()" title="Switch Camera">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="nvc-camera-btn" data-switch-camera aria-label="Switch camera">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                 <circle cx="12" cy="12" r="3"></circle>
               </svg>
             </button>
-            <button class="nvc-camera-btn capture" onclick="capturePhoto()" title="Capture Photo">
-              <svg viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2">
+            <button class="nvc-camera-btn capture" data-capture-photo aria-label="Capture photo">
+              <svg viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="10"></circle>
               </svg>
             </button>
-            <button class="nvc-camera-btn" onclick="downloadPhoto()" title="Download">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="nvc-camera-btn" data-download-photo aria-label="Download photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="7 10 12 15 17 10"></polyline>
                 <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -511,10 +555,10 @@
     </div>
 
     <div class="nvc-modal-footer">
-      <button class="nvc-modal-btn nvc-modal-btn-secondary" onclick="closeVirtualTryon()">
+      <button class="nvc-modal-btn nvc-modal-btn-secondary" data-close-tryon aria-label="Close virtual try-on">
         Close
       </button>
-      <button class="nvc-modal-btn nvc-modal-btn-primary" onclick="addToCartFromTryon()">
+      <button class="nvc-modal-btn nvc-modal-btn-primary" data-add-to-cart aria-label="Add this product to cart">
         Add to Cart
       </button>
     </div>
@@ -522,7 +566,7 @@
 </div>
 
 <!-- Prescription Builder Modal -->
-<div id="nvcPrescriptionModal" class="nvc-modal-overlay">
+<div id="nvcPrescriptionModal" class="nvc-modal-overlay nvc-requires-js">
   <div class="nvc-modal">
     <div class="nvc-modal-header">
       <h2 class="nvc-modal-title">
@@ -535,8 +579,8 @@
         </svg>
         Add Prescription
       </h2>
-      <button class="nvc-modal-close" onclick="closePrescriptionModal()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <button class="nvc-modal-close" data-close-prescription aria-label="Close prescription form">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
@@ -546,17 +590,17 @@
     <div class="nvc-modal-body">
       <div class="nvc-prescription-builder">
         <!-- Tabs -->
-        <div class="nvc-prescription-tabs">
-          <button class="nvc-prescription-tab active" onclick="switchPrescriptionTab('manual')">
+        <div class="nvc-prescription-tabs" role="tablist">
+          <button class="nvc-prescription-tab active" data-tab="manual" role="tab" aria-selected="true" aria-controls="manualPrescription">
             Enter Manually
           </button>
-          <button class="nvc-prescription-tab" onclick="switchPrescriptionTab('upload')">
+          <button class="nvc-prescription-tab" data-tab="upload" role="tab" aria-selected="false" aria-controls="uploadPrescription">
             Upload Prescription
           </button>
         </div>
 
         <!-- Manual Entry -->
-        <div id="manualPrescription">
+        <div id="manualPrescription" role="tabpanel" aria-labelledby="tab-manual">
           <table class="nvc-prescription-table">
             <thead>
               <tr>
@@ -602,7 +646,7 @@
         </div>
 
         <!-- Upload Prescription -->
-        <div id="uploadPrescription" style="display: none;">
+        <div id="uploadPrescription" style="display: none;" role="tabpanel" aria-labelledby="tab-upload">
           <div class="nvc-prescription-upload">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -618,10 +662,10 @@
     </div>
 
     <div class="nvc-modal-footer">
-      <button class="nvc-modal-btn nvc-modal-btn-secondary" onclick="closePrescriptionModal()">
+      <button class="nvc-modal-btn nvc-modal-btn-secondary" data-close-prescription aria-label="Cancel and close prescription form">
         Cancel
       </button>
-      <button class="nvc-modal-btn nvc-modal-btn-primary" onclick="savePrescription()">
+      <button class="nvc-modal-btn nvc-modal-btn-primary" data-save-prescription aria-label="Save prescription details">
         Save Prescription
       </button>
     </div>
@@ -629,130 +673,201 @@
 </div>
 
 <script>
-  // Virtual Try-On Functions
-  let videoStream = null;
+  // Virtual Try-On & Prescription Modal - Accessible Event Handlers
+  (function() {
+    'use strict';
 
-  function openVirtualTryon(product) {
-    const modal = document.getElementById('nvcVirtualTryonModal');
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    let videoStream = null;
 
-    // Update product info
-    if (product) {
-      document.getElementById('tryonProductImage').src = product.image;
-      document.getElementById('tryonProductTitle').textContent = product.title;
-      document.getElementById('tryonProductPrice').textContent = product.price;
+    // Virtual Try-On Functions
+    function openVirtualTryon(product) {
+      const modal = document.getElementById('nvcVirtualTryonModal');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      // Update product info
+      if (product) {
+        document.getElementById('tryonProductImage').src = product.image;
+        document.getElementById('tryonProductTitle').textContent = product.title;
+        document.getElementById('tryonProductPrice').textContent = product.price;
+      }
     }
-  }
 
-  function closeVirtualTryon() {
-    const modal = document.getElementById('nvcVirtualTryonModal');
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
+    function closeVirtualTryon() {
+      const modal = document.getElementById('nvcVirtualTryonModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
 
-    // Stop camera
-    if (videoStream) {
-      videoStream.getTracks().forEach(track => track.stop());
-      videoStream = null;
+      // Stop camera
+      if (videoStream) {
+        videoStream.getTracks().forEach(track => track.stop());
+        videoStream = null;
+      }
     }
-  }
 
-  async function startCamera() {
-    try {
-      videoStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'user' }
-      });
+    async function startCamera() {
+      try {
+        videoStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'user' }
+        });
+        const video = document.getElementById('tryonVideo');
+        video.srcObject = videoStream;
+        video.play();
+
+        document.querySelector('.nvc-tryon-placeholder').style.display = 'none';
+        video.style.display = 'block';
+        document.querySelector('.nvc-camera-controls').style.display = 'flex';
+      } catch (err) {
+        alert('Camera access denied or not available');
+      }
+    }
+
+    function switchCamera() {
+      // Switch between front and back camera (if available)
+      console.log('Switch camera requested');
+    }
+
+    function capturePhoto() {
       const video = document.getElementById('tryonVideo');
-      video.srcObject = videoStream;
-      video.play();
-
-      document.querySelector('.nvc-tryon-placeholder').style.display = 'none';
-      video.style.display = 'block';
-      document.querySelector('.nvc-camera-controls').style.display = 'flex';
-    } catch (err) {
-      alert('Camera access denied or not available');
+      const canvas = document.getElementById('tryonCanvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0);
     }
-  }
 
-  function capturePhoto() {
-    const video = document.getElementById('tryonVideo');
-    const canvas = document.getElementById('tryonCanvas');
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0);
-  }
-
-  function downloadPhoto() {
-    const canvas = document.getElementById('tryonCanvas');
-    const link = document.createElement('a');
-    link.download = 'virtual-tryon.jpg';
-    link.href = canvas.toDataURL();
-    link.click();
-  }
-
-  function addToCartFromTryon() {
-    alert('Added to cart!');
-    closeVirtualTryon();
-  }
-
-  // Prescription Modal Functions
-  function openPrescriptionModal() {
-    const modal = document.getElementById('nvcPrescriptionModal');
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closePrescriptionModal() {
-    const modal = document.getElementById('nvcPrescriptionModal');
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  function switchPrescriptionTab(tab) {
-    document.querySelectorAll('.nvc-prescription-tab').forEach(t => t.classList.remove('active'));
-    event.target.classList.add('active');
-
-    if (tab === 'manual') {
-      document.getElementById('manualPrescription').style.display = 'block';
-      document.getElementById('uploadPrescription').style.display = 'none';
-    } else {
-      document.getElementById('manualPrescription').style.display = 'none';
-      document.getElementById('uploadPrescription').style.display = 'block';
+    function downloadPhoto() {
+      const canvas = document.getElementById('tryonCanvas');
+      const link = document.createElement('a');
+      link.download = 'virtual-tryon.jpg';
+      link.href = canvas.toDataURL();
+      link.click();
     }
-  }
 
-  function savePrescription() {
-    alert('Prescription saved!');
-    closePrescriptionModal();
-  }
+    function addToCartFromTryon() {
+      alert('Added to cart!');
+      closeVirtualTryon();
+    }
 
-  // Global event listeners
-  document.addEventListener('DOMContentLoaded', function() {
-    // Close modals on overlay click
-    document.querySelectorAll('.nvc-modal-overlay').forEach(overlay => {
-      overlay.addEventListener('click', function(e) {
-        if (e.target === this) {
+    // Prescription Modal Functions
+    function openPrescriptionModal() {
+      const modal = document.getElementById('nvcPrescriptionModal');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePrescriptionModal() {
+      const modal = document.getElementById('nvcPrescriptionModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function switchPrescriptionTab(e) {
+      const clickedTab = e.currentTarget;
+      const tabName = clickedTab.dataset.tab;
+
+      // Update tab states
+      document.querySelectorAll('.nvc-prescription-tab').forEach(tab => {
+        tab.classList.remove('active');
+        tab.setAttribute('aria-selected', 'false');
+      });
+
+      clickedTab.classList.add('active');
+      clickedTab.setAttribute('aria-selected', 'true');
+
+      // Show/hide panels
+      if (tabName === 'manual') {
+        document.getElementById('manualPrescription').style.display = 'block';
+        document.getElementById('uploadPrescription').style.display = 'none';
+      } else {
+        document.getElementById('manualPrescription').style.display = 'none';
+        document.getElementById('uploadPrescription').style.display = 'block';
+      }
+    }
+
+    function savePrescription() {
+      alert('Prescription saved!');
+      closePrescriptionModal();
+    }
+
+    // Initialize event listeners when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      // Virtual Try-On button handlers
+      document.querySelectorAll('[data-close-tryon]').forEach(btn => {
+        btn.addEventListener('click', closeVirtualTryon);
+      });
+
+      document.querySelectorAll('[data-start-camera]').forEach(btn => {
+        btn.addEventListener('click', startCamera);
+      });
+
+      document.querySelectorAll('[data-switch-camera]').forEach(btn => {
+        btn.addEventListener('click', switchCamera);
+      });
+
+      document.querySelectorAll('[data-capture-photo]').forEach(btn => {
+        btn.addEventListener('click', capturePhoto);
+      });
+
+      document.querySelectorAll('[data-download-photo]').forEach(btn => {
+        btn.addEventListener('click', downloadPhoto);
+      });
+
+      document.querySelectorAll('[data-add-to-cart]').forEach(btn => {
+        btn.addEventListener('click', addToCartFromTryon);
+      });
+
+      // Prescription Modal button handlers
+      document.querySelectorAll('[data-close-prescription]').forEach(btn => {
+        btn.addEventListener('click', closePrescriptionModal);
+      });
+
+      document.querySelectorAll('[data-save-prescription]').forEach(btn => {
+        btn.addEventListener('click', savePrescription);
+      });
+
+      // Tab switching
+      document.querySelectorAll('.nvc-prescription-tab').forEach(tab => {
+        tab.addEventListener('click', switchPrescriptionTab);
+      });
+
+      // Close modals on overlay click
+      document.querySelectorAll('.nvc-modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', function(e) {
+          if (e.target === this) {
+            closeVirtualTryon();
+            closePrescriptionModal();
+          }
+        });
+      });
+
+      // Keyboard accessibility - ESC to close
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
           closeVirtualTryon();
           closePrescriptionModal();
         }
       });
-    });
 
-    // Upload file trigger
-    const uploadArea = document.querySelector('.nvc-prescription-upload');
-    if (uploadArea) {
-      uploadArea.addEventListener('click', () => {
-        document.getElementById('prescriptionFile').click();
+      // Upload file trigger
+      const uploadArea = document.querySelector('.nvc-prescription-upload');
+      if (uploadArea) {
+        uploadArea.addEventListener('click', function() {
+          document.getElementById('prescriptionFile').click();
+        });
+      }
+
+      // ILS event listeners
+      window.addEventListener('ils:virtual-tryon', function(e) {
+        openVirtualTryon(e.detail);
       });
-    }
 
-    // ILS event listeners
-    window.addEventListener('ils:virtual-tryon', function(e) {
-      openVirtualTryon(e.detail);
+      window.addEventListener('ils:prescription-form', function() {
+        openPrescriptionModal();
+      });
     });
 
-    window.addEventListener('ils:prescription-form', function() {
-      openPrescriptionModal();
-    });
-  });
+    // Expose functions globally for backwards compatibility
+    window.openVirtualTryon = openVirtualTryon;
+    window.openPrescriptionModal = openPrescriptionModal;
+  })();
 </script>
