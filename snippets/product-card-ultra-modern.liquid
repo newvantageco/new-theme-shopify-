@@ -1,0 +1,288 @@
+{% comment %}
+  Ultra Modern Product Card
+  Showcases the new NVC ultra-modern design system
+  Features: Glassmorphism, smooth animations, gradient accents
+{% endcomment %}
+
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign featured_image = current_variant.featured_image | default: product.featured_image
+  assign product_url = product.url | within: collection
+  assign on_sale = false
+  if product.compare_at_price > product.price
+    assign on_sale = true
+  endif
+%}
+
+<div class="nvc-product-card-ultra"
+     data-reveal="scale"
+     data-tilt
+     data-product-id="{{ product.id }}"
+     data-product-handle="{{ product.handle }}">
+
+  {%- comment -%} Image Container with Zoom Effect {%- endcomment -%}
+  <div class="nvc-product-image-wrapper">
+    <a href="{{ product_url }}" class="nvc-product-link" aria-label="{{ product.title | escape }}">
+      {% if featured_image %}
+        {%- assign img_url = featured_image | image_url: width: 1 | replace: 'width=1', 'width={width}' -%}
+        <img
+          class="nvc-product-image lazyload"
+          data-src="{{ img_url }}"
+          data-widths="[180, 360, 540, 720, 900, 1080]"
+          data-aspectratio="{{ featured_image.aspect_ratio }}"
+          data-sizes="auto"
+          data-zoom
+          src="{{ featured_image | image_url: width: 50 }}"
+          alt="{{ featured_image.alt | escape }}"
+          loading="lazy"
+          width="{{ featured_image.width }}"
+          height="{{ featured_image.height }}">
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'nvc-product-image placeholder-svg' }}
+      {% endif %}
+    </a>
+
+    {%- comment -%} Badges (Sale, New, etc.) {%- endcomment -%}
+    {% if on_sale %}
+      <div class="nvc-product-badge" style="background: var(--nvc-gradient-sunset);">
+        {{ 'products.product.on_sale' | t }}
+      </div>
+    {% elsif product.metafields.custom.badge != blank %}
+      <div class="nvc-product-badge" style="background: var(--nvc-gradient-primary);">
+        {{ product.metafields.custom.badge }}
+      </div>
+    {% endif %}
+
+    {%- comment -%} Quick Action Overlay {%- endcomment -%}
+    <div class="nvc-quick-add-overlay">
+      {% if product.available %}
+        {% if product.has_only_default_variant %}
+          <button
+            type="button"
+            class="nvc-btn-modern nvc-btn-gradient"
+            data-magnetic
+            onclick="addToCart('{{ current_variant.id }}')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            Quick Add
+          </button>
+        {% else %}
+          <a
+            href="{{ product_url }}"
+            class="nvc-btn-modern nvc-btn-gradient"
+            data-magnetic>
+            Select Options
+          </a>
+        {% endif %}
+      {% else %}
+        <button
+          type="button"
+          class="nvc-btn-modern nvc-btn-outline-modern"
+          disabled>
+          Sold Out
+        </button>
+      {% endif %}
+    </div>
+
+    {%- comment -%} Wishlist & Quick View Icons {%- endcomment -%}
+    <div style="position: absolute; top: var(--nvc-space-4); left: var(--nvc-space-4); display: flex; gap: var(--nvc-space-2); opacity: 0; transition: opacity 0.3s;">
+      {% if settings.enable_wishlsit %}
+        <button
+          type="button"
+          class="nvc-btn-glass"
+          data-magnetic
+          style="width: 40px; height: 40px; padding: 0; border-radius: var(--nvc-radius-full);"
+          title="{{ 'products.product.wishlist_text' | t }}"
+          onclick="toggleWishlist('{{ product.handle }}')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </button>
+      {% endif %}
+
+      {% if settings.qv_box %}
+        <button
+          type="button"
+          class="nvc-btn-glass"
+          data-magnetic
+          style="width: 40px; height: 40px; padding: 0; border-radius: var(--nvc-radius-full);"
+          title="{{ 'products.product.quickview_text' | t }}"
+          data-toggle="modal"
+          data-target="#jsQuickview"
+          data-handle="{{ product.handle }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+        </button>
+      {% endif %}
+    </div>
+  </div>
+
+  {%- comment -%} Product Info {%- endcomment -%}
+  <div class="nvc-product-info">
+
+    {%- comment -%} Vendor {%- endcomment -%}
+    {% if settings.enable_type and product.vendor != blank %}
+      <a
+        href="/collections/vendors?filter.p.vendor={{ product.vendor }}"
+        class="nvc-label"
+        style="color: var(--nvc-gray-600); margin-bottom: var(--nvc-space-2); display: inline-block; font-size: var(--nvc-text-xs);">
+        {{ product.vendor }}
+      </a>
+    {% endif %}
+
+    {%- comment -%} Product Title {%- endcomment -%}
+    <h3 class="nvc-product-title">
+      <a href="{{ product_url }}" style="text-decoration: none; color: inherit;">
+        {{ product.title | escape }}
+      </a>
+    </h3>
+
+    {%- comment -%} Product Description Snippet {%- endcomment -%}
+    {% if product.metafields.info.shortdesc != blank %}
+      <p class="nvc-body" style="color: var(--nvc-gray-600); margin: var(--nvc-space-2) 0; font-size: var(--nvc-text-sm);">
+        {{ product.metafields.info.shortdesc | strip_html | truncatewords: 15 }}
+      </p>
+    {% endif %}
+
+    {%- comment -%} Reviews {%- endcomment -%}
+    {% if settings.enable_review %}
+      <div style="margin: var(--nvc-space-2) 0;">
+        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+      </div>
+    {% endif %}
+
+    {%- comment -%} Price with Gradient {%- endcomment -%}
+    <div style="display: flex; align-items: center; gap: var(--nvc-space-3); margin-top: var(--nvc-space-3);">
+      {% if on_sale %}
+        <span class="nvc-product-price">
+          {{ product.price | money }}
+        </span>
+        <s style="color: var(--nvc-gray-400); font-size: var(--nvc-text-base);">
+          {{ product.compare_at_price | money }}
+        </s>
+        <span
+          class="nvc-label"
+          style="
+            background: var(--nvc-gradient-sunset);
+            color: white;
+            padding: var(--nvc-space-1) var(--nvc-space-3);
+            border-radius: var(--nvc-radius-full);
+            font-size: var(--nvc-text-xs);">
+          {% assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+          -{{ discount }}%
+        </span>
+      {% else %}
+        {% if product.price_varies %}
+          <span class="nvc-product-price">
+            From {{ product.price_min | money }}
+          </span>
+        {% else %}
+          <span class="nvc-product-price">
+            {{ product.price | money }}
+          </span>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    {%- comment -%} Color Swatches (if applicable) {%- endcomment -%}
+    {% if product.options_with_values.size > 0 %}
+      {% for option in product.options_with_values %}
+        {% if option.name == 'Color' or option.name == 'Colour' %}
+          <div style="display: flex; gap: var(--nvc-space-2); margin-top: var(--nvc-space-3); flex-wrap: wrap;">
+            {% for value in option.values limit: 5 %}
+              <div
+                style="
+                  width: 32px;
+                  height: 32px;
+                  border-radius: var(--nvc-radius-full);
+                  border: 2px solid var(--nvc-gray-200);
+                  background: {{ value | handleize | prepend: 'var(--color-' | append: ', var(--nvc-gray-300))' }};
+                  cursor: pointer;
+                  transition: all 0.2s;
+                "
+                title="{{ value }}"
+                onmouseover="this.style.transform='scale(1.15)'; this.style.borderColor='var(--nvc-primary-500)';"
+                onmouseout="this.style.transform='scale(1)'; this.style.borderColor='var(--nvc-gray-200)';">
+              </div>
+            {% endfor %}
+            {% if option.values.size > 5 %}
+              <span style="font-size: var(--nvc-text-sm); color: var(--nvc-gray-500); display: flex; align-items: center;">
+                +{{ option.values.size | minus: 5 }}
+              </span>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    {%- comment -%} Availability Badge {%- endcomment -%}
+    {% unless product.available %}
+      <div
+        style="
+          margin-top: var(--nvc-space-3);
+          padding: var(--nvc-space-2) var(--nvc-space-4);
+          background: rgba(239, 68, 68, 0.1);
+          border-left: 3px solid #ef4444;
+          border-radius: var(--nvc-radius-md);
+          font-size: var(--nvc-text-sm);
+          color: #dc2626;">
+        Currently Unavailable
+      </div>
+    {% endunless %}
+  </div>
+</div>
+
+{%- comment -%} Inline Styles for Hover Effects {%- endcomment -%}
+<style>
+  .nvc-product-card-ultra:hover .nvc-product-image-wrapper > div:first-of-type {
+    opacity: 1 !important;
+  }
+</style>
+
+{%- comment -%} Quick Add to Cart Function {%- endcomment -%}
+<script>
+  if (typeof addToCart === 'undefined') {
+    function addToCart(variantId) {
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          items: [{
+            id: variantId,
+            quantity: 1
+          }]
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Refresh cart drawer or show notification
+        if (window.theme && window.theme.updateCart) {
+          window.theme.updateCart();
+        }
+        // Show success message
+        if (typeof showNotification === 'function') {
+          showNotification('Added to cart!', 'success');
+        }
+      })
+      .catch(error => {
+        console.error('Error adding to cart:', error);
+      });
+    }
+  }
+
+  if (typeof toggleWishlist === 'undefined') {
+    function toggleWishlist(handle) {
+      // Integrate with your wishlist system
+      console.log('Toggle wishlist for:', handle);
+      // Add your wishlist logic here
+    }
+  }
+</script>
