@@ -2261,5 +2261,132 @@
         "label": "Image in cart page"
       }
     ]
+  },
+  {
+    "name": "🕶️ Optical & ILS Integration",
+    "settings": [
+      {
+        "type": "header",
+        "content": "ILS (Inventory Lookup System) Integration"
+      },
+      {
+        "type": "paragraph",
+        "content": "Connect your optical inventory management system for real-time stock updates, prescription lens integration, and advanced optical features."
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_ils_integration",
+        "label": "Enable ILS Integration",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "ils_api_endpoint",
+        "label": "ILS API Endpoint",
+        "info": "Your ILS system API URL (e.g., https://api.yourils.com/v1)",
+        "placeholder": "https://api.yourils.com/v1"
+      },
+      {
+        "type": "text",
+        "id": "ils_store_id",
+        "label": "Store ID",
+        "info": "Your unique store identifier in the ILS system"
+      },
+      {
+        "type": "header",
+        "content": "Virtual Try-On"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_virtual_tryon",
+        "label": "Enable Virtual Try-On",
+        "default": true,
+        "info": "Allow customers to virtually try on frames using AR technology"
+      },
+      {
+        "type": "text",
+        "id": "virtual_tryon_provider",
+        "label": "Virtual Try-On Provider",
+        "default": "ditto",
+        "info": "Options: ditto, topology, fittingbox, or custom"
+      },
+      {
+        "type": "header",
+        "content": "Store Availability"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_store_availability",
+        "label": "Enable Store Availability Checker",
+        "default": true,
+        "info": "Show which physical stores have the product in stock"
+      },
+      {
+        "type": "header",
+        "content": "Prescription Lenses"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_prescription_upload",
+        "label": "Enable Prescription Upload",
+        "default": true,
+        "info": "Allow customers to upload their prescription during checkout"
+      },
+      {
+        "type": "text",
+        "id": "prescription_email",
+        "label": "Prescription Email",
+        "info": "Email address to receive prescription uploads",
+        "placeholder": "prescriptions@newvantageco.com"
+      }
+    ]
+  },
+  {
+    "name": "🎨 NVC Design Enhancements",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Animation Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_scroll_animations",
+        "label": "Enable Scroll Animations",
+        "default": true,
+        "info": "Framer-inspired smooth scroll animations"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_hover_effects",
+        "label": "Enable Advanced Hover Effects",
+        "default": true,
+        "info": "Magnetic buttons and premium hover interactions"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_parallax",
+        "label": "Enable Parallax Effects",
+        "default": false,
+        "info": "Subtle parallax scrolling on hero sections"
+      },
+      {
+        "type": "header",
+        "content": "Performance"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_lazy_loading",
+        "label": "Enable Image Lazy Loading",
+        "default": true,
+        "info": "Improves Core Web Vitals and page speed"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_font_preload",
+        "label": "Preload Critical Fonts",
+        "default": true,
+        "info": "Reduces font loading time"
+      }
+    ]
   }
 ]

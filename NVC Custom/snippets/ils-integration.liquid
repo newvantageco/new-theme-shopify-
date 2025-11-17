@@ -1,0 +1,336 @@
+{% comment %}
+  ILS (Inventory Lookup System) SaaS Integration Snippet
+  Purpose: Provides hooks and data attributes for optical inventory management systems
+  Compatible with: OpticsPro, Frames Data, OfficeMate, Eyefinity, and custom ILS solutions
+{% endcomment %}
+
+{%- liquid
+  assign ils_enabled = settings.enable_ils_integration | default: false
+  assign ils_api_endpoint = settings.ils_api_endpoint
+  assign ils_store_id = settings.ils_store_id
+  assign product_sku = product.selected_or_first_available_variant.sku
+  assign product_barcode = product.selected_or_first_available_variant.barcode
+-%}
+
+{%- if ils_enabled -%}
+<div class="ils-integration-wrapper" 
+     data-ils-enabled="true"
+     data-ils-product-id="{{ product.id }}"
+     data-ils-variant-id="{{ product.selected_or_first_available_variant.id }}"
+     data-ils-sku="{{ product_sku }}"
+     data-ils-barcode="{{ product_barcode }}"
+     data-ils-store-id="{{ ils_store_id }}">
+  
+  {%- comment -%} Real-time inventory status {%- endcomment -%}
+  <div class="ils-inventory-status" 
+       data-ils-check-inventory="true"
+       data-ils-refresh-interval="30000">
+    <div class="ils-loading">
+      <span class="ils-spinner"></span>
+      <span class="ils-text">Checking availability...</span>
+    </div>
+    <div class="ils-stock-info" style="display: none;">
+      <span class="ils-stock-count"></span>
+      <span class="ils-stock-location"></span>
+    </div>
+  </div>
+
+  {%- comment -%} Optical-specific attributes {%- endcomment -%}
+  {%- if product.metafields.optical -%}
+  <div class="ils-optical-data"
+       data-ils-frame-type="{{ product.metafields.optical.frame_type }}"
+       data-ils-frame-material="{{ product.metafields.optical.frame_material }}"
+       data-ils-lens-width="{{ product.metafields.optical.lens_width }}"
+       data-ils-bridge-width="{{ product.metafields.optical.bridge_width }}"
+       data-ils-temple-length="{{ product.metafields.optical.temple_length }}"
+       data-ils-frame-color="{{ product.metafields.optical.frame_color }}"
+       data-ils-prescription-compatible="{{ product.metafields.optical.prescription_compatible }}">
+  </div>
+  {%- endif -%}
+
+  {%- comment -%} Prescription lens integration {%- endcomment -%}
+  {%- if product.metafields.optical.prescription_compatible == 'true' -%}
+  <div class="ils-prescription-options">
+    <button type="button" 
+            class="ils-add-prescription btn btn-theme"
+            data-ils-action="open-prescription-form">
+      Add Prescription Lenses
+    </button>
+  </div>
+  {%- endif -%}
+
+  {%- comment -%} Virtual try-on integration hook {%- endcomment -%}
+  {%- if settings.enable_virtual_tryon -%}
+  <div class="ils-virtual-tryon">
+    <button type="button" 
+            class="ils-tryon-btn btn btn-outline"
+            data-ils-action="virtual-tryon"
+            data-ils-product-model="{{ product.metafields.optical.model_3d }}">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+      </svg>
+      Try On Virtually
+    </button>
+  </div>
+  {%- endif -%}
+
+  {%- comment -%} Store availability checker {%- endcomment -%}
+  {%- if settings.enable_store_availability -%}
+  <div class="ils-store-availability">
+    <button type="button" 
+            class="ils-check-stores btn btn-underline"
+            data-ils-action="check-stores">
+      Check store availability
+    </button>
+    <div class="ils-stores-list" style="display: none;"></div>
+  </div>
+  {%- endif -%}
+
+</div>
+
+{%- comment -%} ILS Integration Styles {%- endcomment -%}
+<style>
+  .ils-integration-wrapper {
+    margin: 1.5rem 0;
+  }
+  
+  .ils-inventory-status {
+    padding: 1rem;
+    background: rgba(var(--color-success-rgb, 46, 125, 50), 0.1);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  
+  .ils-loading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .ils-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-left-color: currentColor;
+    border-radius: 50%;
+    animation: ils-spin 0.8s linear infinite;
+  }
+  
+  @keyframes ils-spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  .ils-stock-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+  }
+  
+  .ils-prescription-options,
+  .ils-virtual-tryon,
+  .ils-store-availability {
+    margin: 1rem 0;
+  }
+  
+  .ils-add-prescription,
+  .ils-tryon-btn,
+  .ils-check-stores {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .ils-stores-list {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+</style>
+
+{%- comment -%} ILS Integration JavaScript {%- endcomment -%}
+<script>
+(function() {
+  const ILSIntegration = {
+    config: {
+      apiEndpoint: {{ ils_api_endpoint | json }},
+      storeId: {{ ils_store_id | json }},
+      refreshInterval: 30000
+    },
+
+    init: function() {
+      if (!document.querySelector('[data-ils-enabled="true"]')) return;
+      
+      this.checkInventory();
+      this.setupEventListeners();
+      
+      // Auto-refresh inventory
+      setInterval(() => this.checkInventory(), this.config.refreshInterval);
+    },
+
+    checkInventory: function() {
+      const wrapper = document.querySelector('[data-ils-enabled="true"]');
+      if (!wrapper) return;
+
+      const productId = wrapper.dataset.ilsProductId;
+      const variantId = wrapper.dataset.ilsVariantId;
+      const sku = wrapper.dataset.ilsSku;
+
+      // Show loading state
+      const loading = wrapper.querySelector('.ils-loading');
+      const stockInfo = wrapper.querySelector('.ils-stock-info');
+      if (loading) loading.style.display = 'flex';
+      if (stockInfo) stockInfo.style.display = 'none';
+
+      // Make API call to your ILS system
+      // This is a placeholder - replace with your actual ILS API integration
+      if (this.config.apiEndpoint && window.fetch) {
+        fetch(`${this.config.apiEndpoint}/inventory/check`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            storeId: this.config.storeId,
+            productId: productId,
+            variantId: variantId,
+            sku: sku
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          this.updateInventoryDisplay(data);
+        })
+        .catch(error => {
+          // ILS inventory check failed, showing fallback
+          this.showFallbackInventory();
+        });
+      } else {
+        this.showFallbackInventory();
+      }
+    },
+
+    updateInventoryDisplay: function(data) {
+      const wrapper = document.querySelector('[data-ils-enabled="true"]');
+      if (!wrapper) return;
+
+      const loading = wrapper.querySelector('.ils-loading');
+      const stockInfo = wrapper.querySelector('.ils-stock-info');
+      const stockCount = wrapper.querySelector('.ils-stock-count');
+      const stockLocation = wrapper.querySelector('.ils-stock-location');
+
+      if (loading) loading.style.display = 'none';
+      if (stockInfo) stockInfo.style.display = 'flex';
+
+      if (stockCount && data.quantity !== undefined) {
+        stockCount.textContent = data.quantity > 0 
+          ? `${data.quantity} in stock` 
+          : 'Out of stock';
+      }
+
+      if (stockLocation && data.location) {
+        stockLocation.textContent = `Available at: ${data.location}`;
+      }
+    },
+
+    showFallbackInventory: function() {
+      const wrapper = document.querySelector('[data-ils-enabled="true"]');
+      if (!wrapper) return;
+
+      const loading = wrapper.querySelector('.ils-loading');
+      const stockInfo = wrapper.querySelector('.ils-stock-info');
+
+      if (loading) loading.style.display = 'none';
+      if (stockInfo) {
+        stockInfo.style.display = 'flex';
+        const stockCount = wrapper.querySelector('.ils-stock-count');
+        if (stockCount) stockCount.textContent = 'Available online';
+      }
+    },
+
+    setupEventListeners: function() {
+      // Virtual try-on
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('[data-ils-action="virtual-tryon"]')) {
+          this.openVirtualTryOn(e.target.closest('[data-ils-action="virtual-tryon"]'));
+        }
+      });
+
+      // Prescription form
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('[data-ils-action="open-prescription-form"]')) {
+          this.openPrescriptionForm();
+        }
+      });
+
+      // Store availability
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('[data-ils-action="check-stores"]')) {
+          this.checkStoreAvailability();
+        }
+      });
+
+      // Variant changes
+      document.addEventListener('change', (e) => {
+        if (e.target.matches('[name="id"]')) {
+          this.checkInventory();
+        }
+      });
+    },
+
+    openVirtualTryOn: function(button) {
+      // Trigger virtual try-on integration
+      // This would connect to your ILS's virtual try-on service
+      window.dispatchEvent(new CustomEvent('ils:virtual-tryon', {
+        detail: {
+          productModel: button.dataset.ilsProductModel
+        }
+      }));
+      // Virtual try-on requested
+    },
+
+    openPrescriptionForm: function() {
+      // Open prescription form modal
+      window.dispatchEvent(new CustomEvent('ils:prescription-form'));
+      // Prescription form requested
+    },
+
+    checkStoreAvailability: function() {
+      const wrapper = document.querySelector('[data-ils-enabled="true"]');
+      const storesList = wrapper.querySelector('.ils-stores-list');
+      
+      if (storesList) {
+        storesList.style.display = 'block';
+        storesList.innerHTML = '<p>Loading store availability...</p>';
+        
+        // Make API call to check store availability
+        // This is a placeholder for your ILS integration
+        setTimeout(() => {
+          storesList.innerHTML = `
+            <div class="store-item">
+              <strong>London Flagship</strong><br>
+              <span>In stock - Available for collection</span>
+            </div>
+          `;
+        }, 500);
+      }
+    }
+  };
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => ILSIntegration.init());
+  } else {
+    ILSIntegration.init();
+  }
+
+  // Expose to window for external integrations
+  window.ILSIntegration = ILSIntegration;
+})();
+</script>
+{%- endif -%}

@@ -1,0 +1,506 @@
+{% comment %}
+  New Vantage Co - Framer-inspired Modern Animations
+  Sleek micro-interactions and smooth animations for premium feel
+{% endcomment %}
+
+<style>
+/* ========================================
+   FRAMER-INSPIRED ANIMATION SYSTEM
+   ======================================== */
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Core animation utilities */
+:root {
+  --nvc-ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --nvc-ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --nvc-ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --nvc-transition-fast: 150ms;
+  --nvc-transition-base: 300ms;
+  --nvc-transition-slow: 500ms;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ========================================
+   FADE IN ANIMATIONS
+   ======================================== */
+@keyframes nvc-fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nvc-fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nvc-fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.nvc-fade-in {
+  animation: nvc-fadeIn var(--nvc-transition-base) var(--nvc-ease-smooth) forwards;
+}
+
+.nvc-fade-in-up {
+  animation: nvc-fadeInUp var(--nvc-transition-slow) var(--nvc-ease-smooth) forwards;
+}
+
+.nvc-fade-in-scale {
+  animation: nvc-fadeInScale var(--nvc-transition-base) var(--nvc-ease-smooth) forwards;
+}
+
+/* Staggered animations */
+.nvc-stagger > * {
+  opacity: 0;
+  animation: nvc-fadeInUp var(--nvc-transition-slow) var(--nvc-ease-smooth) forwards;
+}
+
+.nvc-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.nvc-stagger > *:nth-child(2) { animation-delay: 100ms; }
+.nvc-stagger > *:nth-child(3) { animation-delay: 200ms; }
+.nvc-stagger > *:nth-child(4) { animation-delay: 300ms; }
+.nvc-stagger > *:nth-child(5) { animation-delay: 400ms; }
+.nvc-stagger > *:nth-child(6) { animation-delay: 500ms; }
+
+/* ========================================
+   BUTTON & INTERACTIVE HOVER EFFECTS
+   ======================================== */
+.nvc-hover-lift {
+  position: relative;
+  transition: transform var(--nvc-transition-base) var(--nvc-ease-smooth),
+              box-shadow var(--nvc-transition-base) var(--nvc-ease-smooth);
+}
+
+.nvc-hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+}
+
+.nvc-hover-lift:active {
+  transform: translateY(-2px);
+}
+
+/* Magnetic button effect */
+.nvc-magnetic {
+  position: relative;
+  transition: transform var(--nvc-transition-fast) var(--nvc-ease-smooth);
+}
+
+/* Shimmer effect for premium items */
+@keyframes nvc-shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.nvc-shimmer {
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
+  animation: nvc-shimmer 3s infinite;
+}
+
+/* ========================================
+   PRODUCT CARD ANIMATIONS
+   ======================================== */
+.product-card {
+  transition: all var(--nvc-transition-base) var(--nvc-ease-smooth);
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
+}
+
+.product-card img {
+  transition: transform var(--nvc-transition-slow) var(--nvc-ease-smooth);
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Product image reveal on scroll */
+@keyframes nvc-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.nvc-reveal-image {
+  animation: nvc-reveal 1s var(--nvc-ease-smooth) forwards;
+}
+
+/* ========================================
+   SCROLL-TRIGGERED ANIMATIONS
+   ======================================== */
+.nvc-scroll-fade {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--nvc-transition-slow) var(--nvc-ease-smooth),
+              transform var(--nvc-transition-slow) var(--nvc-ease-smooth);
+}
+
+.nvc-scroll-fade.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Parallax effect */
+.nvc-parallax {
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+/* ========================================
+   LOADING & SKELETON ANIMATIONS
+   ======================================== */
+@keyframes nvc-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.nvc-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.06) 25%,
+    rgba(0, 0, 0, 0.12) 50%,
+    rgba(0, 0, 0, 0.06) 75%
+  );
+  background-size: 200% 100%;
+  animation: nvc-shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* ========================================
+   MODAL & OVERLAY ANIMATIONS
+   ======================================== */
+@keyframes nvc-slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nvc-backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.nvc-modal-backdrop {
+  animation: nvc-backdropFadeIn var(--nvc-transition-base) var(--nvc-ease-smooth);
+}
+
+.nvc-modal-content {
+  animation: nvc-slideUp var(--nvc-transition-slow) var(--nvc-ease-smooth);
+}
+
+/* ========================================
+   BADGE & NOTIFICATION ANIMATIONS
+   ======================================== */
+@keyframes nvc-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.nvc-badge-new {
+  animation: nvc-bounce 2s var(--nvc-ease-bounce) infinite;
+}
+
+@keyframes nvc-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.nvc-loading-spinner {
+  animation: nvc-rotate 1s linear infinite;
+}
+
+/* ========================================
+   NAVIGATION ANIMATIONS
+   ======================================== */
+.nvc-nav-item {
+  position: relative;
+  transition: color var(--nvc-transition-fast) var(--nvc-ease-smooth);
+}
+
+.nvc-nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width var(--nvc-transition-base) var(--nvc-ease-smooth);
+}
+
+.nvc-nav-item:hover::after,
+.nvc-nav-item.active::after {
+  width: 100%;
+}
+
+/* ========================================
+   GLASSMORPHISM EFFECTS
+   ======================================== */
+.nvc-glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.nvc-glass-dark {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ========================================
+   TEXT ANIMATIONS
+   ======================================== */
+@keyframes nvc-gradientText {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.nvc-gradient-text {
+  background: linear-gradient(
+    90deg,
+    #000 0%,
+    #666 50%,
+    #000 100%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: nvc-gradientText 3s ease infinite;
+}
+
+/* ========================================
+   ACCESSIBILITY FOCUS STYLES
+   ======================================== */
+*:focus-visible {
+  outline: 3px solid rgba(0, 0, 0, 0.8);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ========================================
+   INTERSECTION OBSERVER UTILITIES
+   ======================================== */
+[data-nvc-animate] {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s var(--nvc-ease-smooth),
+              transform 0.6s var(--nvc-ease-smooth);
+}
+
+[data-nvc-animate].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Different animation variants */
+[data-nvc-animate="fade"] {
+  transform: none;
+}
+
+[data-nvc-animate="slide-left"] {
+  transform: translateX(-40px);
+}
+
+[data-nvc-animate="slide-left"].is-visible {
+  transform: translateX(0);
+}
+
+[data-nvc-animate="slide-right"] {
+  transform: translateX(40px);
+}
+
+[data-nvc-animate="slide-right"].is-visible {
+  transform: translateX(0);
+}
+
+[data-nvc-animate="scale"] {
+  transform: scale(0.9);
+}
+
+[data-nvc-animate="scale"].is-visible {
+  transform: scale(1);
+}
+</style>
+
+<script>
+{% comment %} Intersection Observer for scroll animations {% endcomment %}
+(function() {
+  'use strict';
+  
+  // Initialize scroll animations
+  const initScrollAnimations = () => {
+    const elements = document.querySelectorAll('[data-nvc-animate], .nvc-scroll-fade');
+    
+    if (!elements.length) return;
+    
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          // Optional: unobserve after animation
+          // observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    elements.forEach(el => observer.observe(el));
+  };
+  
+  // Magnetic button effect
+  const initMagneticButtons = () => {
+    const buttons = document.querySelectorAll('.nvc-magnetic');
+    
+    buttons.forEach(button => {
+      button.addEventListener('mousemove', (e) => {
+        const rect = button.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        button.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+      });
+      
+      button.addEventListener('mouseleave', () => {
+        button.style.transform = 'translate(0, 0)';
+      });
+    });
+  };
+  
+  // Parallax scrolling effect
+  const initParallax = () => {
+    const parallaxElements = document.querySelectorAll('.nvc-parallax');
+    
+    if (!parallaxElements.length) return;
+    
+    const handleScroll = () => {
+      const scrolled = window.pageYOffset;
+      
+      parallaxElements.forEach(el => {
+        const speed = el.dataset.parallaxSpeed || 0.5;
+        const yPos = -(scrolled * speed);
+        el.style.transform = `translateY(${yPos}px)`;
+      });
+    };
+    
+    // Use requestAnimationFrame for smooth performance
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  };
+  
+  // Initialize all animations
+  const init = () => {
+    initScrollAnimations();
+    initMagneticButtons();
+    initParallax();
+  };
+  
+  // Run on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  
+  // Expose for use in theme editor
+  window.NVCAnimations = {
+    init,
+    initScrollAnimations,
+    initMagneticButtons,
+    initParallax
+  };
+})();
+</script>

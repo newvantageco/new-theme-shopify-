@@ -1,0 +1,42 @@
+# Shopify Theme Development
+.DS_Store
+.env
+.vscode/
+.idea/
+
+# Node modules (if using theme tools)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Theme Kit
+config.yml
+
+# OS Files
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Build files
+dist/
+build/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Package manager
+package-lock.json
+yarn.lock
