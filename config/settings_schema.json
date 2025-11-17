@@ -2277,20 +2277,23 @@
         "type": "checkbox",
         "id": "enable_ils_integration",
         "label": "Enable ILS Integration",
-        "default": false
+        "default": true,
+        "info": "✨ DEMO MODE: Pre-configured with sample data. Connect your real ILS API when ready."
       },
       {
         "type": "text",
         "id": "ils_api_endpoint",
         "label": "ILS API Endpoint",
-        "info": "Your ILS system API URL (e.g., https://api.yourils.com/v1)",
+        "default": "https://demo.ils-api.com/v1",
+        "info": "Currently using DEMO endpoint. Replace with your real ILS API when ready.",
         "placeholder": "https://api.yourils.com/v1"
       },
       {
         "type": "text",
         "id": "ils_store_id",
         "label": "Store ID",
-        "info": "Your unique store identifier in the ILS system"
+        "default": "DEMO-NVC-001",
+        "info": "Currently using DEMO store ID. Replace with your real store ID when ready."
       },
       {
         "type": "header",
@@ -2336,8 +2339,20 @@
         "type": "text",
         "id": "prescription_email",
         "label": "Prescription Email",
+        "default": "prescriptions@newvantageco.com",
         "info": "Email address to receive prescription uploads",
         "placeholder": "prescriptions@newvantageco.com"
+      },
+      {
+        "type": "header",
+        "content": "🎬 Demo Mode"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_demo_content",
+        "label": "Show Demo Content & Examples",
+        "default": true,
+        "info": "Display sample products, frame specs, and virtual try-on demos. Disable when using real products."
       }
     ]
   },

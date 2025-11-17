@@ -1,0 +1,235 @@
+{% comment %}
+  Demo Mode Banner
+  Displays when theme is in demo mode to inform users they're seeing sample data
+{% endcomment %}
+
+{% if settings.enable_demo_content %}
+<style>
+  .nvc-demo-banner {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+    z-index: 9999;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    max-width: 320px;
+    animation: nvcdemoSlideIn 0.5s ease-out;
+  }
+
+  @keyframes nvcdemoSlideIn {
+    from {
+      transform: translateY(100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .nvc-demo-banner__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .nvc-demo-banner__badge::before {
+    content: '🎬';
+    font-size: 18px;
+    animation: nvcdemoFloat 2s ease-in-out infinite;
+  }
+
+  @keyframes nvcdemoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  .nvc-demo-banner__text {
+    font-size: 13px;
+    line-height: 1.5;
+    opacity: 0.95;
+    margin-bottom: 12px;
+  }
+
+  .nvc-demo-banner__actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .nvc-demo-banner__button {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+  }
+
+  .nvc-demo-banner__button--primary {
+    background: white;
+    color: #667eea;
+  }
+
+  .nvc-demo-banner__button--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+  }
+
+  .nvc-demo-banner__button--secondary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .nvc-demo-banner__button--secondary:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .nvc-demo-banner__close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    transition: background 0.2s;
+  }
+
+  .nvc-demo-banner__close:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .nvc-demo-banner--hidden {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .nvc-demo-banner {
+      bottom: 10px;
+      right: 10px;
+      left: 10px;
+      max-width: none;
+      padding: 14px 20px;
+    }
+
+    .nvc-demo-banner__badge {
+      font-size: 12px;
+    }
+
+    .nvc-demo-banner__text {
+      font-size: 12px;
+    }
+
+    .nvc-demo-banner__button {
+      font-size: 11px;
+      padding: 7px 10px;
+    }
+  }
+
+  /* Admin-only styles */
+  .nvc-demo-admin-only {
+    display: none;
+  }
+
+  .shopify-section-header .nvc-demo-admin-only {
+    display: block;
+    background: #667eea;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+  }
+</style>
+
+<div class="nvc-demo-banner" id="nvcDemoBanner">
+  <button class="nvc-demo-banner__close" onclick="nvchideDemoBanner()" aria-label="Close demo banner">×</button>
+  
+  <div class="nvc-demo-banner__badge">
+    Demo Mode Active
+  </div>
+  
+  <div class="nvc-demo-banner__text">
+    You're viewing sample optical products with demo features. 
+    All enhancements are enabled and ready to customize!
+  </div>
+  
+  <div class="nvc-demo-banner__actions">
+    <a href="/admin/themes/current/editor" class="nvc-demo-banner__button nvc-demo-banner__button--primary">
+      Customize
+    </a>
+    <button onclick="nvchideDemoBanner()" class="nvc-demo-banner__button nvc-demo-banner__button--secondary">
+      Got it
+    </button>
+  </div>
+</div>
+
+<script>
+  // Check if demo banner was previously dismissed
+  if (localStorage.getItem('nvcDemoBannerDismissed') === 'true') {
+    document.getElementById('nvcDemoBanner').classList.add('nvc-demo-banner--hidden');
+  }
+
+  function nvchideDemoBanner() {
+    document.getElementById('nvcDemoBanner').classList.add('nvc-demo-banner--hidden');
+    localStorage.setItem('nvcDemoBannerDismissed', 'true');
+  }
+
+  // Auto-hide after 30 seconds if not interacted with
+  setTimeout(function() {
+    if (!document.getElementById('nvcDemoBanner').classList.contains('nvc-demo-banner--hidden')) {
+      nvchideDemoBanner();
+    }
+  }, 30000);
+</script>
+
+{% comment %}
+  Feature Highlights for Demo Mode
+  Shows what features are active
+{% endcomment %}
+<div class="nvc-demo-features" style="display: none;">
+  <ul>
+    <li data-feature="animations">✅ Framer-Inspired Animations</li>
+    <li data-feature="ils">✅ ILS Integration (Demo API)</li>
+    <li data-feature="virtual-tryon">✅ Virtual Try-On (Demo Mode)</li>
+    <li data-feature="optical-specs">✅ Frame Specifications Display</li>
+    <li data-feature="prescription">✅ Prescription Upload</li>
+    <li data-feature="uk-compliance">✅ UK GDPR Compliance</li>
+    <li data-feature="performance">✅ Performance Optimization</li>
+    <li data-feature="accessibility">✅ WCAG 2.1 AA Accessibility</li>
+  </ul>
+</div>
+
+{% endif %}
+
+{% comment %}
+  Admin Bar Indicator (visible in theme editor)
+{% endcomment %}
+{% if settings.enable_demo_content %}
+<div class="nvc-demo-admin-only">
+  🎬 DEMO MODE: Sample optical features enabled | 
+  <a href="/admin/themes/current/editor?context=theme&activateAppId=6194" style="color: white; text-decoration: underline;">
+    Turn OFF in Theme Settings
+  </a>
+</div>
+{% endif %}

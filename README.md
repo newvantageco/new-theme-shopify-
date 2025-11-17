@@ -2,7 +2,19 @@
 
 **New Vantage Co - Advanced Shopify Theme for Optical Retail**
 
-A sleek, performance-optimized Shopify theme specifically designed for optical frames and sunglasses retail, featuring Framer-inspired animations, UK compliance (GDPR/WCAG 2.1 AA), and ILS SaaS integration capabilities.
+🎬 **Ships in Full Glory - All Features Enabled by Default!**
+
+A complete, production-ready Shopify theme specifically designed for optical frames and sunglasses retail. Every enhancement is **pre-configured and working** from installation - just upload, preview, and customize to your needs!
+
+## 🚀 Ready Out of the Box
+
+✅ **All features enabled by default**  
+✅ **Demo content included** - See everything in action immediately  
+✅ **Zero configuration needed** - Works perfectly on first install  
+✅ **Fully customizable** - Disable what you don't need  
+✅ **Production-ready** - Launch when you're ready  
+
+Perfect for merchants who want to **see capabilities first, then customize**!
 
 ---
 
@@ -38,6 +50,49 @@ A sleek, performance-optimized Shopify theme specifically designed for optical f
 2. **Optical Product Features** - Frame specs, virtual try-on, prescription options
 3. **Store Availability** - Multi-location inventory checking
 4. **Virtual Try-On** - Integration hooks for Ditto, Topology, FittingBox
+
+---
+
+## 🎬 Demo Mode - See Everything Working!
+
+This theme **ships with demo mode enabled** so you can see all features in action immediately:
+
+### What You Get Out of the Box:
+```
+✅ Virtual Try-On Demo - Working AR interface with sample integration
+✅ ILS Integration Demo - Simulated real-time inventory checks
+✅ Sample Frame Specifications - Pre-filled optical metafields
+✅ Prescription Upload Demo - Functional upload interface
+✅ Store Availability Demo - Multi-location stock checker
+✅ All Animations Active - Framer-inspired effects everywhere
+✅ Demo Banner - Helpful indicator for merchants (dismissible)
+```
+
+### Demo Settings (Pre-Configured):
+```json
+{
+  "enable_demo_content": true,
+  "enable_ils_integration": true,
+  "ils_api_endpoint": "https://demo.ils-api.com/v1",
+  "ils_store_id": "DEMO-NVC-001",
+  "enable_virtual_tryon": true,
+  "virtual_tryon_provider": "ditto",
+  "enable_store_availability": true,
+  "enable_prescription_upload": true,
+  "prescription_email": "prescriptions@newvantageco.com"
+}
+```
+
+### Switching to Production:
+When ready to launch with real data:
+1. Go to **Theme Customizer** → **Optical & ILS Integration**
+2. Turn **OFF** "Show Demo Content & Examples"
+3. Update API endpoints with your real credentials
+4. Add real product metafields
+5. Configure real virtual try-on provider
+6. **Done!** - Everything continues working with your data
+
+**📖 See `DEMO_SETUP_GUIDE.md` for complete demo documentation**
 
 ---
 

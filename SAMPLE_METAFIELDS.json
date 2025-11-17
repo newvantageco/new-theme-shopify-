@@ -1,0 +1,359 @@
+{
+  "metafield_definitions": {
+    "product": [
+      {
+        "namespace": "optical",
+        "key": "lens_width",
+        "name": "Lens Width (mm)",
+        "description": "Width of the lens in millimeters",
+        "type": "number_integer",
+        "validations": [
+          {
+            "name": "min",
+            "value": "30"
+          },
+          {
+            "name": "max",
+            "value": "80"
+          }
+        ]
+      },
+      {
+        "namespace": "optical",
+        "key": "bridge_width",
+        "name": "Bridge Width (mm)",
+        "description": "Width of the bridge in millimeters",
+        "type": "number_integer",
+        "validations": [
+          {
+            "name": "min",
+            "value": "10"
+          },
+          {
+            "name": "max",
+            "value": "30"
+          }
+        ]
+      },
+      {
+        "namespace": "optical",
+        "key": "temple_length",
+        "name": "Temple Length (mm)",
+        "description": "Length of the temple in millimeters",
+        "type": "number_integer",
+        "validations": [
+          {
+            "name": "min",
+            "value": "120"
+          },
+          {
+            "name": "max",
+            "value": "160"
+          }
+        ]
+      },
+      {
+        "namespace": "optical",
+        "key": "frame_material",
+        "name": "Frame Material",
+        "description": "Material the frame is made from",
+        "type": "single_line_text_field",
+        "validations": []
+      },
+      {
+        "namespace": "optical",
+        "key": "lens_material",
+        "name": "Lens Material",
+        "description": "Material the lenses are made from",
+        "type": "single_line_text_field",
+        "validations": []
+      },
+      {
+        "namespace": "optical",
+        "key": "frame_shape",
+        "name": "Frame Shape",
+        "description": "Shape style of the frame",
+        "type": "single_line_text_field",
+        "validations": []
+      },
+      {
+        "namespace": "optical",
+        "key": "prescription_compatible",
+        "name": "Prescription Compatible",
+        "description": "Can accommodate prescription lenses",
+        "type": "boolean",
+        "validations": []
+      },
+      {
+        "namespace": "optical",
+        "key": "uv_protection",
+        "name": "UV Protection",
+        "description": "Provides UV protection",
+        "type": "boolean",
+        "validations": []
+      },
+      {
+        "namespace": "optical",
+        "key": "polarized",
+        "name": "Polarized Lenses",
+        "description": "Lenses are polarized",
+        "type": "boolean",
+        "validations": []
+      },
+      {
+        "namespace": "optical",
+        "key": "spring_hinges",
+        "name": "Spring Hinges",
+        "description": "Has flexible spring hinges",
+        "type": "boolean",
+        "validations": []
+      },
+      {
+        "namespace": "optical",
+        "key": "adjustable_nose_pads",
+        "name": "Adjustable Nose Pads",
+        "description": "Has adjustable nose pads",
+        "type": "boolean",
+        "validations": []
+      },
+      {
+        "namespace": "optical",
+        "key": "blue_light_blocking",
+        "name": "Blue Light Blocking",
+        "description": "Blocks blue light from screens",
+        "type": "boolean",
+        "validations": []
+      },
+      {
+        "namespace": "optical",
+        "key": "anti_reflective",
+        "name": "Anti-Reflective Coating",
+        "description": "Has anti-reflective coating",
+        "type": "boolean",
+        "validations": []
+      },
+      {
+        "namespace": "optical",
+        "key": "face_shape_recommendation",
+        "name": "Recommended Face Shapes",
+        "description": "Face shapes this frame suits best",
+        "type": "multi_line_text_field",
+        "validations": []
+      },
+      {
+        "namespace": "optical",
+        "key": "frame_weight",
+        "name": "Frame Weight (grams)",
+        "description": "Weight of the frame in grams",
+        "type": "number_decimal",
+        "validations": [
+          {
+            "name": "min",
+            "value": "5"
+          },
+          {
+            "name": "max",
+            "value": "100"
+          }
+        ]
+      }
+    ]
+  },
+  "sample_data": {
+    "products": [
+      {
+        "title": "Classic Aviator Sunglasses",
+        "sku": "NVC-AV-001",
+        "price": "89.00",
+        "metafields": {
+          "optical.lens_width": 58,
+          "optical.bridge_width": 14,
+          "optical.temple_length": 145,
+          "optical.frame_material": "Metal",
+          "optical.lens_material": "Polycarbonate",
+          "optical.frame_shape": "Aviator",
+          "optical.prescription_compatible": true,
+          "optical.uv_protection": true,
+          "optical.polarized": true,
+          "optical.spring_hinges": false,
+          "optical.adjustable_nose_pads": true,
+          "optical.frame_weight": 28.5,
+          "optical.face_shape_recommendation": "Oval, Square, Heart"
+        }
+      },
+      {
+        "title": "Modern Acetate Frames",
+        "sku": "NVC-AC-002",
+        "price": "129.00",
+        "metafields": {
+          "optical.lens_width": 52,
+          "optical.bridge_width": 18,
+          "optical.temple_length": 140,
+          "optical.frame_material": "Acetate",
+          "optical.lens_material": "CR-39",
+          "optical.frame_shape": "Round",
+          "optical.prescription_compatible": true,
+          "optical.uv_protection": true,
+          "optical.polarized": false,
+          "optical.spring_hinges": true,
+          "optical.blue_light_blocking": true,
+          "optical.anti_reflective": true,
+          "optical.frame_weight": 22.0,
+          "optical.face_shape_recommendation": "Square, Rectangle, Oval"
+        }
+      },
+      {
+        "title": "Sport Performance Sunglasses",
+        "sku": "NVC-SP-003",
+        "price": "159.00",
+        "metafields": {
+          "optical.lens_width": 65,
+          "optical.bridge_width": 15,
+          "optical.temple_length": 130,
+          "optical.frame_material": "TR90",
+          "optical.lens_material": "Polycarbonate",
+          "optical.frame_shape": "Wrap",
+          "optical.prescription_compatible": false,
+          "optical.uv_protection": true,
+          "optical.polarized": true,
+          "optical.spring_hinges": false,
+          "optical.frame_weight": 19.5,
+          "optical.face_shape_recommendation": "All face shapes"
+        }
+      },
+      {
+        "title": "Vintage Cat-Eye Frames",
+        "sku": "NVC-CE-004",
+        "price": "109.00",
+        "metafields": {
+          "optical.lens_width": 54,
+          "optical.bridge_width": 16,
+          "optical.temple_length": 140,
+          "optical.frame_material": "Acetate",
+          "optical.lens_material": "CR-39",
+          "optical.frame_shape": "Cat-eye",
+          "optical.prescription_compatible": true,
+          "optical.uv_protection": true,
+          "optical.polarized": true,
+          "optical.spring_hinges": true,
+          "optical.blue_light_blocking": false,
+          "optical.frame_weight": 24.0,
+          "optical.face_shape_recommendation": "Heart, Oval, Diamond"
+        }
+      },
+      {
+        "title": "Minimalist Metal Frames",
+        "sku": "NVC-MN-005",
+        "price": "99.00",
+        "metafields": {
+          "optical.lens_width": 50,
+          "optical.bridge_width": 20,
+          "optical.temple_length": 145,
+          "optical.frame_material": "Titanium",
+          "optical.lens_material": "High-Index",
+          "optical.frame_shape": "Rectangle",
+          "optical.prescription_compatible": true,
+          "optical.uv_protection": true,
+          "optical.polarized": false,
+          "optical.spring_hinges": true,
+          "optical.adjustable_nose_pads": true,
+          "optical.anti_reflective": true,
+          "optical.frame_weight": 15.0,
+          "optical.face_shape_recommendation": "Round, Oval"
+        }
+      }
+    ]
+  },
+  "installation_instructions": {
+    "shopify_admin": [
+      "1. Go to Shopify Admin → Settings → Custom data → Products",
+      "2. Click 'Add definition'",
+      "3. For each metafield in the list above:",
+      "   - Enter the namespace (optical)",
+      "   - Enter the key (e.g., lens_width)",
+      "   - Enter the name and description",
+      "   - Select the type",
+      "   - Add validations if needed",
+      "   - Click 'Save'",
+      "4. Repeat for all 15 metafield definitions"
+    ],
+    "bulk_import": [
+      "1. Save this file as sample_metafields.json",
+      "2. Use Shopify GraphQL Admin API or a metafields app",
+      "3. Import metafield definitions first",
+      "4. Then add metafield values to products"
+    ],
+    "manual_entry": [
+      "1. Go to Products → Select a product → Metafields section",
+      "2. Click 'Add metafield'",
+      "3. Select the metafield definition (e.g., optical.lens_width)",
+      "4. Enter the value",
+      "5. Click 'Save'",
+      "6. Repeat for each product"
+    ]
+  },
+  "recommended_apps": [
+    {
+      "name": "Metafields Editor",
+      "purpose": "Bulk edit metafields",
+      "shopify_app_store": "https://apps.shopify.com/metafields-editor-2"
+    },
+    {
+      "name": "Accentuate Custom Fields",
+      "purpose": "Advanced metafields management",
+      "shopify_app_store": "https://apps.shopify.com/accentuate"
+    },
+    {
+      "name": "Ablestar Bulk Product Editor",
+      "purpose": "Bulk edit products and metafields",
+      "shopify_app_store": "https://apps.shopify.com/edit-products"
+    }
+  ],
+  "common_values": {
+    "frame_materials": [
+      "Acetate",
+      "Metal",
+      "Titanium",
+      "Stainless Steel",
+      "TR90",
+      "Wood",
+      "Carbon Fiber",
+      "Mixed Materials"
+    ],
+    "lens_materials": [
+      "CR-39",
+      "Polycarbonate",
+      "High-Index",
+      "Trivex",
+      "Glass",
+      "NXT Polyurethane"
+    ],
+    "frame_shapes": [
+      "Aviator",
+      "Round",
+      "Square",
+      "Rectangle",
+      "Cat-eye",
+      "Wayfarer",
+      "Clubmaster",
+      "Wrap",
+      "Oversized",
+      "Geometric"
+    ],
+    "face_shapes": [
+      "Oval",
+      "Round",
+      "Square",
+      "Rectangle",
+      "Heart",
+      "Diamond",
+      "Triangle"
+    ]
+  },
+  "validation_notes": {
+    "lens_width": "Typical range: 40-65mm. Children: 40-50mm, Adults: 50-65mm",
+    "bridge_width": "Typical range: 14-24mm",
+    "temple_length": "Typical range: 120-150mm. Standard adult: 135-145mm",
+    "frame_weight": "Lightweight: <20g, Average: 20-30g, Heavier: >30g"
+  }
+}
