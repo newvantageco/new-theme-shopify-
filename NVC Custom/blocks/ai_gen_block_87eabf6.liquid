@@ -1,0 +1,595 @@
+{% doc %}
+  @prompt
+    Presenting New Vantage Co. User Content
+    Take the authentic, user-generated feel and present it through New Vantage Co.’s sharp, sophisticated lens. Keep the grid functionality but refine design details for a premium experience.
+    
+    1. Headline
+    
+    Pre-Headline: Small, all-caps, letter-spaced accent font.
+    Example: SEEN ON YOU
+    
+    Main Headline: Primary bold sans-serif font; elevate tone.
+    Example: New Vantage In Situ
+    
+    2. Photo Grid & Cards
+    
+    Card Shape: Perfect rectangles with sharp 90-degree corners, consistent with the brand’s architectural aesthetic.
+    
+    Image Curation: Select well-lit, clear, high-end user-submitted photos showcasing both the customer and frames in a flattering way.
+    
+    3. Text Overlay
+    
+    Background: Subtle black gradient from the bottom, fading to transparent 25% up, ensuring text legibility without covering the image.
+    
+    Typography: Bottom-left corner of each card.
+    
+    Line 1 (Product Name): Semi-bold, white body font (e.g., Jonson in Chestnut Crystal)
+    
+    Line 2 (User Handle): Regular weight, slightly smaller, white (e.g., @username)
+    
+    4. Functionality & Hover Effect
+    
+    Linking: Entire card links to the product page of the featured frames.
+    
+    Hover: Elegant subtle scale-up effect (transform: scale(1.03)) to signal interactivity.
+    
+    Visual Description
+    Section headline: SEEN ON YOU and New Vantage In Situ. Below, four sharp-cornered images show stylish customers in real-world settings. Subtle dark gradient ensures legibility of the text overlay. Example: first card reads “The Londoner in Obsidian” with @username below. Hovering slightly enlarges the image; clicking directs users to the product page.
+    
+    Impact
+    The section maintains authenticity while elevating visual sophistication, creating a clean, interactive, and premium presentation of user-generated content that reinforces New Vantage Co.’s brand identity., I want link to product images and large portraits 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-ugc-showcase-{{ ai_gen_id }} {
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-ugc-showcase-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-ugc-showcase-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: {{ block.settings.grid_spacing }}px;
+  }
+
+  .ai-ugc-showcase-pre-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.pre_headline_size }}px;
+    font-weight: 600;
+    letter-spacing: {{ block.settings.pre_headline_spacing }}px;
+    text-transform: uppercase;
+    color: {{ block.settings.pre_headline_color }};
+    margin: 0 0 16px;
+    font-family: var(--g-font-1);
+  }
+
+  .ai-ugc-showcase-main-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.main_headline_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.main_headline_color }};
+    margin: 0;
+    font-family: var(--g-font-1);
+    line-height: 1.2;
+    text-transform: {{ block.settings.main_headline_transform }};
+  }
+
+  .ai-ugc-showcase-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    gap: {{ block.settings.grid_spacing }}px;
+    margin-top: {{ block.settings.grid_spacing }}px;
+  }
+
+  .ai-ugc-showcase-card-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    aspect-ratio: 3/4;
+    text-decoration: none;
+    display: block;
+  }
+
+  .ai-ugc-showcase-card-{{ ai_gen_id }}:hover {
+    transform: scale(1.03);
+  }
+
+  .ai-ugc-showcase-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-ugc-showcase-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 14px;
+    position: relative;
+  }
+
+  .ai-ugc-showcase-image-placeholder-{{ ai_gen_id }} svg {
+    width: 60px;
+    height: 60px;
+    opacity: 0.3;
+  }
+
+  .ai-ugc-showcase-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, {{ block.settings.overlay_opacity }}));
+    padding: 20px;
+    color: white;
+    height: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .ai-ugc-showcase-product-name-{{ ai_gen_id }} {
+    font-size: {{ block.settings.product_name_size }}px;
+    font-weight: 600;
+    margin: 0 0 4px;
+    font-family: var(--g-font-1);
+    line-height: 1.2;
+    text-transform: {{ block.settings.product_name_transform }};
+    color: white;
+  }
+
+  .ai-ugc-showcase-username-{{ ai_gen_id }} {
+    font-size: {{ block.settings.username_size }}px;
+    font-weight: 400;
+    margin: 0;
+    opacity: 0.9;
+    font-family: var(--g-font-2);
+    color: white;
+  }
+
+  .ai-ugc-showcase-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-ugc-showcase-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+      gap: {{ block.settings.grid_spacing | times: 0.75 }}px;
+    }
+
+    .ai-ugc-showcase-main-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.main_headline_size | times: 0.8 }}px;
+    }
+
+    .ai-ugc-showcase-pre-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.pre_headline_size | times: 0.9 }}px;
+    }
+
+    .ai-ugc-showcase-overlay-{{ ai_gen_id }} {
+      padding: 16px;
+    }
+
+    .ai-ugc-showcase-product-name-{{ ai_gen_id }} {
+      font-size: {{ block.settings.product_name_size | times: 0.9 }}px;
+    }
+
+    .ai-ugc-showcase-username-{{ ai_gen_id }} {
+      font-size: {{ block.settings.username_size | times: 0.9 }}px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .ai-ugc-showcase-container-{{ ai_gen_id }} {
+      padding: 0 16px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-ugc-showcase-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-ugc-showcase-container-{{ ai_gen_id }}">
+    <div class="ai-ugc-showcase-header-{{ ai_gen_id }}">
+      {% if block.settings.pre_headline != blank %}
+        <div class="ai-ugc-showcase-pre-headline-{{ ai_gen_id }}">
+          {{ block.settings.pre_headline }}
+        </div>
+      {% endif %}
+      
+      {% if block.settings.main_headline != blank %}
+        <h2 class="ai-ugc-showcase-main-headline-{{ ai_gen_id }}">
+          {{ block.settings.main_headline }}
+        </h2>
+      {% endif %}
+    </div>
+
+    <div class="ai-ugc-showcase-grid-{{ ai_gen_id }}">
+      {% for i in (1..4) %}
+        {% liquid
+          assign image_key = 'image_' | append: i
+          assign product_key = 'product_' | append: i
+          assign username_key = 'username_' | append: i
+          
+          assign image = block.settings[image_key]
+          assign product = block.settings[product_key]
+          assign username = block.settings[username_key]
+        %}
+
+        {% if product != blank %}
+          <a 
+            href="{{ product.url }}"
+            class="ai-ugc-showcase-card-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-ugc-showcase-card-{{ ai_gen_id }}">
+        {% endif %}
+
+          {% if image %}
+            <img
+              src="{{ image | image_url: width: 800 }}"
+              alt="{{ image.alt | escape }}"
+              class="ai-ugc-showcase-image-{{ ai_gen_id }}"
+              loading="lazy"
+              width="800"
+              height="1067"
+            >
+          {% else %}
+            <div class="ai-ugc-showcase-image-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+              <div class="ai-ugc-showcase-empty-state-{{ ai_gen_id }}">
+                Add image {{ i }}
+              </div>
+            </div>
+          {% endif %}
+
+          <div class="ai-ugc-showcase-overlay-{{ ai_gen_id }}">
+            {% if product != blank %}
+              <div class="ai-ugc-showcase-product-name-{{ ai_gen_id }}">
+                {{ product.title }}
+              </div>
+            {% else %}
+              <div class="ai-ugc-showcase-product-name-{{ ai_gen_id }}">
+                Select product {{ i }}
+              </div>
+            {% endif %}
+
+            {% if username != blank %}
+              <div class="ai-ugc-showcase-username-{{ ai_gen_id }}">
+                @{{ username }}
+              </div>
+            {% else %}
+              <div class="ai-ugc-showcase-username-{{ ai_gen_id }}">
+                Add username {{ i }}
+              </div>
+            {% endif %}
+          </div>
+
+        {% if product != blank %}
+          </a>
+        {% else %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "User content showcase",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Headlines"
+    },
+    {
+      "type": "text",
+      "id": "pre_headline",
+      "label": "Pre-headline",
+      "default": "SEEN ON YOU"
+    },
+    {
+      "type": "text",
+      "id": "main_headline",
+      "label": "Main headline",
+      "default": "New Vantage In Situ"
+    },
+    {
+      "type": "select",
+      "id": "main_headline_transform",
+      "label": "Main headline style",
+      "options": [
+        {
+          "value": "none",
+          "label": "Normal"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+      ],
+      "default": "capitalize"
+    },
+    {
+      "type": "header",
+      "content": "Content 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "username_1",
+      "label": "Username"
+    },
+    {
+      "type": "header",
+      "content": "Content 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "username_2",
+      "label": "Username"
+    },
+    {
+      "type": "header",
+      "content": "Content 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "username_3",
+      "label": "Username"
+    },
+    {
+      "type": "header",
+      "content": "Content 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Image"
+    },
+    {
+      "type": "product",
+      "id": "product_4",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "username_4",
+      "label": "Username"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "grid_spacing",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Grid spacing",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "pre_headline_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Pre-headline size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "pre_headline_spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Pre-headline letter spacing",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "main_headline_size",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Main headline size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "product_name_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Product name size",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "product_name_transform",
+      "label": "Product name style",
+      "options": [
+        {
+          "value": "none",
+          "label": "Normal"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "username_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Username size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#faf5f2"
+    },
+    {
+      "type": "color",
+      "id": "pre_headline_color",
+      "label": "Pre-headline",
+      "default": "#a76111"
+    },
+    {
+      "type": "color",
+      "id": "main_headline_color",
+      "label": "Main headline",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0.3,
+      "max": 0.8,
+      "step": 0.1,
+      "label": "Overlay opacity",
+      "default": 0.6
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "User content showcase"
+    }
+  ]
+}
+{% endschema %}

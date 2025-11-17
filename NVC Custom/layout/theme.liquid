@@ -1,0 +1,312 @@
+<!doctype html>
+<html class="no-js" lang="{{ shop.locale }}">
+  <head>
+    <!-- Facebook verification -->
+    <meta name="facebook-domain-verification" content="0y8b4tiuk49tj1eqd6aktxawqwklfq" />
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_header_bg }}">
+
+    <!-- Robots + regional hints -->
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="geo.region" content="GB">
+    <meta name="geo.placename" content="London, United Kingdom">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- Performance hints -->
+    <link rel="preconnect" href="//cdn.shopify.com" crossorigin>
+    <link rel="dns-prefetch" href="//cdn.shopify.com">
+    <link rel="preconnect" href="//fonts.shopify.com" crossorigin>
+    <link rel="dns-prefetch" href="//fonts.shopify.com">
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Canonical -->
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    {%- if settings.favicon != blank -%}
+      <link rel="shortcut icon" href="{{ settings.favicon | image_url: width: 32, height: 32 }}" type="image/png">
+    {%- endif -%}
+
+    <!-- ===== DYNAMIC TITLE & META DESCRIPTION (SEO) ===== -->
+    <title>
+      {%- comment -%} Priority: product -> collection -> index/home -> fallback {%- endcomment -%}
+      {%- if template.name == 'product' and product -%}
+        {{ product.title | strip_html }} — New Vantage Co. | Purposeful eyewear UK
+      {%- elsif template.name == 'collection' and collection -%}
+        {{ collection.title | strip_html }} — Curated frames | New Vantage Co.
+      {%- elsif template.handle == 'index' or template.name == 'index' -%}
+        New Vantage Co. — Purposeful, curated eyewear for the UK
+      {%- else -%}
+        {{ page_title | default: shop.name }} — New Vantage Co.
+      {%- endif -%}
+    </title>
+
+    <meta name="description" content="{%- if template.name == 'product' and product -%}{{ product.description | strip_html | truncate: 155 }}{%- elsif template.name == 'collection' and collection -%}{{ collection.description | strip_html | truncate: 155 }}{%- elsif template.handle == 'index' or template.name == 'index' -%}Purposeful, well-crafted frames imported for comfort and clarity. Free UK shipping & 2-year guarantee.{%- else -%}{{ page_description | default: settings.meta_description | default: 'Purposeful eyewear for the UK — New Vantage Co.' }}{%- endif -%}" />
+
+    <!-- hreflang for UK targeting -->
+    <link rel="alternate" href="{{ shop.url }}" hreflang="en-gb" />
+    <link rel="alternate" href="{{ shop.url }}" hreflang="en" />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:site_name" content="New Vantage Co" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{% if page_title %}{{ page_title | strip_html }}{% else %}New Vantage Co — Purposeful eyewear{% endif %}" />
+    <meta property="og:description" content="{% if page_description %}{{ page_description | strip_html }}{% else %}Purposeful eyewear designed for life in the UK — curated frames, clear fit, considered materials.{% endif %}" />
+    <meta property="og:url" content="{{ canonical_url }}" />
+    {%- if settings.favicon != blank -%}
+      <meta property="og:image" content="{{ settings.favicon | image_url: width: 1200, height: 630 }}" />
+    {%- endif -%}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{% if page_title %}{{ page_title | strip_html }}{% else %}New Vantage Co — Purposeful eyewear{% endif %}" />
+    <meta name="twitter:description" content="{% if page_description %}{{ page_description | strip_html }}{% else %}Purposeful eyewear designed for life in the UK — curated frames, clear fit, considered materials.{% endif %}" />
+    {%- if settings.favicon != blank -%}
+      <meta name="twitter:image" content="{{ settings.favicon | image_url: width: 1200, height: 630 }}" />
+    {%- endif -%}
+
+    <!-- ===== ORGANISATION JSON-LD (structured data for GMB / knowledge) ===== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "New Vantage Co.",
+      "url": "{{ shop.url }}",
+      "logo": {{ settings.favicon | image_url | json }},
+      "sameAs": [
+        {{ settings.instagram_link | default: '' | json }},
+        {{ settings.facebook_link | default: '' | json }}
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+44 7930 531847",
+        "contactType": "customer service",
+        "areaServed": "GB"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "124 City Road",
+        "addressLocality": "London",
+        "postalCode": "EC1V 2NX",
+        "addressCountry": "GB"
+      }
+    }
+    </script>
+
+    <!-- Keep original meta/snippets & header CSS -->
+    {%- render 'social-meta-tags' -%}
+    {%- render 'header-css' -%}
+
+    <!-- Defer site JS (keeps your existing global file) -->
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }} body-theme {% if settings.productpage == 'product-2' or settings.productpage == 'product-6' or settings.productpage == 'product-7' %} product-hide-breadcrumb {% endif %}">
+    {% assign lazy = false %}
+    <img {% if lazy %} loading="lazy" {% endif %} width="99998" height="99999" alt="index" style="pointer-events: none; position: absolute; top: 0; left: 0; width: 98vw; height: 99vh; max-width: 98vw; max-height: 99vh;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSI5OTk5OXB4IiBoZWlnaHQ9Ijk5OTk5cHgiIHZpZXdCb3g9IjAgMCA5OTk5OSA5OTk5OSIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48ZyBzdHJva2U9Im5vbmUiIGZpbGw9Im5vbmUiIGZpbGwtb3BhY2l0eT0iMCI+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9Ijk5OTk5IiBoZWlnaHQ9Ijk5OTk5Ij48L3JlY3Q+IDwvZz4gPC9zdmc+">
+    {%- render 'loading' -%}
+    {%- section 'announcement-bar-slide' -%}
+    {%- section 'header' -%}
+    {%- section 'store-messages' -%}
+    <div class="page-container page-element is-moved-by-drawer">
+      {%- render 'breadcrumb' -%}
+      <main class="main-content" id="MainContent" role="main">
+        {%- if settings.enable_animationscroll -%}
+          <div id="js-scroll">
+        {%- endif -%}
+        {%- if settings.enable_animationscroll -%}
+          <div data-scroll-section>
+        {%- endif -%}
+            {%- render 'slideshow' -%}
+        {%- if settings.enable_animationscroll -%}
+          </div>
+        {%- endif -%}
+        {{ content_for_layout }}
+        {%- if settings.enable_animationscroll -%}
+          </div>
+        {%- endif -%}
+      </main>
+
+      {%- liquid
+        section 'banner-footer'
+        section 'newsletter-footer'
+        section 'footer'
+        if template == 'index' or request.design_mode
+          section 'pnewsletter'
+        endif
+        section 'product-suggest'
+        section 'cookie-policy'
+        section 'custom-color'
+      -%}
+    </div>
+
+    {%- liquid
+      render 'back-to-top'
+      render 'menu-mobile'
+      render 'bottom-contents'
+      render 'quickview'
+      render 'popup-compare'
+      render 'header-js'
+    -%}
+  </body>
+</html>
+    <!-- 🌍 SEO & Brand Visibility Enhancements -->
+    <meta name="description" content="{% if page_description %}{{ page_description | escape }}{% else %}Shop high-quality, purpose-driven eyewear by New Vantage Co. Thoughtfully designed frames, engineered for clarity and comfort — available across the UK and Europe.{% endif %}">
+    <meta name="keywords" content="New Vantage Co, sunglasses, optical eyewear, unisex sunglasses, designer glasses UK, polarized sunglasses, affordable eyewear UK, intentional design eyewear, modern frames, London sunglasses brand">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="author" content="New Vantage Co Ltd">
+    <meta name="geo.region" content="GB">
+    <meta name="geo.placename" content="London">
+    <meta name="geo.position" content="51.5072;-0.1276">
+    <meta name="ICBM" content="51.5072,-0.1276">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:site_name" content="New Vantage Co">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ page_title }} | New Vantage Co">
+    <meta property="og:description" content="Purposeful eyewear, crafted with precision and style. Explore New Vantage Co — premium sunglasses and opticals designed in London.">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:image" content="{{ settings.favicon | image_url: width: 512 }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_title }} | New Vantage Co">
+    <meta name="twitter:description" content="Shop intentional, high-quality eyewear made to last. Discover New Vantage Co today.">
+    <meta name="twitter:image" content="{{ settings.favicon | image_url: width: 512 }}">
+
+    <!-- ✅ JSON-LD Structured Data (improves Google ranking & local presence) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "New Vantage Co",
+      "url": "{{ shop.url }}",
+      "logo": "{{ settings.favicon | image_url: width: 512 }}",
+      "sameAs": [
+        "https://www.instagram.com/newvantageco",
+        "https://www.facebook.com/newvantageco",
+        "https://www.pinterest.co.uk/newvantageco"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+44 7930 531847",
+        "contactType": "Customer Support",
+        "areaServed": "GB",
+        "availableLanguage": "English"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "124 City Road",
+        "addressLocality": "London",
+        "postalCode": "EC1V 2NX",
+        "addressCountry": "GB"
+      }
+    }
+    </script>
+    <!-- 🕶️ Product & Collection Structured Data for SEO -->
+    {% if template contains 'product' %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "{{ product.title | escape }}",
+      "image": [
+        {% for image in product.images %}
+          "{{ image.src | img_url: '1024x1024' }}"{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ],
+      "description": "{{ product.description | strip_html | truncate: 500 | escape }}",
+      "sku": "{{ product.selected_or_first_available_variant.sku }}",
+      "brand": {
+        "@type": "Brand",
+        "name": "New Vantage Co"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "{{ shop.url }}{{ product.url }}",
+        "priceCurrency": "{{ shop.currency }}",
+        "price": "{{ product.selected_or_first_available_variant.price | money_without_currency | replace: ',', '' }}",
+        "itemCondition": "https://schema.org/NewCondition",
+        "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+        "seller": {
+          "@type": "Organization",
+          "name": "New Vantage Co"
+        }
+      }
+    }
+    </script>
+    {% elsif template contains 'collection' %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "{{ collection.title | escape }}",
+      "description": "{{ collection.description | strip_html | truncate: 500 | escape }}",
+      "url": "{{ shop.url }}{{ collection.url }}",
+      "mainEntity": [
+        {% for product in collection.products limit: 10 %}
+          {
+            "@type": "Product",
+            "name": "{{ product.title | escape }}",
+            "image": "{{ product.featured_image | img_url: '1024x1024' }}",
+            "url": "{{ shop.url }}{{ product.url }}",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "{{ shop.currency }}",
+              "price": "{{ product.price | money_without_currency | replace: ',', '' }}",
+              "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}"
+            }
+          }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    }
+    </script>
+    {% endif %}
+    <!-- ⚡ Performance + Core Web Vitals Optimization -->
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.shopify.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" as="style" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+    </noscript>
+
+    <!-- Lazy loading images globally -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const imgs = document.querySelectorAll('img');
+        imgs.forEach(img => {
+          if (!img.loading) {
+            img.setAttribute('loading', 'lazy');
+          }
+        });
+      });
+    </script>
+
+    <!-- Defer non-critical scripts -->
+    <script>
+      window.addEventListener('load', function() {
+        const scripts = document.querySelectorAll('script[data-defer]');
+        scripts.forEach(script => {
+          const newScript = document.createElement('script');
+          newScript.src = script.dataset.src;
+          document.body.appendChild(newScript);
+        });
+      });
+    </script>
+
+    <!-- Caching control for better crawl efficiency -->
+    <meta http-equiv="Cache-Control" content="max-age=604800, must-revalidate">

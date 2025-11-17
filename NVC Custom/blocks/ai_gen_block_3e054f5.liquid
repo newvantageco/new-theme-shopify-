@@ -1,0 +1,705 @@
+{% doc %}
+  @prompt
+    Imagine the final section on your page:
+    
+    On the left, a sharp-cornered, beautifully lit photograph shows a stylist in a chic, minimalist setting, presenting a pair of elegant frames to a customer.
+    
+    On the right, against a clean white background, the text is perfectly aligned. At the top, in small, widely spaced capital letters, it reads ONE-ON-ONE STYLING. Below this sits the main, bold headline: Expert Guidance, The Perfect Fit. A short, elegant paragraph explains the benefits, and the section is anchored by a solid black, rectangular button that says BOOK YOUR APPOINTMENT → in crisp white text.
+    
+    This design will feel intentional, luxurious, and will effectively encourage users to take the next step and engage with your premium consulting service.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-consultation-section-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding }}px 0;
+  }
+
+  .ai-consultation-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-consultation-content-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ block.settings.content_gap }}px;
+    align-items: center;
+    min-height: {{ block.settings.min_height }}px;
+  }
+
+  .ai-consultation-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+  }
+
+  .ai-consultation-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-consultation-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    position: relative;
+  }
+
+  .ai-consultation-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+    opacity: 0.3;
+  }
+
+  .ai-consultation-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-consultation-text-content-{{ ai_gen_id }} {
+    padding: {{ block.settings.text_padding }}px;
+    background-color: {{ block.settings.text_background_color }};
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: {{ block.settings.text_alignment }};
+    text-align: {{ block.settings.text_alignment }};
+    height: 100%;
+  }
+
+  .ai-consultation-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    font-weight: {{ block.settings.subtitle_weight }};
+    letter-spacing: {{ block.settings.subtitle_spacing }}em;
+    text-transform: uppercase;
+    color: {{ block.settings.subtitle_color }};
+    margin: 0 0 {{ block.settings.subtitle_margin }}px 0;
+    font-family: {{ settings.font_family2.family }}, {{ settings.font_family2.fallback_families }};
+  }
+
+  .ai-consultation-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: {{ block.settings.title_weight }};
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.title_margin }}px 0;
+    line-height: 1.2;
+    font-family: {{ settings.font_family.family }}, {{ settings.font_family.fallback_families }};
+  }
+
+  .ai-consultation-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.description_color }};
+    line-height: 1.6;
+    margin: 0 0 {{ block.settings.description_margin }}px 0;
+    font-family: {{ settings.font_family2.family }}, {{ settings.font_family2.fallback_families }};
+  }
+
+  .ai-consultation-button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    font-size: {{ block.settings.button_font_size }}px;
+    font-weight: {{ block.settings.button_font_weight }};
+    letter-spacing: {{ block.settings.button_letter_spacing }}em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: {{ settings.font_family2.family }}, {{ settings.font_family2.fallback_families }};
+    gap: 8px;
+  }
+
+  .ai-consultation-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text_color }};
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-consultation-button-arrow-{{ ai_gen_id }} {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-consultation-button-{{ ai_gen_id }}:hover .ai-consultation-button-arrow-{{ ai_gen_id }} {
+    transform: translateX(4px);
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-consultation-content-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.mobile_gap }}px;
+    }
+
+    .ai-consultation-image-wrapper-{{ ai_gen_id }} {
+      min-height: 300px;
+      {% if block.settings.mobile_layout == 'image_first' %}
+        order: 1;
+      {% else %}
+        order: 2;
+      {% endif %}
+    }
+
+    .ai-consultation-text-content-{{ ai_gen_id }} {
+      {% if block.settings.mobile_layout == 'image_first' %}
+        order: 2;
+      {% else %}
+        order: 1;
+      {% endif %}
+      text-align: {{ block.settings.mobile_text_alignment }};
+      align-items: {{ block.settings.mobile_text_alignment }};
+      padding: {{ block.settings.mobile_text_padding }}px;
+    }
+
+    .ai-consultation-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_title_size }}px;
+    }
+
+    .ai-consultation-subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_subtitle_size }}px;
+    }
+
+    .ai-consultation-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_description_size }}px;
+    }
+
+    .ai-consultation-button-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_button_size }}px;
+      padding: {{ block.settings.mobile_button_padding }}px {{ block.settings.mobile_button_padding | times: 1.5 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-consultation-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-consultation-container-{{ ai_gen_id }}">
+    <div class="ai-consultation-content-{{ ai_gen_id }}">
+      <div class="ai-consultation-image-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.consultation_image %}
+          <img
+            src="{{ block.settings.consultation_image | image_url: width: 800 }}"
+            alt="{{ block.settings.consultation_image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.consultation_image.width }}"
+            height="{{ block.settings.consultation_image.height }}"
+            class="ai-consultation-image-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-consultation-image-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+            <div class="ai-consultation-empty-state-{{ ai_gen_id }}">
+              Add a professional consultation image
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-consultation-text-content-{{ ai_gen_id }}">
+        {% if block.settings.subtitle != blank %}
+          <div class="ai-consultation-subtitle-{{ ai_gen_id }}">
+            {{ block.settings.subtitle }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.title != blank %}
+          <h2 class="ai-consultation-title-{{ ai_gen_id }}">
+            {{ block.settings.title }}
+          </h2>
+        {% endif %}
+
+        {% if block.settings.description != blank %}
+          <div class="ai-consultation-description-{{ ai_gen_id }}">
+            {{ block.settings.description }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.button_text != blank %}
+          <a
+            href="{{ block.settings.button_link | default: '#' }}"
+            class="ai-consultation-button-{{ ai_gen_id }}"
+          >
+            {{ block.settings.button_text }}
+            <span class="ai-consultation-button-arrow-{{ ai_gen_id }}">→</span>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Expert consultation",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "consultation_image",
+      "label": "Consultation image"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Image border radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "One-on-One Styling"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Expert Guidance, The Perfect Fit"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Experience personalized eyewear consultation with our expert stylists. We'll help you find the perfect frames that complement your face shape, lifestyle, and personal style. Book your private appointment for a luxury shopping experience tailored just for you."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Book Your Appointment"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 20,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Content gap",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 300,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "Minimum height",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "text_padding",
+      "min": 0,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "Text content padding",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_background_color",
+      "label": "Text area background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "subtitle_weight",
+      "min": 300,
+      "max": 700,
+      "step": 100,
+      "label": "Subtitle weight",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "subtitle_spacing",
+      "min": 0,
+      "max": 0.5,
+      "step": 0.1,
+      "unit": "em",
+      "label": "Subtitle letter spacing",
+      "default": 0.2
+    },
+    {
+      "type": "range",
+      "id": "subtitle_margin",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "label": "Subtitle bottom margin",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "title_weight",
+      "min": 300,
+      "max": 700,
+      "step": 100,
+      "label": "Title weight",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "title_margin",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Title bottom margin",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "description_margin",
+      "min": 20,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Description bottom margin",
+      "default": 35
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Button hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Button font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_font_weight",
+      "min": 400,
+      "max": 700,
+      "step": 100,
+      "label": "Button font weight",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "button_letter_spacing",
+      "min": 0,
+      "max": 0.3,
+      "step": 0.1,
+      "unit": "em",
+      "label": "Button letter spacing",
+      "default": 0.1
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "min": 10,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "label": "Button vertical padding",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "min": 20,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Button horizontal padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Mobile settings"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Mobile layout order",
+      "options": [
+        {
+          "value": "image_first",
+          "label": "Image first"
+        },
+        {
+          "value": "text_first",
+          "label": "Text first"
+        }
+      ],
+      "default": "image_first"
+    },
+    {
+      "type": "select",
+      "id": "mobile_text_alignment",
+      "label": "Mobile text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "min": 20,
+      "max": 60,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile content gap",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_text_padding",
+      "min": 20,
+      "max": 60,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile text padding",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mobile_title_size",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile title size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "mobile_subtitle_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile subtitle size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "mobile_description_size",
+      "min": 14,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile description size",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "mobile_button_size",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile button size",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "mobile_button_padding",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile button padding",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Expert consultation"
+    }
+  ]
+}
+{% endschema %}

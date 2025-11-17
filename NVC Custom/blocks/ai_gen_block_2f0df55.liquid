@@ -1,0 +1,959 @@
+{% doc %}
+  @prompt
+    Experience a landmark in design. This is the world's most iconic eyewear model, reimagined through a bold collaboration with design visionary A$AP Rocky. The Wayfarer Puffer is an uncompromising fusion of classic art and modern fashion, presenting a familiar silhouette amplified into an unprecedented, sculptural form.
+    
+    This collaboration redefines the classic, infusing the Wayfarer's timeless DNA with an avant-garde, tactile dimension. The amplified "puffer" frames are a masterwork of modern craftsmanship, translating the high-volume aesthetic of iconic outerwear into a precision-molded frame. The design process was meticulous, resulting in a unique, substantial profile that remains impeccably balanced and surprisingly lightweight. This is more than an accessory; it is a piece of wearable architecture.
+    
+    The amplified silhouette commands attention, offering a look that is both referential and radically new. Designed for those who curate their own perspective, this frame blends its high-volume form with the sharp precision of modern manufacturing. The Polished Black nylon finish gains new depth, capturing light and shadow across its unique, soft-edged contours. This is the new standard for statement eyewear, built for those who lead, not follow. Sharpen your perspective.
+    
+    PRODUCT DETAILS MODEL CODE: RB4940 601/87 47-23. See the full specification below.
+    
+    FRAME DESCRIPTION
+    
+    Frame Shape: Square
+    
+    Frame Colour: Polished Black
+    
+    Frame Material: Nylon
+    
+    Temple Colour: Black
+    
+    LENS INFO
+    
+    Lens Colour: Ultra Black
+    
+    Treatment: Solid Color
+    
+    PRODUCT DIMENSIONS
+    
+    Size: 47 23 mm
+    
+    Lens Height: 39.4 mm
+    
+    Temple Length: 145 mm
+    
+    FACE COVERAGE
+    
+    Face Coverage: Generous
+    
+    Bridge & Nosepads: High Bridge Fit, Reframing your perspective. This isn't just a pair of glasses; it's the lens through which you see the world, and the world sees you. At New Vantage Co., we believe in eyewear that is both an extension of your personal style and a high-precision tool for sharper living. We've built our collection on a foundation of modern design, timeless craftsmanship, and an uncompromising commitment to optical clarity. Look sharp, see sharper, and feel clearer.
+    
+    This frame is a testament to that philosophy. Meticulously crafted from premium, plant-based cellulose acetate, it offers a rich, durable finish that feels substantial yet perfectly balanced for all-day comfort. Our design process is obsessive, focusing on clean lines, modern silhouettes, and an ergonomic fit that feels custom-made. We partner with world-class artisans to ensure every hinge is secure, every polish is flawless, and every detail is perfected.
+    
+    But true style is nothing without clear vision. Whether you choose our polarised sunglasses or crystal-clear opticals, you are choosing precision. Our premium lenses are designed to enhance your world, reducing glare, protecting your eyes, and providing unparalleled clarity. Every prescription is carefully reviewed and fitted by UK lab professionals to ensure your vision is not just corrected, but perfected.
+    
+    This is your daily essential, built to last and designed to impress. It’s a frame that sharpens your focus, clarifies your comfort, and empowers your confidence. Experience the New Vantage Co. difference—a perfect fusion of form, function, and future-facing style., add frame informations too and make sure it done correctly like   rayban, if its section how can it be editable for individual products , Tim Delaney, the man behind the campaign, said:
+    "We never used the word luxury."
+    Because once you sell luxury, you age with fashion.
+    When you sell legacy, you age with meaning.
+    
+    Their campaign has run nonstop for nearly 30 years.
+    No rebrands. No gimmicks.
+    Just quiet, timeless storytelling.
+    Because when your message
+    
+    Patek didn't just sell watches.
+    They sold the idea of inheritance.
+    Most brands sell attention.
+    Patek sold meaning.
+    That's why they'll outlast the trends, and the founders.
+    
+    The best companies don't chase relevance.
+    They build systems that outlive them.
+    Because real power isn't in what you sell,
+    It's in what your brand means.
+    Luxury fades. Legacy compounds.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-legacy-story-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding }}px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-legacy-story__container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .ai-legacy-story__content-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: {{ block.settings.content_gap }}px;
+    align-items: center;
+  }
+
+  {% if block.settings.layout == 'side-by-side' %}
+    @media screen and (min-width: 992px) {
+      .ai-legacy-story__content-{{ ai_gen_id }} {
+        grid-template-columns: {% if block.settings.image_position == 'left' %}1fr 1fr{% else %}1fr 1fr{% endif %};
+      }
+
+      {% if block.settings.image_position == 'right' %}
+        .ai-legacy-story__image-wrapper-{{ ai_gen_id }} {
+          order: 2;
+        }
+        .ai-legacy-story__text-wrapper-{{ ai_gen_id }} {
+          order: 1;
+        }
+      {% endif %}
+    }
+  {% endif %}
+
+  .ai-legacy-story__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    {% if block.settings.layout == 'full-width' %}
+      margin-bottom: {{ block.settings.content_gap }}px;
+    {% endif %}
+  }
+
+  .ai-legacy-story__image-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: {{ block.settings.image_aspect_ratio }}%;
+    overflow: hidden;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-legacy-story__image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-legacy-story__image-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-legacy-story__image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+    opacity: 0.3;
+  }
+
+  .ai-legacy-story__text-wrapper-{{ ai_gen_id }} {
+    padding: {{ block.settings.text_padding }}px;
+    text-align: {{ block.settings.text_align }};
+  }
+
+  .ai-legacy-story__eyebrow-{{ ai_gen_id }} {
+    font-size: {{ block.settings.eyebrow_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.accent_color }};
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: {{ block.settings.eyebrow_spacing }}px;
+    display: block;
+  }
+
+  .ai-legacy-story__title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: {{ block.settings.title_weight }};
+    color: {{ block.settings.text_color }};
+    line-height: 1.2;
+    margin: 0 0 {{ block.settings.title_spacing }}px;
+    letter-spacing: -0.02em;
+  }
+
+  .ai-legacy-story__subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    font-weight: 500;
+    color: {{ block.settings.text_color }};
+    opacity: 0.8;
+    line-height: 1.4;
+    margin: 0 0 {{ block.settings.subtitle_spacing }}px;
+    font-style: italic;
+  }
+
+  .ai-legacy-story__description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.8;
+    opacity: 0.85;
+    margin-bottom: {{ block.settings.description_spacing }}px;
+  }
+
+  .ai-legacy-story__description-{{ ai_gen_id }} p {
+    margin: 0 0 1.5em;
+  }
+
+  .ai-legacy-story__description-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-legacy-story__quote-{{ ai_gen_id }} {
+    position: relative;
+    padding: {{ block.settings.quote_padding }}px;
+    margin: {{ block.settings.quote_spacing }}px 0;
+    border-left: 4px solid {{ block.settings.accent_color }};
+    background-color: {{ block.settings.quote_bg_color }};
+    border-radius: {{ block.settings.quote_border_radius }}px;
+  }
+
+  .ai-legacy-story__quote-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.quote_size }}px;
+    font-style: italic;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .ai-legacy-story__quote-author-{{ ai_gen_id }} {
+    font-size: {{ block.settings.quote_author_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.accent_color }};
+    margin-top: 16px;
+    display: block;
+  }
+
+  .ai-legacy-story__cta-wrapper-{{ ai_gen_id }} {
+    margin-top: {{ block.settings.cta_spacing }}px;
+    display: flex;
+    gap: 16px;
+    {% if block.settings.text_align == 'center' %}
+      justify-content: center;
+    {% elsif block.settings.text_align == 'right' %}
+      justify-content: flex-end;
+    {% else %}
+      justify-content: flex-start;
+    {% endif %}
+    flex-wrap: wrap;
+  }
+
+  .ai-legacy-story__cta-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: {{ block.settings.button_padding_v }}px {{ block.settings.button_padding_h }}px;
+    font-size: {{ block.settings.button_size }}px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  .ai-legacy-story__cta-primary-{{ ai_gen_id }} {
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border-color: {{ block.settings.button_bg_color }};
+  }
+
+  .ai-legacy-story__cta-primary-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+    border-color: {{ block.settings.button_hover_bg_color }};
+    color: {{ block.settings.button_hover_text_color }};
+    transform: translateY(-2px);
+  }
+
+  .ai-legacy-story__cta-secondary-{{ ai_gen_id }} {
+    background-color: transparent;
+    color: {{ block.settings.text_color }};
+    border-color: {{ block.settings.text_color }};
+  }
+
+  .ai-legacy-story__cta-secondary-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.text_color }};
+    color: {{ block.settings.background_color }};
+    transform: translateY(-2px);
+  }
+
+  .ai-legacy-story__divider-{{ ai_gen_id }} {
+    width: {{ block.settings.divider_width }}px;
+    height: {{ block.settings.divider_height }}px;
+    background-color: {{ block.settings.accent_color }};
+    margin: {{ block.settings.divider_spacing }}px {% if block.settings.text_align == 'center' %}auto{% elsif block.settings.text_align == 'right' %}0 0 0 auto{% else %}0{% endif %};
+    border-radius: 2px;
+  }
+
+  @media screen and (max-width: 991px) {
+    .ai-legacy-story__title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.75 }}px;
+    }
+
+    .ai-legacy-story__text-wrapper-{{ ai_gen_id }} {
+      padding: {{ block.settings.text_padding | times: 0.6 }}px;
+    }
+
+    .ai-legacy-story-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding | times: 0.6 }}px 15px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-legacy-story__title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.6 }}px;
+    }
+
+    .ai-legacy-story__cta-wrapper-{{ ai_gen_id }} {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .ai-legacy-story__cta-{{ ai_gen_id }} {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-legacy-story-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-legacy-story__container-{{ ai_gen_id }}">
+    <div class="ai-legacy-story__content-{{ ai_gen_id }}">
+      {% if block.settings.image != blank or block.settings.show_image %}
+        <div class="ai-legacy-story__image-wrapper-{{ ai_gen_id }}">
+          <div class="ai-legacy-story__image-container-{{ ai_gen_id }}">
+            {% if block.settings.image != blank %}
+              <img
+                src="{{ block.settings.image | image_url: width: 1200 }}"
+                alt="{{ block.settings.image.alt | escape }}"
+                loading="lazy"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+                class="ai-legacy-story__image-{{ ai_gen_id }}"
+              >
+            {% else %}
+              <div class="ai-legacy-story__image-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="ai-legacy-story__text-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.eyebrow != blank %}
+          <span class="ai-legacy-story__eyebrow-{{ ai_gen_id }}">
+            {{ block.settings.eyebrow }}
+          </span>
+        {% endif %}
+
+        {% if block.settings.show_divider and block.settings.divider_position == 'top' %}
+          <div class="ai-legacy-story__divider-{{ ai_gen_id }}"></div>
+        {% endif %}
+
+        {% if block.settings.title != blank %}
+          <h2 class="ai-legacy-story__title-{{ ai_gen_id }}">
+            {{ block.settings.title }}
+          </h2>
+        {% endif %}
+
+        {% if block.settings.subtitle != blank %}
+          <div class="ai-legacy-story__subtitle-{{ ai_gen_id }}">
+            {{ block.settings.subtitle }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.show_divider and block.settings.divider_position == 'middle' %}
+          <div class="ai-legacy-story__divider-{{ ai_gen_id }}"></div>
+        {% endif %}
+
+        {% if block.settings.description != blank %}
+          <div class="ai-legacy-story__description-{{ ai_gen_id }}">
+            {{ block.settings.description }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.show_quote and block.settings.quote_text != blank %}
+          <div class="ai-legacy-story__quote-{{ ai_gen_id }}">
+            <p class="ai-legacy-story__quote-text-{{ ai_gen_id }}">
+              {{ block.settings.quote_text }}
+            </p>
+            {% if block.settings.quote_author != blank %}
+              <span class="ai-legacy-story__quote-author-{{ ai_gen_id }}">
+                — {{ block.settings.quote_author }}
+              </span>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if block.settings.show_divider and block.settings.divider_position == 'bottom' %}
+          <div class="ai-legacy-story__divider-{{ ai_gen_id }}"></div>
+        {% endif %}
+
+        {% if block.settings.button_text != blank or block.settings.button_text_secondary != blank %}
+          <div class="ai-legacy-story__cta-wrapper-{{ ai_gen_id }}">
+            {% if block.settings.button_text != blank %}
+              <a
+                href="{{ block.settings.button_link }}"
+                class="ai-legacy-story__cta-{{ ai_gen_id }} ai-legacy-story__cta-primary-{{ ai_gen_id }}"
+              >
+                {{ block.settings.button_text }}
+              </a>
+            {% endif %}
+
+            {% if block.settings.button_text_secondary != blank %}
+              <a
+                href="{{ block.settings.button_link_secondary }}"
+                class="ai-legacy-story__cta-{{ ai_gen_id }} ai-legacy-story__cta-secondary-{{ ai_gen_id }}"
+              >
+                {{ block.settings.button_text_secondary }}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand legacy story",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "side-by-side",
+          "label": "Side by side"
+        },
+        {
+          "value": "full-width",
+          "label": "Full width"
+        }
+      ],
+      "default": "side-by-side"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "info": "Only applies to side by side layout"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 1200
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "label": "Show image",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_aspect_ratio",
+      "min": 50,
+      "max": 150,
+      "step": 5,
+      "unit": "%",
+      "label": "Image aspect ratio",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Image border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Legacy over luxury"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>We don't chase trends. We build frames that outlast them. Because real value isn't in what's fashionable today—it's in what remains meaningful tomorrow.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Quote"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quote",
+      "label": "Show quote",
+      "default": false
+    },
+    {
+      "type": "richtext",
+      "id": "quote_text",
+      "label": "Quote text",
+      "default": "<p>Luxury fades. Legacy compounds.</p>"
+    },
+    {
+      "type": "text",
+      "id": "quote_author",
+      "label": "Quote author"
+    },
+    {
+      "type": "header",
+      "content": "Divider"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show divider",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "divider_position",
+      "label": "Divider position",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "middle",
+          "label": "Middle"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "middle"
+    },
+    {
+      "type": "range",
+      "id": "divider_width",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Divider width",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "divider_height",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "label": "Divider height",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Primary button text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "button_text_secondary",
+      "label": "Secondary button text"
+    },
+    {
+      "type": "url",
+      "id": "button_link_secondary",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Eyebrow size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 48
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Title weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 16,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "quote_size",
+      "min": 16,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "label": "Quote size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "quote_author_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Quote author size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Button size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#faf5f2"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#a76111"
+    },
+    {
+      "type": "color",
+      "id": "quote_bg_color",
+      "label": "Quote background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button hover background",
+      "default": "#a76111"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 30,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Content gap",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "text_padding",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Text padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_spacing",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Eyebrow spacing",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Title spacing",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "subtitle_spacing",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Subtitle spacing",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "description_spacing",
+      "min": 20,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Description spacing",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "quote_spacing",
+      "min": 20,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Quote spacing",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "quote_padding",
+      "min": 20,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Quote padding",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "divider_spacing",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Divider spacing",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "cta_spacing",
+      "min": 25,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Button spacing",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "button_padding_v",
+      "min": 10,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "label": "Button vertical padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_h",
+      "min": 20,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Button horizontal padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "quote_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Quote border radius",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand legacy story"
+    }
+  ]
+}
+{% endschema %}

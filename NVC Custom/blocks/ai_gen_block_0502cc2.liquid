@@ -1,0 +1,778 @@
+{% doc %}
+  @prompt
+    Style Description: Modern, Editorial-Style Collection Showcase
+    This style mimics the layout of a high-end digital magazine or lookbook. It uses large, impactful imagery to create an aspirational and brand-focused experience, guiding users towards curated collections rather than individual products.
+    
+    Key Components Breakdown:
+    1. Layout and Structure
+    Grid of Feature Cards: The section is built as a grid (in this case, three columns) of large, independent promotional cards.
+    
+    Significant Rounded Corners: The cards have prominently rounded corners, which gives the design a soft, modern, and friendly feel, contrasting with sharp-edged, traditional layouts.
+    
+    Generous Gutters: There is clear spacing between each card, which helps them stand out as individual stories or features.
+    
+    2. The Feature Card
+    Each card is a self-contained unit designed to capture attention and drive a single, focused action.
+    
+    Image as the Background: The entire background of each card is a high-quality, professional photograph.
+    
+    Photography Style: The images are "editorial" or "lifestyle" in nature. They feature models in relatable contexts or artfully styled product shots (still life), rather than simple product photos on a plain background. This helps to tell a story and sell a feeling, not just an object.
+    
+    Text Overlay: All text is placed directly on top of the image.
+    
+    Legibility: To ensure the text is readable against a complex background, it's often placed on a less busy part of the photo. Sometimes, a very subtle, transparent gradient is applied behind the text to increase contrast without being obvious.
+    
+    Typography: The font is typically a clean, bold, and modern sans-serif. There is a clear hierarchy, with a larger headline to announce the theme (e.g., "Fresh takes on classic frames").
+    
+    Call-to-Action (CTA) Button:
+    
+    Style: The button is prominent but fits the overall aesthetic. It's a "pill-shaped" button with fully rounded ends.
+    
+    Design: It uses a solid color fill (e.g., white or black/dark , use brand colours and make sure to remember its eyewear company  
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-editorial-showcase-{{ ai_gen_id }} {
+    width: 100%;
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+    background-color: {{ block.settings.section_background }};
+  }
+
+  .ai-editorial-showcase-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 {{ block.settings.gutter }}px;
+  }
+
+  .ai-editorial-showcase-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    gap: {{ block.settings.card_spacing }}px;
+  }
+
+  .ai-editorial-card-{{ ai_gen_id }} {
+    position: relative;
+    border-radius: {{ block.settings.card_border_radius }}px;
+    overflow: hidden;
+    aspect-ratio: {{ block.settings.card_aspect_ratio }};
+    display: flex;
+    align-items: flex-end;
+    background-color: #f4f4f4;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-editorial-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+  }
+
+  .ai-editorial-card-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-editorial-card-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, {{ block.settings.overlay_opacity }}) 100%
+    );
+    pointer-events: none;
+  }
+
+  .ai-editorial-card-content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    padding: {{ block.settings.content_padding }}px;
+    width: 100%;
+  }
+
+  .ai-editorial-card-title-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: {{ block.settings.title_weight }};
+    line-height: 1.2;
+    margin: 0 0 {{ block.settings.title_spacing }}px;
+    text-transform: {{ block.settings.title_transform }};
+  }
+
+  .ai-editorial-card-subtitle-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.subtitle_size }}px;
+    font-weight: 400;
+    line-height: 1.4;
+    margin: 0 0 {{ block.settings.button_spacing }}px;
+    opacity: 0.9;
+  }
+
+  .ai-editorial-card-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    font-size: {{ block.settings.button_font_size }}px;
+    font-weight: {{ block.settings.button_font_weight }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    text-transform: {{ block.settings.button_text_transform }};
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .ai-editorial-card-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text_color }};
+    transform: translateY(-2px);
+  }
+
+  .ai-editorial-card-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+  }
+
+  .ai-editorial-card-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+    opacity: 0.3;
+  }
+
+  .ai-editorial-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-editorial-showcase-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_tablet }}, 1fr);
+    }
+
+    .ai-editorial-card-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.85);
+    }
+
+    .ai-editorial-card-subtitle-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.subtitle_size }}px * 0.9);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-editorial-showcase-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+    }
+
+    .ai-editorial-card-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.75);
+    }
+
+    .ai-editorial-card-subtitle-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.subtitle_size }}px * 0.85);
+    }
+
+    .ai-editorial-card-content-{{ ai_gen_id }} {
+      padding: calc({{ block.settings.content_padding }}px * 0.75);
+    }
+
+    .ai-editorial-card-button-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.button_font_size }}px * 0.9);
+      padding: calc({{ block.settings.button_padding_vertical }}px * 0.85) calc({{ block.settings.button_padding_horizontal }}px * 0.85);
+    }
+  }
+{% endstyle %}
+
+<div class="ai-editorial-showcase-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-editorial-showcase-container-{{ ai_gen_id }}">
+    <div class="ai-editorial-showcase-grid-{{ ai_gen_id }}">
+      {% for i in (1..3) %}
+        {% liquid
+          assign card_enabled_key = 'card_' | append: i | append: '_enabled'
+          assign card_image_key = 'card_' | append: i | append: '_image'
+          assign card_title_key = 'card_' | append: i | append: '_title'
+          assign card_subtitle_key = 'card_' | append: i | append: '_subtitle'
+          assign card_button_text_key = 'card_' | append: i | append: '_button_text'
+          assign card_button_link_key = 'card_' | append: i | append: '_button_link'
+
+          assign card_enabled = block.settings[card_enabled_key]
+          assign card_image = block.settings[card_image_key]
+          assign card_title = block.settings[card_title_key]
+          assign card_subtitle = block.settings[card_subtitle_key]
+          assign card_button_text = block.settings[card_button_text_key]
+          assign card_button_link = block.settings[card_button_link_key]
+        %}
+
+        {% if card_enabled %}
+          <div class="ai-editorial-card-{{ ai_gen_id }}">
+            {% if card_image %}
+              <img
+                src="{{ card_image | image_url: width: 1200 }}"
+                alt="{{ card_image.alt | escape }}"
+                class="ai-editorial-card-image-{{ ai_gen_id }}"
+                loading="lazy"
+                width="{{ card_image.width }}"
+                height="{{ card_image.height }}"
+              >
+            {% else %}
+              <div class="ai-editorial-card-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+                <div class="ai-editorial-empty-state-{{ ai_gen_id }}">
+                  Add an eyewear image for card {{ i }}
+                </div>
+              </div>
+            {% endif %}
+
+            <div class="ai-editorial-card-overlay-{{ ai_gen_id }}"></div>
+
+            <div class="ai-editorial-card-content-{{ ai_gen_id }}">
+              {% if card_title != blank %}
+                <h3 class="ai-editorial-card-title-{{ ai_gen_id }}">{{ card_title }}</h3>
+              {% endif %}
+
+              {% if card_subtitle != blank %}
+                <p class="ai-editorial-card-subtitle-{{ ai_gen_id }}">{{ card_subtitle }}</p>
+              {% endif %}
+
+              {% if card_button_text != blank %}
+                <a
+                  href="{{ card_button_link }}"
+                  class="ai-editorial-card-button-{{ ai_gen_id }}"
+                >
+                  {{ card_button_text }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Eyewear showcase",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 1000,
+      "max": 1920,
+      "step": 20,
+      "unit": "px",
+      "label": "Container width",
+      "default": 1540
+    },
+    {
+      "type": "range",
+      "id": "gutter",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Container padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Background color",
+      "default": "#faf5f2"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Columns on desktop",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Columns on tablet",
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "range",
+      "id": "card_spacing",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Card spacing",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "card_aspect_ratio",
+      "label": "Card aspect ratio",
+      "options": [
+        {
+          "value": "1 / 1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "4 / 5",
+          "label": "Portrait (4:5)"
+        },
+        {
+          "value": "3 / 4",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "2 / 3",
+          "label": "Portrait (2:3)"
+        },
+        {
+          "value": "16 / 9",
+          "label": "Landscape (16:9)"
+        },
+        {
+          "value": "4 / 3",
+          "label": "Landscape (4:3)"
+        }
+      ],
+      "default": "4 / 5"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "label": "Overlay opacity",
+      "default": 0.4
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Content padding",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Title weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "title_transform",
+      "label": "Title transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        }
+      ],
+      "default": "capitalize"
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "min": 4,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Title bottom spacing",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_spacing",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Button top spacing",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Hover background",
+      "default": "#a76111"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "button_font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "button_text_transform",
+      "label": "Text transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Card 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_1_enabled",
+      "label": "Enable card 1",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "card_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "card_1_title",
+      "label": "Title",
+      "default": "Classic acetate frames"
+    },
+    {
+      "type": "text",
+      "id": "card_1_subtitle",
+      "label": "Subtitle",
+      "default": "Italian craftsmanship meets modern design"
+    },
+    {
+      "type": "text",
+      "id": "card_1_button_text",
+      "label": "Button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "card_1_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Card 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_2_enabled",
+      "label": "Enable card 2",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "card_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "card_2_title",
+      "label": "Title",
+      "default": "Polarised sunglasses"
+    },
+    {
+      "type": "text",
+      "id": "card_2_subtitle",
+      "label": "Subtitle",
+      "default": "Premium lenses as standard"
+    },
+    {
+      "type": "text",
+      "id": "card_2_button_text",
+      "label": "Button text",
+      "default": "View collection"
+    },
+    {
+      "type": "url",
+      "id": "card_2_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Card 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_3_enabled",
+      "label": "Enable card 3",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "card_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "card_3_title",
+      "label": "Title",
+      "default": "Optical collection"
+    },
+    {
+      "type": "text",
+      "id": "card_3_subtitle",
+      "label": "Subtitle",
+      "default": "Built to last, designed to impress"
+    },
+    {
+      "type": "text",
+      "id": "card_3_button_text",
+      "label": "Button text",
+      "default": "Discover more"
+    },
+    {
+      "type": "url",
+      "id": "card_3_button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Eyewear showcase"
+    }
+  ]
+}
+{% endschema %}

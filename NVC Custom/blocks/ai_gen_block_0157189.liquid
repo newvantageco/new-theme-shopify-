@@ -1,0 +1,760 @@
+{% doc %}
+  @prompt
+    Experience a landmark in design. This is the world's most iconic eyewear model, reimagined through a bold collaboration with design visionary A$AP Rocky. The Wayfarer Puffer is an uncompromising fusion of classic art and modern fashion, presenting a familiar silhouette amplified into an unprecedented, sculptural form.
+    
+    This collaboration redefines the classic, infusing the Wayfarer's timeless DNA with an avant-garde, tactile dimension. The amplified "puffer" frames are a masterwork of modern craftsmanship, creating a substantial, statement-making profile that remains impeccably balanced and lightweight.
+    
+    This is more than an accessory; it is a piece of wearable architecture. The amplified silhouette commands attention, offering a look that is both referential and radically new. Designed for those who curate their own perspective, this frame blends a substantial, high-volume aesthetic with the precision of modern manufacturing. The Polished Black nylon finish gains new depth, capturing light and shadow across its unique contours.
+    
+    This is the new standard for statement eyewear. Sharpen your perspective.
+    
+    PRODUCT DETAILS
+    MODEL CODE RB4940 601/87 47-23
+    
+    FRAME DESCRIPTION
+    FRAME SHAPE: Square
+    
+    FRAME COLOUR: Polished Black
+    
+    FRAME MATERIAL: Nylon
+    
+    TEMPLE COLOUR: Black
+    
+    LENS INFO
+    LENS COLOUR: Ultra Black
+    
+    TREATMENT: Solid Color
+    
+    PRODUCT DIMENSIONS
+    SIZE: 47 23 mm
+    
+    LENS HEIGHT: 39.4 mm
+    
+    TEMPLE LENGTH: 145 mm
+    
+    FACE COVERAGE
+    FACE COVERAGE: Generous
+    
+    BRIDGE & NOSEPADS: High Bridge Fit, IHere is a complete, step-by-step guide on how to build that exact product page layout in Shopify, making it fully customizable for every unique product.
+    
+    The entire process works by using Shopify Metafields.
+    
+    Metafields: These are custom data fields you create to store your unique product information (like Frame Shape or Lens Height).
+    
+    Theme Editor: This is where you build the page layout once.
+    
+    Dynamic Sources: This is the magic button that connects your layout to your metafields.
+    
+    Step 1: Create Your Metafields (The Data Fields)
+    First, you need to tell Shopify what information to store for each product.
+    
+    From your Shopify Admin, go to Settings > Custom Data.
+    
+    Click on Products and then click Add definition.
+    
+    You will now create one definition for each piece of information from your image.
+    
+    Create the following metafields. I recommend using these types:
+    
+    For the intro paragraph:
+    
+    Name: Product Intro
+    
+    Type: Rich text (This lets you bold text, add links, etc.)
+    
+    For the main details:
+    
+    Name: Model Code (Type: Single-line text)
+    
+    Name: Frame Shape (Type: Single-line text)
+    
+    Name: Frame Colour (Type: Single-line text)
+    
+    Name: Frame Material (Type: Single-line text)
+    
+    Name: Temple Colour (Type: Single-line text)
+    
+    Name: Lens Colour (Type: Single-line text)
+    
+    Name: Lens Treatment (Type: Single-line text)
+    
+    Name: Size (Type: Single-line text)
+    
+    Name: Lens Height (Type: Single-line text - use text so you can add "mm")
+    
+    Name: Temple Length (Type: Single-line text - use text so you can add "mm")
+    
+    Name: Face Coverage (Type: Single-line text)
+    
+    Name: Bridge & Nosepads (Type: Single-line text)
+    
+    After this step, you have successfully created the empty data fields.
+    
+    Step 2: Add Your Data to Each Product
+    Now, you must fill in those fields for each product.
+    
+    Go to your Products admin page and click on any product (e.g., your A$AP Rocky sunglasses).
+    
+    Scroll to the very bottom of the page. You will see a new section called Metafields.
+    
+    You will see all the fields you just created (Frame Shape,
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-product-details-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding_vertical }}px {{ block.settings.padding_horizontal }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+    max-width: 100%;
+  }
+
+  .ai-product-details__hero-{{ ai_gen_id }} {
+    margin-bottom: 32px;
+  }
+
+  .ai-product-details__title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: {{ block.settings.title_weight }};
+    color: {{ block.settings.title_color }};
+    margin: 0 0 16px;
+    line-height: 1.3;
+    text-transform: {{ block.settings.title_transform }};
+  }
+
+  .ai-product-details__subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    margin: 0 0 24px;
+    line-height: 1.6;
+  }
+
+  .ai-product-details__description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .ai-product-details__section-{{ ai_gen_id }} {
+    margin-bottom: 32px;
+  }
+
+  .ai-product-details__section-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.section_title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .ai-product-details__specs-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .ai-product-details__spec-item-{{ ai_gen_id }} {
+    padding: 16px;
+    background-color: {{ block.settings.spec_bg_color }};
+    border-radius: {{ block.settings.spec_border_radius }}px;
+    border: 1px solid {{ block.settings.spec_border_color }};
+  }
+
+  .ai-product-details__spec-label-{{ ai_gen_id }} {
+    font-size: 12px;
+    font-weight: 600;
+    color: {{ block.settings.label_color }};
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+
+  .ai-product-details__spec-value-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+    font-weight: 500;
+  }
+
+  .ai-product-details__dimensions-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+
+  .ai-product-details__dimension-{{ ai_gen_id }} {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .ai-product-details__dimension-label-{{ ai_gen_id }} {
+    font-size: 12px;
+    font-weight: 600;
+    color: {{ block.settings.label_color }};
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .ai-product-details__dimension-value-{{ ai_gen_id }} {
+    font-size: 16px;
+    color: {{ block.settings.text_color }};
+    font-weight: 500;
+  }
+
+  .ai-product-details__divider-{{ ai_gen_id }} {
+    height: 1px;
+    background-color: {{ block.settings.divider_color }};
+    margin: 32px 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-product-details__title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.8);
+    }
+
+    .ai-product-details__subtitle-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.subtitle_size }}px * 0.9);
+    }
+
+    .ai-product-details__specs-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-product-details__dimensions-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-product-details-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.show_hero %}
+    <div class="ai-product-details__hero-{{ ai_gen_id }}">
+      {% if block.settings.hero_title != blank %}
+        <h1 class="ai-product-details__title-{{ ai_gen_id }}">
+          {{ block.settings.hero_title }}
+        </h1>
+      {% endif %}
+
+      {% if block.settings.hero_subtitle != blank %}
+        <div class="ai-product-details__subtitle-{{ ai_gen_id }}">
+          {{ block.settings.hero_subtitle }}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_description and block.settings.description != blank %}
+    <div class="ai-product-details__description-{{ ai_gen_id }}">
+      {{ block.settings.description }}
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_product_details %}
+    {% assign has_product_details = false %}
+    {% if block.settings.model_code != blank or block.settings.frame_shape != blank or block.settings.frame_color != blank or block.settings.frame_material != blank or block.settings.temple_color != blank %}
+      {% assign has_product_details = true %}
+    {% endif %}
+
+    {% if has_product_details %}
+      <div class="ai-product-details__section-{{ ai_gen_id }}">
+        <h2 class="ai-product-details__section-title-{{ ai_gen_id }}">
+          {{ block.settings.product_details_title }}
+        </h2>
+
+        <div class="ai-product-details__specs-grid-{{ ai_gen_id }}">
+          {% if block.settings.model_code != blank %}
+            <div class="ai-product-details__spec-item-{{ ai_gen_id }}">
+              <div class="ai-product-details__spec-label-{{ ai_gen_id }}">Model Code</div>
+              <div class="ai-product-details__spec-value-{{ ai_gen_id }}">{{ block.settings.model_code }}</div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.frame_shape != blank %}
+            <div class="ai-product-details__spec-item-{{ ai_gen_id }}">
+              <div class="ai-product-details__spec-label-{{ ai_gen_id }}">Frame Shape</div>
+              <div class="ai-product-details__spec-value-{{ ai_gen_id }}">{{ block.settings.frame_shape }}</div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.frame_color != blank %}
+            <div class="ai-product-details__spec-item-{{ ai_gen_id }}">
+              <div class="ai-product-details__spec-label-{{ ai_gen_id }}">Frame Colour</div>
+              <div class="ai-product-details__spec-value-{{ ai_gen_id }}">{{ block.settings.frame_color }}</div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.frame_material != blank %}
+            <div class="ai-product-details__spec-item-{{ ai_gen_id }}">
+              <div class="ai-product-details__spec-label-{{ ai_gen_id }}">Frame Material</div>
+              <div class="ai-product-details__spec-value-{{ ai_gen_id }}">{{ block.settings.frame_material }}</div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.temple_color != blank %}
+            <div class="ai-product-details__spec-item-{{ ai_gen_id }}">
+              <div class="ai-product-details__spec-label-{{ ai_gen_id }}">Temple Colour</div>
+              <div class="ai-product-details__spec-value-{{ ai_gen_id }}">{{ block.settings.temple_color }}</div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+
+  {% if block.settings.show_lens_info %}
+    {% assign has_lens_info = false %}
+    {% if block.settings.lens_color != blank or block.settings.lens_treatment != blank %}
+      {% assign has_lens_info = true %}
+    {% endif %}
+
+    {% if has_lens_info %}
+      <div class="ai-product-details__section-{{ ai_gen_id }}">
+        <h2 class="ai-product-details__section-title-{{ ai_gen_id }}">
+          {{ block.settings.lens_info_title }}
+        </h2>
+
+        <div class="ai-product-details__specs-grid-{{ ai_gen_id }}">
+          {% if block.settings.lens_color != blank %}
+            <div class="ai-product-details__spec-item-{{ ai_gen_id }}">
+              <div class="ai-product-details__spec-label-{{ ai_gen_id }}">Lens Colour</div>
+              <div class="ai-product-details__spec-value-{{ ai_gen_id }}">{{ block.settings.lens_color }}</div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.lens_treatment != blank %}
+            <div class="ai-product-details__spec-item-{{ ai_gen_id }}">
+              <div class="ai-product-details__spec-label-{{ ai_gen_id }}">Treatment</div>
+              <div class="ai-product-details__spec-value-{{ ai_gen_id }}">{{ block.settings.lens_treatment }}</div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+
+  {% if block.settings.show_dimensions %}
+    {% assign has_dimensions = false %}
+    {% if block.settings.size != blank or block.settings.lens_height != blank or block.settings.temple_length != blank %}
+      {% assign has_dimensions = true %}
+    {% endif %}
+
+    {% if has_dimensions %}
+      <div class="ai-product-details__section-{{ ai_gen_id }}">
+        <h2 class="ai-product-details__section-title-{{ ai_gen_id }}">
+          {{ block.settings.dimensions_title }}
+        </h2>
+
+        <div class="ai-product-details__dimensions-{{ ai_gen_id }}">
+          {% if block.settings.size != blank %}
+            <div class="ai-product-details__dimension-{{ ai_gen_id }}">
+              <span class="ai-product-details__dimension-label-{{ ai_gen_id }}">Size:</span>
+              <span class="ai-product-details__dimension-value-{{ ai_gen_id }}">{{ block.settings.size }}</span>
+            </div>
+          {% endif %}
+
+          {% if block.settings.lens_height != blank %}
+            <div class="ai-product-details__dimension-{{ ai_gen_id }}">
+              <span class="ai-product-details__dimension-label-{{ ai_gen_id }}">Lens Height:</span>
+              <span class="ai-product-details__dimension-value-{{ ai_gen_id }}">{{ block.settings.lens_height }}</span>
+            </div>
+          {% endif %}
+
+          {% if block.settings.temple_length != blank %}
+            <div class="ai-product-details__dimension-{{ ai_gen_id }}">
+              <span class="ai-product-details__dimension-label-{{ ai_gen_id }}">Temple Length:</span>
+              <span class="ai-product-details__dimension-value-{{ ai_gen_id }}">{{ block.settings.temple_length }}</span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+
+  {% if block.settings.show_face_coverage %}
+    {% assign has_face_coverage = false %}
+    {% if block.settings.face_coverage != blank or block.settings.bridge_fit != blank %}
+      {% assign has_face_coverage = true %}
+    {% endif %}
+
+    {% if has_face_coverage %}
+      <div class="ai-product-details__section-{{ ai_gen_id }}">
+        <h2 class="ai-product-details__section-title-{{ ai_gen_id }}">
+          {{ block.settings.face_coverage_title }}
+        </h2>
+
+        <div class="ai-product-details__specs-grid-{{ ai_gen_id }}">
+          {% if block.settings.face_coverage != blank %}
+            <div class="ai-product-details__spec-item-{{ ai_gen_id }}">
+              <div class="ai-product-details__spec-label-{{ ai_gen_id }}">Face Coverage</div>
+              <div class="ai-product-details__spec-value-{{ ai_gen_id }}">{{ block.settings.face_coverage }}</div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.bridge_fit != blank %}
+            <div class="ai-product-details__spec-item-{{ ai_gen_id }}">
+              <div class="ai-product-details__spec-label-{{ ai_gen_id }}">Bridge & Nosepads</div>
+              <div class="ai-product-details__spec-value-{{ ai_gen_id }}">{{ block.settings.bridge_fit }}</div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Product details",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero section"
+    },
+    {
+      "type": "paragraph",
+      "content": "💡 Connect to product metafields using Dynamic Sources"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hero",
+      "label": "Show hero section",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "hero_title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "hero_subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show description",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "header",
+      "content": "Product details"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_details",
+      "label": "Show product details",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "product_details_title",
+      "label": "Section title",
+      "default": "Product Details"
+    },
+    {
+      "type": "text",
+      "id": "model_code",
+      "label": "Model code"
+    },
+    {
+      "type": "text",
+      "id": "frame_shape",
+      "label": "Frame shape"
+    },
+    {
+      "type": "text",
+      "id": "frame_color",
+      "label": "Frame colour"
+    },
+    {
+      "type": "text",
+      "id": "frame_material",
+      "label": "Frame material"
+    },
+    {
+      "type": "text",
+      "id": "temple_color",
+      "label": "Temple colour"
+    },
+    {
+      "type": "header",
+      "content": "Lens info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_lens_info",
+      "label": "Show lens info",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "lens_info_title",
+      "label": "Section title",
+      "default": "Lens Info"
+    },
+    {
+      "type": "text",
+      "id": "lens_color",
+      "label": "Lens colour"
+    },
+    {
+      "type": "text",
+      "id": "lens_treatment",
+      "label": "Treatment"
+    },
+    {
+      "type": "header",
+      "content": "Dimensions"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dimensions",
+      "label": "Show dimensions",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "dimensions_title",
+      "label": "Section title",
+      "default": "Product Dimensions"
+    },
+    {
+      "type": "text",
+      "id": "size",
+      "label": "Size"
+    },
+    {
+      "type": "text",
+      "id": "lens_height",
+      "label": "Lens height"
+    },
+    {
+      "type": "text",
+      "id": "temple_length",
+      "label": "Temple length"
+    },
+    {
+      "type": "header",
+      "content": "Face coverage"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_face_coverage",
+      "label": "Show face coverage",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "face_coverage_title",
+      "label": "Section title",
+      "default": "Face Coverage"
+    },
+    {
+      "type": "text",
+      "id": "face_coverage",
+      "label": "Face coverage"
+    },
+    {
+      "type": "text",
+      "id": "bridge_fit",
+      "label": "Bridge & nosepads"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label",
+      "default": "#a76111"
+    },
+    {
+      "type": "color",
+      "id": "spec_bg_color",
+      "label": "Spec background",
+      "default": "#faf5f2"
+    },
+    {
+      "type": "color",
+      "id": "spec_border_color",
+      "label": "Spec border",
+      "default": "#e5ddd4"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider",
+      "default": "#e5ddd4"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Title weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "title_transform",
+      "label": "Title transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "section_title_size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Section title size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding vertical",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding horizontal",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "spec_border_radius",
+      "min": 0,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "label": "Spec border radius",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product details"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,809 @@
+{% doc %}
+  @prompt
+    Designing This Section for New Vantage Co.
+    Keep the core layout (headline + four-column grid) but transform the styling to reflect your brand.
+    
+    1. Headline & Sub-headline
+    
+    Headline: Primary bold sans-serif font; clear and direct.
+    Example: Shop By Frame Style / Explore Our Collections
+    
+    Sub-headline: Lighter body font; offers context or guidance.
+    Example: Need guidance? Explore our complete collection in the style guide. (link “style guide”)
+    
+    2. Four-Column Grid & Cards
+    
+    Card Shape: Perfect rectangles with sharp 90-degree corners for a precise, modern feel.
+    
+    Imagery: Mix sophisticated lifestyle shots (models in professional/stylish settings) with clean minimalist product photos. Consistent lighting and color grading aligned with hero section photography.
+    
+    3. Category Labels (Key Redesign)
+    
+    Style: Solid black, semi-transparent rectangular bar at the bottom of each card.
+    
+    Typography: White, all-caps text with letter-spacing (e.g., 1.5px).
+    Example Categories: THE MINIMALIST, THE PROFESSIONAL, ACETATE FRAMES, TITANIUM FRAMES
+    
+    Mirrors the “SHOP NOW” button style for consistent, premium branding.
+    
+    Visual Description
+    
+    Headline: Bold, clean at the top: Shop By Frame Style.
+    
+    Grid: Four perfectly aligned rectangular images with sharp corners.
+    
+    Image 1: Model wearing sleek titanium frames in a modern office.
+    
+    Image 2: Close-up of acetate glasses on a linen book.
+    
+    Overlay: Solid black rectangular bar across the bottom of each card with category names in crisp white, all-caps, elegantly spaced letters.
+    
+    Example: TITANIUM FRAMES / ACETATE FRAMES
+    
+    The final section is deliberate, high-end, and easy to navigate—visually communicating New Vantage Co.’s sharp, modern, and premium identity while encouraging users to explore curated collections confidently.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-frame-style-section-{{ ai_gen_id }} {
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-frame-style-container-{{ ai_gen_id }} {
+    max-width: 1540px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .ai-frame-style-header-{{ ai_gen_id }} {
+    text-align: {{ block.settings.text_alignment }};
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-frame-style-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.headline_size }}px;
+    font-weight: {{ block.settings.headline_weight }};
+    color: {{ block.settings.headline_color }};
+    margin: 0 0 {{ block.settings.headline_margin }}px;
+    line-height: 1.2;
+    text-transform: {{ block.settings.headline_transform }};
+    letter-spacing: {{ block.settings.headline_spacing }}px;
+  }
+
+  .ai-frame-style-subheadline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subheadline_size }}px;
+    font-weight: {{ block.settings.subheadline_weight }};
+    color: {{ block.settings.subheadline_color }};
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .ai-frame-style-subheadline-{{ ai_gen_id }} a {
+    color: {{ block.settings.link_color }};
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  .ai-frame-style-subheadline-{{ ai_gen_id }} a:hover {
+    color: {{ block.settings.link_hover_color }};
+  }
+
+  .ai-frame-style-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+    margin-top: {{ block.settings.grid_margin_top }}px;
+  }
+
+  .ai-frame-style-card-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ block.settings.card_border_radius }}px;
+    aspect-ratio: {{ block.settings.card_aspect_ratio }};
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ai-frame-style-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-{{ block.settings.hover_lift }}px);
+    box-shadow: 0 {{ block.settings.hover_shadow_blur }}px {{ block.settings.hover_shadow_spread }}px rgba(0, 0, 0, {{ block.settings.hover_shadow_opacity | divided_by: 100.0 }});
+  }
+
+  .ai-frame-style-card-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-frame-style-card-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-frame-style-card-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-frame-style-card-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: {{ block.settings.overlay_color }};
+    opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+    padding: {{ block.settings.overlay_padding }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-frame-style-card-label-{{ ai_gen_id }} {
+    color: {{ block.settings.label_color }};
+    font-size: {{ block.settings.label_size }}px;
+    font-weight: {{ block.settings.label_weight }};
+    text-transform: {{ block.settings.label_transform }};
+    letter-spacing: {{ block.settings.label_spacing }}px;
+    margin: 0;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .ai-frame-style-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_tablet }}, 1fr);
+      gap: {{ block.settings.grid_gap | times: 0.8 }}px;
+    }
+
+    .ai-frame-style-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.headline_size | times: 0.8 }}px;
+    }
+
+    .ai-frame-style-subheadline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subheadline_size | times: 0.9 }}px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-frame-style-container-{{ ai_gen_id }} {
+      padding: 0 20px;
+    }
+
+    .ai-frame-style-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+      gap: {{ block.settings.grid_gap | times: 0.6 }}px;
+    }
+
+    .ai-frame-style-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.headline_size | times: 0.7 }}px;
+    }
+
+    .ai-frame-style-subheadline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subheadline_size | times: 0.8 }}px;
+    }
+
+    .ai-frame-style-card-{{ ai_gen_id }}:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .ai-frame-style-overlay-padding-{{ ai_gen_id }} {
+      padding: {{ block.settings.overlay_padding | times: 0.8 }}px;
+    }
+
+    .ai-frame-style-card-label-{{ ai_gen_id }} {
+      font-size: {{ block.settings.label_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-frame-style-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-frame-style-container-{{ ai_gen_id }}">
+    {% if block.settings.headline != blank or block.settings.subheadline != blank %}
+      <div class="ai-frame-style-header-{{ ai_gen_id }}">
+        {% if block.settings.headline != blank %}
+          <h2 class="ai-frame-style-headline-{{ ai_gen_id }}">{{ block.settings.headline }}</h2>
+        {% endif %}
+        {% if block.settings.subheadline != blank %}
+          <div class="ai-frame-style-subheadline-{{ ai_gen_id }}">{{ block.settings.subheadline }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="ai-frame-style-grid-{{ ai_gen_id }}">
+      {% for i in (1..4) %}
+        {% liquid
+          assign image_key = 'card_' | append: i | append: '_image'
+          assign label_key = 'card_' | append: i | append: '_label'
+          assign link_key = 'card_' | append: i | append: '_link'
+          
+          assign card_image = block.settings[image_key]
+          assign card_label = block.settings[label_key]
+          assign card_link = block.settings[link_key]
+        %}
+
+        <a 
+          href="{{ card_link | default: '#' }}" 
+          class="ai-frame-style-card-{{ ai_gen_id }}"
+          {% if card_link == blank %}onclick="return false;"{% endif %}
+        >
+          {% if card_image %}
+            <img
+              src="{{ card_image | image_url: width: 600 }}"
+              alt="{{ card_image.alt | escape }}"
+              class="ai-frame-style-card-image-{{ ai_gen_id }}"
+              loading="lazy"
+              width="{{ card_image.width }}"
+              height="{{ card_image.height }}"
+            >
+          {% else %}
+            <div class="ai-frame-style-card-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+
+          <div class="ai-frame-style-card-overlay-{{ ai_gen_id }}">
+            <h3 class="ai-frame-style-card-label-{{ ai_gen_id }}">
+              {{ card_label | default: 'Frame Style' }}
+            </h3>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop by frame style",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#faf5f2"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Headlines"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Shop By Frame Style"
+    },
+    {
+      "type": "richtext",
+      "id": "subheadline",
+      "label": "Sub-headline",
+      "default": "<p>Need guidance? Explore our complete collection in the <a href=\"#\">style guide</a>.</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Header bottom spacing",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Headline style"
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Size",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "headline_weight",
+      "label": "Weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "headline_transform",
+      "label": "Text transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "headline_spacing",
+      "min": 0,
+      "max": 3,
+      "step": 0.1,
+      "unit": "px",
+      "label": "Letter spacing",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "headline_margin",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom margin",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Sub-headline style"
+    },
+    {
+      "type": "range",
+      "id": "subheadline_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Size",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "subheadline_weight",
+      "label": "Weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "color",
+      "id": "subheadline_color",
+      "label": "Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#a76111"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Grid layout"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between cards",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "grid_margin_top",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Top margin",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "columns_tablet",
+      "label": "Columns on tablet",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "select",
+      "id": "card_aspect_ratio",
+      "label": "Aspect ratio",
+      "options": [
+        {
+          "value": "1/1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "4/3",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "3/4",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "16/9",
+          "label": "Wide (16:9)"
+        }
+      ],
+      "default": "4/3"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hover_lift",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "label": "Hover lift effect",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "hover_shadow_blur",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Hover shadow blur",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "hover_shadow_spread",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Hover shadow spread",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "hover_shadow_opacity",
+      "min": 5,
+      "max": 50,
+      "step": 5,
+      "unit": "%",
+      "label": "Hover shadow opacity",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Card overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Opacity",
+      "default": 85
+    },
+    {
+      "type": "range",
+      "id": "overlay_padding",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Card labels"
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "label_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "label_transform",
+      "label": "Text transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "label_spacing",
+      "min": 0,
+      "max": 3,
+      "step": 0.1,
+      "unit": "px",
+      "label": "Letter spacing",
+      "default": 1.5
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Card 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "card_1_label",
+      "label": "Label",
+      "default": "The Minimalist"
+    },
+    {
+      "type": "url",
+      "id": "card_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "card_2_label",
+      "label": "Label",
+      "default": "The Professional"
+    },
+    {
+      "type": "url",
+      "id": "card_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "card_3_label",
+      "label": "Label",
+      "default": "Acetate Frames"
+    },
+    {
+      "type": "url",
+      "id": "card_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "card_4_label",
+      "label": "Label",
+      "default": "Titanium Frames"
+    },
+    {
+      "type": "url",
+      "id": "card_4_link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by frame style"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,911 @@
+{% doc %}
+  @prompt
+    8. Environmental Commitment Section
+    Communicate New Vantage Co.’s values and mission, fostering a deeper customer connection.
+    
+    Container: Sharp-cornered, full-width rectangle with a deep earthy background (e.g., forest green).
+    
+    Text (Left):
+    
+    Headline: A Clearer Vision for the Planet
+    
+    Paragraph: Explain the tree-planting initiative and how purchases contribute to sustainability.
+    
+    Visual (Right): Elegant collage of two or three slightly overlapping, sharp-cornered photos of nature, saplings, or eco-conscious imagery.
+    
+    CTA Button: Solid black rectangle with white all-caps text: OUR COMMITMENT →
+    
+    9. Email Signup Section
+    The final call-to-action to capture leads and build your marketing list.
+    
+    Layout: Clean two-column design, separated from above content by a thin horizontal line.
+    
+    Text (Left):
+    
+    Pre-Headline: Small all-caps accent font: NEVER MISS A RELEASE
+    
+    Paragraph: Invite users to subscribe for updates, releases, or exclusive content.
+    
+    Form (Right):
+    
+    Rectangular input field for email address.
+    
+    Solid black square button with a white arrow icon (→) for submission.
+    
+    Impact:
+    Both sections reinforce New Vantage Co.’s brand values—sustainability, connection, and modern premium design—while providing clear, simple calls-to-action. The sharp-cornered, minimalist approach keeps the visual language consistent across the site., ust below your main page content, a single, fine, horizontal line marks the beginning of the footer area.
+    
+    Below this line is the signup section. On the left, the text NEVER MISS A RELEASE sits above a clean paragraph inviting users to subscribe.
+    
+    On the right, a simple, elegant text field prompts for an email address. Immediately next to it is a solid black, square button containing a single, crisp, white arrow (→), perfectly aligned with the center of the input field. The entire section is balanced, minimalist, and unmistakably on-brand.
+    
+    This design transforms a simple utility into a sophisticated brand statement. It’s clean, highly functional, and perfectly aligned with the premium aesthetic of New Vantage Co., Environmental Commitment Section – New Vantage Co.
+    Transform the two-column structure into a sharp, minimalist, and premium statement about your environmental initiatives.
+    
+    1. Container
+    
+    Shape: Sharp-cornered rectangle, consistent with your architectural design language.
+    
+    Background Color: Deep, rich earthy tone such as dark forest green or signature dark charcoal for a sophisticated, nature-connected feel.
+    
+    2. Text (Left Column)
+    
+    Headline: Primary bold sans-serif font.
+    Example: A Clearer Vision for the Planet
+    Alternative: For Every Pair, a New Beginning
+    
+    Paragraph: Standard body font. Briefly explain the initiative:
+    Example: "We believe in style that's sustainable. For every frame purchased, we partner with [e.g., One Tree Planted] to plant a tree, helping restore ecosystems and invest in a greener future."
+    
+    CTA Button: Solid black rectangle with sharp corners, white all-caps text, and arrow icon (→).
+    Example: OUR COMMITMENT → / LEARN MORE →
+    
+    3. Visuals (Right Column)
+    
+    Structured Collage: Two or three sharp-cornered rectangular images, cleanly arranged with slight overlap for elegance.
+    
+    Image Content:
+    
+    Primary: High-quality forest canopy or hand planting a sapling.
+    
+    Secondary (optional): Product shot on a natural element, like a frame on moss or wood, highlighting sustainable materials.
+    
+    Impact:
+    This section communicates responsible luxury and forward-thinking environmental commitment. The clean layout, sharp geometry, and elevated imagery create a sophisticated, visually compelling story aligned with New Vantage Co.’s premium brand identity.
+    
+    If you want, I can now combine all your site sections—grids, collections, aftercare, frame shapes, virtual consultation, user content, email signup, and environmental commitment—into one unified New Vantage Co. brand guide, with consistent tone, typography, imagery, and CTA styles for the entire site. , Quality & Care Section – New Vantage Co.
+    Communicate New Vantage Co.’s commitment to precision, safety, and customer confidence through a sharp, professional layout.
+    
+    1. Container
+    
+    Shape: Sharp-cornered, full-width rectangle, maintaining your clean architectural style.
+    
+    Background Color: Deep, muted tone such as charcoal or soft grey for a premium, professional feel.
+    
+    2. Text (Left Column)
+    
+    Headline: Primary bold sans-serif font.
+    Example: Precision You Can Trust
+    Alternative: Your Vision, Checked Twice
+    
+    Paragraph: Standard body font explaining your service:
+    Example: "Every prescription is carefully reviewed by a qualified professional before we order your lenses. Once your glasses are ready, we double-check the prescription to ensure complete accuracy before shipping."
+    
+    CTA Button: Solid black rectangle with sharp corners, white all-caps text, and arrow icon (→).
+    Example: EXPERIENCE THE DIFFERENCE →
+    
+    3. Visuals (Right Column)
+    
+    Structured Images: Two or three sharp-cornered rectangular images in a clean, slightly overlapping composition.
+    
+    Image Content:
+    
+    Primary: Technician inspecting frames with precision tools.
+    
+    Secondary: Close-up of glasses being carefully measured or cleaned before packaging.
+    
+    Impact:
+    This section communicates New Vantage Co.’s meticulous attention to quality, reassuring customers that every pair of glasses is checked by professionals twice before it arrives. It reinforces the brand’s sharp, premium, and trustworthy identity.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-quality-care-{{ ai_gen_id }} {
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding }}px 0;
+  }
+
+  .ai-quality-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ block.settings.content_gap }}px;
+    align-items: center;
+    min-height: {{ block.settings.min_height }}px;
+  }
+
+  .ai-quality-text-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    padding-right: {{ block.settings.text_padding }}px;
+  }
+
+  .ai-quality-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.headline_size }}px;
+    font-weight: {{ block.settings.headline_weight }};
+    line-height: {{ block.settings.headline_line_height }};
+    margin: 0 0 {{ block.settings.headline_margin }}px 0;
+    color: {{ block.settings.headline_color }};
+  }
+
+  .ai-quality-paragraph-{{ ai_gen_id }} {
+    font-size: {{ block.settings.paragraph_size }}px;
+    line-height: {{ block.settings.paragraph_line_height }};
+    margin: 0 0 {{ block.settings.paragraph_margin }}px 0;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-quality-cta-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: {{ block.settings.button_font_weight }};
+    font-size: {{ block.settings.button_font_size }}px;
+    letter-spacing: {{ block.settings.button_letter_spacing }}em;
+    transition: all 0.3s ease;
+    gap: {{ block.settings.button_icon_gap }}px;
+  }
+
+  .ai-quality-cta-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text_color }};
+  }
+
+  .ai-quality-arrow-{{ ai_gen_id }} {
+    width: {{ block.settings.arrow_size }}px;
+    height: {{ block.settings.arrow_size }}px;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-quality-cta-{{ ai_gen_id }}:hover .ai-quality-arrow-{{ ai_gen_id }} {
+    transform: translateX(4px);
+  }
+
+  .ai-quality-visuals-{{ ai_gen_id }} {
+    position: relative;
+    height: {{ block.settings.visual_height }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-quality-image-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ai-quality-image-primary-{{ ai_gen_id }} {
+    position: absolute;
+    width: {{ block.settings.primary_image_width }}%;
+    height: {{ block.settings.primary_image_height }}%;
+    top: {{ block.settings.primary_image_top }}%;
+    left: {{ block.settings.primary_image_left }}%;
+    z-index: 2;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-quality-image-secondary-{{ ai_gen_id }} {
+    position: absolute;
+    width: {{ block.settings.secondary_image_width }}%;
+    height: {{ block.settings.secondary_image_height }}%;
+    top: {{ block.settings.secondary_image_top }}%;
+    right: {{ block.settings.secondary_image_right }}%;
+    z-index: 1;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .ai-quality-image-tertiary-{{ ai_gen_id }} {
+    position: absolute;
+    width: {{ block.settings.tertiary_image_width }}%;
+    height: {{ block.settings.tertiary_image_height }}%;
+    bottom: {{ block.settings.tertiary_image_bottom }}%;
+    left: {{ block.settings.tertiary_image_left }}%;
+    z-index: 3;
+    overflow: hidden;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+  }
+
+  .ai-quality-image-primary-{{ ai_gen_id }} img,
+  .ai-quality-image-secondary-{{ ai_gen_id }} img,
+  .ai-quality-image-tertiary-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-quality-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: {{ block.settings.placeholder_background }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ block.settings.placeholder_text_color }};
+    font-size: 14px;
+    text-align: center;
+    position: relative;
+  }
+
+  .ai-quality-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-quality-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: {{ block.settings.placeholder_text_color }};
+    text-align: center;
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-quality-container-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.mobile_gap }}px;
+      min-height: auto;
+    }
+
+    .ai-quality-text-{{ ai_gen_id }} {
+      padding-right: 0;
+      text-align: center;
+      order: 2;
+    }
+
+    .ai-quality-visuals-{{ ai_gen_id }} {
+      order: 1;
+      height: {{ block.settings.mobile_visual_height }}px;
+    }
+
+    .ai-quality-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.headline_size | times: 0.85 }}px;
+    }
+
+    .ai-quality-paragraph-{{ ai_gen_id }} {
+      font-size: {{ block.settings.paragraph_size | times: 0.9 }}px;
+    }
+
+    .ai-quality-cta-{{ ai_gen_id }} {
+      font-size: {{ block.settings.button_font_size | times: 0.9 }}px;
+      padding: {{ block.settings.button_padding_vertical | times: 0.8 }}px {{ block.settings.button_padding_horizontal | times: 0.8 }}px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .ai-quality-image-primary-{{ ai_gen_id }},
+    .ai-quality-image-secondary-{{ ai_gen_id }},
+    .ai-quality-image-tertiary-{{ ai_gen_id }} {
+      position: static;
+      width: 100%;
+      height: 33.33%;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .ai-quality-visuals-{{ ai_gen_id }} {
+      height: auto;
+    }
+
+    .ai-quality-image-container-{{ ai_gen_id }} {
+      display: flex;
+      flex-direction: column;
+      height: auto;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-quality-care-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-quality-container-{{ ai_gen_id }}">
+    <div class="ai-quality-text-{{ ai_gen_id }}">
+      {% if block.settings.headline != blank %}
+        <h2 class="ai-quality-headline-{{ ai_gen_id }}">
+          {{ block.settings.headline }}
+        </h2>
+      {% endif %}
+
+      {% if block.settings.paragraph != blank %}
+        <div class="ai-quality-paragraph-{{ ai_gen_id }}">
+          {{ block.settings.paragraph }}
+        </div>
+      {% endif %}
+
+      {% if block.settings.cta_text != blank %}
+        <a 
+          href="{{ block.settings.cta_link }}" 
+          class="ai-quality-cta-{{ ai_gen_id }}"
+        >
+          {{ block.settings.cta_text }}
+          <svg
+            class="ai-quality-arrow-{{ ai_gen_id }}"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12,5 19,12 12,19"></polyline>
+          </svg>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="ai-quality-visuals-{{ ai_gen_id }}">
+      <div class="ai-quality-image-container-{{ ai_gen_id }}">
+        <div class="ai-quality-image-primary-{{ ai_gen_id }}">
+          {% if block.settings.primary_image %}
+            <img
+              src="{{ block.settings.primary_image | image_url: width: 800 }}"
+              alt="{{ block.settings.primary_image.alt | escape }}"
+              loading="lazy"
+              width="{{ block.settings.primary_image.width }}"
+              height="{{ block.settings.primary_image.height }}"
+            >
+          {% else %}
+            <div class="ai-quality-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+              <div class="ai-quality-empty-state-{{ ai_gen_id }}">
+                Add precision inspection image
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+        {% if block.settings.enable_secondary_image %}
+          <div class="ai-quality-image-secondary-{{ ai_gen_id }}">
+            {% if block.settings.secondary_image %}
+              <img
+                src="{{ block.settings.secondary_image | image_url: width: 600 }}"
+                alt="{{ block.settings.secondary_image.alt | escape }}"
+                loading="lazy"
+                width="{{ block.settings.secondary_image.width }}"
+                height="{{ block.settings.secondary_image.height }}"
+              >
+            {% else %}
+              <div class="ai-quality-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+                <div class="ai-quality-empty-state-{{ ai_gen_id }}">
+                  Add quality check image
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if block.settings.enable_tertiary_image %}
+          <div class="ai-quality-image-tertiary-{{ ai_gen_id }}">
+            {% if block.settings.tertiary_image %}
+              <img
+                src="{{ block.settings.tertiary_image | image_url: width: 400 }}"
+                alt="{{ block.settings.tertiary_image.alt | escape }}"
+                loading="lazy"
+                width="{{ block.settings.tertiary_image.width }}"
+                height="{{ block.settings.tertiary_image.height }}"
+              >
+            {% else %}
+              <div class="ai-quality-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+                <div class="ai-quality-empty-state-{{ ai_gen_id }}">
+                  Add packaging image
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Quality & care",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Precision You Can Trust"
+    },
+    {
+      "type": "richtext",
+      "id": "paragraph",
+      "label": "Description",
+      "default": "<p>Every prescription is carefully reviewed by a qualified professional before we order your lenses. Once your glasses are ready, we double-check the prescription to ensure complete accuracy before shipping.</p>"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "EXPERIENCE THE DIFFERENCE"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "primary_image",
+      "label": "Primary image"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_secondary_image",
+      "label": "Enable secondary image",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "secondary_image",
+      "label": "Secondary image"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_tertiary_image",
+      "label": "Enable tertiary image",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "tertiary_image",
+      "label": "Tertiary image"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 1000,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Container width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 60,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "min": 60,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Content gap",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "min": 30,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile gap",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 400,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "label": "Minimum height",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "text_padding",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Text padding right",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Visual positioning"
+    },
+    {
+      "type": "range",
+      "id": "visual_height",
+      "min": 300,
+      "max": 500,
+      "step": 20,
+      "unit": "px",
+      "label": "Visual area height",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "mobile_visual_height",
+      "min": 200,
+      "max": 350,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile visual height",
+      "default": 250
+    },
+    {
+      "type": "range",
+      "id": "primary_image_width",
+      "min": 50,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Primary image width",
+      "default": 65
+    },
+    {
+      "type": "range",
+      "id": "primary_image_height",
+      "min": 60,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Primary image height",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "primary_image_top",
+      "min": 0,
+      "max": 20,
+      "step": 5,
+      "unit": "%",
+      "label": "Primary image top position",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "primary_image_left",
+      "min": 0,
+      "max": 30,
+      "step": 5,
+      "unit": "%",
+      "label": "Primary image left position",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "secondary_image_width",
+      "min": 30,
+      "max": 60,
+      "step": 5,
+      "unit": "%",
+      "label": "Secondary image width",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "secondary_image_height",
+      "min": 40,
+      "max": 70,
+      "step": 5,
+      "unit": "%",
+      "label": "Secondary image height",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "secondary_image_top",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "%",
+      "label": "Secondary image top position",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "secondary_image_right",
+      "min": 0,
+      "max": 30,
+      "step": 5,
+      "unit": "%",
+      "label": "Secondary image right position",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "tertiary_image_width",
+      "min": 25,
+      "max": 50,
+      "step": 5,
+      "unit": "%",
+      "label": "Tertiary image width",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "tertiary_image_height",
+      "min": 30,
+      "max": 60,
+      "step": 5,
+      "unit": "%",
+      "label": "Tertiary image height",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "tertiary_image_bottom",
+      "min": 0,
+      "max": 20,
+      "step": 5,
+      "unit": "%",
+      "label": "Tertiary image bottom position",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "tertiary_image_left",
+      "min": 40,
+      "max": 70,
+      "step": 5,
+      "unit": "%",
+      "label": "Tertiary image left position",
+      "default": 55
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#4a4a4a"
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Headline color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Button hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_background",
+      "label": "Placeholder background",
+      "default": "#f0f0f0"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_text_color",
+      "label": "Placeholder text color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "min": 28,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Headline size",
+      "default": 36
+    },
+    {
+      "type": "select",
+      "id": "headline_weight",
+      "label": "Headline weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "headline_line_height",
+      "min": 1.1,
+      "max": 1.5,
+      "step": 0.1,
+      "label": "Headline line height",
+      "default": 1.2
+    },
+    {
+      "type": "range",
+      "id": "headline_margin",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Headline margin bottom",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "paragraph_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Paragraph size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "paragraph_line_height",
+      "min": 1.4,
+      "max": 1.8,
+      "step": 0.1,
+      "label": "Paragraph line height",
+      "default": 1.6
+    },
+    {
+      "type": "range",
+      "id": "paragraph_margin",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Paragraph margin bottom",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Button styling"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Button font size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "button_font_weight",
+      "label": "Button font weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "button_letter_spacing",
+      "min": 0.1,
+      "max": 0.3,
+      "step": 0.1,
+      "unit": "em",
+      "label": "Button letter spacing",
+      "default": 0.2
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Button vertical padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "min": 24,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Button horizontal padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "button_icon_gap",
+      "min": 8,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Button icon gap",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "arrow_size",
+      "min": 16,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Arrow size",
+      "default": 18
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quality & care"
+    }
+  ]
+}
+{% endschema %}

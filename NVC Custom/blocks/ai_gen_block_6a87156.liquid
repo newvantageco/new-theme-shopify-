@@ -1,0 +1,806 @@
+{% doc %}
+  @prompt
+    Applying the New Vantage Co. Style
+    Maintain a user-friendly four-column grid while replacing soft, rounded elements with your signature sharp, sophisticated aesthetic.
+    
+    1. Headline & Sub-headline
+    
+    Headline: Primary bold sans-serif font.
+    Example: Shop By Frame Shape
+    
+    Sub-headline: Lighter body font offering guidance.
+    Example: Unsure of your fit? Discover your perfect silhouette in our style guide. (link “style guide”)
+    
+    2. Grid of Cards
+    
+    Card Shape: Perfect rectangles with sharp 90-degree corners, preserving the brand’s architectural feel.
+    
+    Imagery: High-end product and model photography that is editorial and sophisticated. Clean, minimalist backgrounds let frame shapes stand out.
+    
+    3. Shape Labels
+    
+    Style: Solid black, semi-transparent rectangular bar at the bottom of each card.
+    
+    Typography: White, all-caps text with letter-spacing (e.g., 1.5px).
+    
+    Reinforces consistency with main buttons and premium visual language.
+    
+    Visual Description
+    
+    Section title: Bold headline Shop By Frame Shape.
+    
+    Grid: Four sharp-cornered images showcasing products.
+    
+    Example 1: Model wearing Cat-Eye frames with confident expression.
+    
+    Example 2: Minimalist Round frame against a textured background.
+    
+    Bottom of each card: Sleek black rectangular bar with shape names in crisp white, all-caps, elegantly spaced letters.
+    
+    First card: SQUARE
+    
+    Second: ROUND
+    
+    Third: CAT-EYE
+    
+    Fourth: RECTANGLE
+    
+    Impact
+    This design creates a predictable, easy-to-navigate, and visually striking shopping experience while reinforcing New Vantage Co.’s premium, sharp, and sophisticated identity across the site., large portrait width everything nicely done and optimised for small screen
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-frame-shape-selector-{{ ai_gen_id }} {
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-frame-shape-container-{{ ai_gen_id }} {
+    max-width: {{ settings.container }}px;
+    margin: 0 auto;
+    padding: 0 {{ settings.gutter | divided_by: 2 }}px;
+  }
+
+  .ai-frame-shape-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-frame-shape-title-{{ ai_gen_id }} {
+    font-family: var(--g-font-1);
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: {{ block.settings.title_weight }};
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.title_margin }}px;
+    line-height: 1.2;
+    text-transform: {{ block.settings.title_transform }};
+    letter-spacing: {{ block.settings.title_spacing }}px;
+  }
+
+  .ai-frame-shape-subtitle-{{ ai_gen_id }} {
+    font-family: var(--g-font-2);
+    font-size: {{ block.settings.subtitle_size }}px;
+    font-weight: {{ block.settings.subtitle_weight }};
+    color: {{ block.settings.subtitle_color }};
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .ai-frame-shape-subtitle-{{ ai_gen_id }} a {
+    color: {{ block.settings.link_color }};
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  .ai-frame-shape-subtitle-{{ ai_gen_id }} a:hover {
+    color: {{ block.settings.link_hover_color }};
+  }
+
+  .ai-frame-shape-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+    margin-top: {{ block.settings.grid_margin_top }}px;
+  }
+
+  .ai-frame-shape-card-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    background-color: {{ block.settings.card_background }};
+    border-radius: 0;
+    transition: transform {{ block.settings.hover_duration | divided_by: 10.0 }}s ease, box-shadow {{ block.settings.hover_duration | divided_by: 10.0 }}s ease;
+    cursor: pointer;
+  }
+
+  .ai-frame-shape-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-{{ block.settings.hover_lift }}px);
+    box-shadow: 0 {{ block.settings.shadow_blur }}px {{ block.settings.shadow_spread }}px rgba(0, 0, 0, {{ block.settings.shadow_opacity | divided_by: 10.0 }});
+  }
+
+  .ai-frame-shape-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: {{ block.settings.image_aspect_ratio }};
+    overflow: hidden;
+  }
+
+  .ai-frame-shape-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform {{ block.settings.hover_duration | divided_by: 10.0 }}s ease;
+  }
+
+  .ai-frame-shape-card-{{ ai_gen_id }}:hover .ai-frame-shape-image-{{ ai_gen_id }} {
+    transform: scale({{ block.settings.image_scale | divided_by: 10.0 }});
+  }
+
+  .ai-frame-shape-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 14px;
+  }
+
+  .ai-frame-shape-placeholder-{{ ai_gen_id }} svg {
+    width: 40%;
+    height: 40%;
+    opacity: 0.3;
+  }
+
+  .ai-frame-shape-label-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, {{ block.settings.label_opacity | divided_by: 10.0 }});
+    padding: {{ block.settings.label_padding }}px;
+    text-align: center;
+  }
+
+  .ai-frame-shape-label-text-{{ ai_gen_id }} {
+    font-family: var(--g-font-1);
+    font-size: {{ block.settings.label_size }}px;
+    font-weight: {{ block.settings.label_weight }};
+    color: {{ block.settings.label_color }};
+    text-transform: uppercase;
+    letter-spacing: {{ block.settings.label_spacing | divided_by: 2.0 }}px;
+    margin: 0;
+    line-height: 1;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .ai-frame-shape-container-{{ ai_gen_id }} {
+      padding: 0 {{ settings.gutter | divided_by: 1.5 }}px;
+    }
+    
+    .ai-frame-shape-grid-{{ ai_gen_id }} {
+      gap: {{ block.settings.grid_gap | times: 0.9 }}px;
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    .ai-frame-shape-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: {{ block.settings.grid_gap | times: 0.8 }}px;
+    }
+    
+    .ai-frame-shape-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.9 }}px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-frame-shape-container-{{ ai_gen_id }} {
+      padding: 0 {{ settings.gutter | divided_by: 2.5 }}px;
+    }
+    
+    .ai-frame-shape-selector-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding_top | times: 0.8 }}px 0 {{ block.settings.section_padding_bottom | times: 0.8 }}px;
+    }
+    
+    .ai-frame-shape-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.75 }}px;
+      margin-bottom: {{ block.settings.title_margin | times: 0.8 }}px;
+    }
+
+    .ai-frame-shape-subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subtitle_size | times: 0.9 }}px;
+    }
+    
+    .ai-frame-shape-header-{{ ai_gen_id }} {
+      margin-bottom: {{ block.settings.header_spacing | times: 0.7 }}px;
+    }
+
+    .ai-frame-shape-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.mobile_columns }}, 1fr);
+      gap: {{ block.settings.grid_gap | times: 0.6 }}px;
+      margin-top: {{ block.settings.grid_margin_top | times: 0.7 }}px;
+    }
+
+    .ai-frame-shape-label-text-{{ ai_gen_id }} {
+      font-size: {{ block.settings.label_size | times: 0.85 }}px;
+      letter-spacing: {{ block.settings.label_spacing | divided_by: 2.0 | times: 0.8 }}px;
+    }
+    
+    .ai-frame-shape-label-{{ ai_gen_id }} {
+      padding: {{ block.settings.label_padding | times: 0.8 }}px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .ai-frame-shape-container-{{ ai_gen_id }} {
+      padding: 0 16px;
+    }
+    
+    .ai-frame-shape-selector-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding_top | times: 0.6 }}px 0 {{ block.settings.section_padding_bottom | times: 0.6 }}px;
+    }
+    
+    .ai-frame-shape-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.65 }}px;
+    }
+
+    .ai-frame-shape-grid-{{ ai_gen_id }} {
+      gap: {{ block.settings.grid_gap | times: 0.4 }}px;
+    }
+    
+    .ai-frame-shape-label-text-{{ ai_gen_id }} {
+      font-size: {{ block.settings.label_size | times: 0.75 }}px;
+      letter-spacing: {{ block.settings.label_spacing | divided_by: 2.0 | times: 0.6 }}px;
+    }
+    
+    .ai-frame-shape-label-{{ ai_gen_id }} {
+      padding: {{ block.settings.label_padding | times: 0.6 }}px;
+    }
+  }
+{% endstyle %}
+
+<frame-shape-selector-{{ ai_gen_id }}
+  class="ai-frame-shape-selector-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-frame-shape-container-{{ ai_gen_id }}">
+    <div class="ai-frame-shape-header-{{ ai_gen_id }}">
+      {% if block.settings.title != blank %}
+        <h2 class="ai-frame-shape-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+      {% endif %}
+      
+      {% if block.settings.subtitle != blank %}
+        <div class="ai-frame-shape-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</div>
+      {% endif %}
+    </div>
+
+    <div class="ai-frame-shape-grid-{{ ai_gen_id }}">
+      {% for i in (1..4) %}
+        {% liquid
+          assign image_key = 'shape_image_' | append: i
+          assign label_key = 'shape_label_' | append: i
+          assign link_key = 'shape_link_' | append: i
+          
+          assign shape_image = block.settings[image_key]
+          assign shape_label = block.settings[label_key]
+          assign shape_link = block.settings[link_key]
+        %}
+
+        {% if shape_label != blank %}
+          <a
+            href="{{ shape_link | default: '#' }}"
+            class="ai-frame-shape-card-{{ ai_gen_id }}"
+            aria-label="Shop {{ shape_label }} frames"
+          >
+            <div class="ai-frame-shape-image-wrapper-{{ ai_gen_id }}">
+              {% if shape_image %}
+                <img
+                  src="{{ shape_image | image_url: width: 800 }}"
+                  alt="{{ shape_label }} frame shape"
+                  class="ai-frame-shape-image-{{ ai_gen_id }}"
+                  loading="lazy"
+                  width="{{ shape_image.width }}"
+                  height="{{ shape_image.height }}"
+                >
+              {% else %}
+                <div class="ai-frame-shape-placeholder-{{ ai_gen_id }}">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+              
+              <div class="ai-frame-shape-label-{{ ai_gen_id }}">
+                <p class="ai-frame-shape-label-text-{{ ai_gen_id }}">{{ shape_label }}</p>
+              </div>
+            </div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</frame-shape-selector-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class FrameShapeSelector{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.cards = this.querySelectorAll('.ai-frame-shape-card-{{ ai_gen_id }}');
+        this.setupEventListeners();
+        this.setupTouchOptimization();
+      }
+
+      setupEventListeners() {
+        this.cards.forEach((card) => {
+          card.addEventListener('click', (e) => {
+            const href = card.getAttribute('href');
+            if (href && href !== '#') {
+              window.location.href = href;
+            }
+          });
+
+          card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              card.click();
+            }
+          });
+        });
+      }
+
+      setupTouchOptimization() {
+        if ('ontouchstart' in window) {
+          this.cards.forEach((card) => {
+            card.addEventListener('touchstart', () => {
+              card.style.transform = 'translateY(-3px)';
+            }, { passive: true });
+
+            card.addEventListener('touchend', () => {
+              setTimeout(() => {
+                card.style.transform = '';
+              }, 150);
+            }, { passive: true });
+          });
+        }
+      }
+    }
+
+    customElements.define('frame-shape-selector-{{ ai_gen_id }}', FrameShapeSelector{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Frame shape selector",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Headline",
+      "default": "Shop By Frame Shape"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Sub-headline",
+      "default": "<p>Unsure of your fit? Discover your perfect silhouette in our <a href=\"/pages/style-guide\">style guide</a>.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Frame shape 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "shape_image_1",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "shape_label_1",
+      "label": "Shape name",
+      "default": "SQUARE"
+    },
+    {
+      "type": "url",
+      "id": "shape_link_1",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Frame shape 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "shape_image_2",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "shape_label_2",
+      "label": "Shape name",
+      "default": "ROUND"
+    },
+    {
+      "type": "url",
+      "id": "shape_link_2",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Frame shape 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "shape_image_3",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "shape_label_3",
+      "label": "Shape name",
+      "default": "CAT-EYE"
+    },
+    {
+      "type": "url",
+      "id": "shape_link_3",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Frame shape 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "shape_image_4",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "shape_label_4",
+      "label": "Shape name",
+      "default": "RECTANGLE"
+    },
+    {
+      "type": "url",
+      "id": "shape_link_4",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "Columns on mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Grid gap",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "grid_margin_top",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Grid top spacing",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        { "value": "1/1", "label": "Square (1:1)" },
+        { "value": "4/3", "label": "Landscape (4:3)" },
+        { "value": "3/4", "label": "Portrait (3:4)" },
+        { "value": "2/3", "label": "Large portrait (2:3)" },
+        { "value": "16/9", "label": "Wide (16:9)" }
+      ],
+      "default": "2/3"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Headline size",
+      "default": 48
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Headline weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "select",
+      "id": "title_transform",
+      "label": "Headline transform",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "capitalize", "label": "Capitalize" },
+        { "value": "uppercase", "label": "Uppercase" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Headline letter spacing",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "title_margin",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Headline bottom margin",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Sub-headline size",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "subtitle_weight",
+      "label": "Sub-headline weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Header bottom spacing",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Label style"
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Label text size",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "label_weight",
+      "label": "Label text weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "label_spacing",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "label": "Label letter spacing",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "label_padding",
+      "min": 12,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Label padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "label_opacity",
+      "min": 6,
+      "max": 10,
+      "step": 1,
+      "label": "Label background opacity",
+      "default": 9
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#faf5f2"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Headline color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Sub-headline color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#a76111"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Hover effects"
+    },
+    {
+      "type": "range",
+      "id": "hover_duration",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "label": "Hover transition duration",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "hover_lift",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "label": "Card hover lift",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "image_scale",
+      "min": 10,
+      "max": 12,
+      "step": 1,
+      "label": "Image hover scale",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "shadow_blur",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Hover shadow blur",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "shadow_spread",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Hover shadow spread",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "shadow_opacity",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Hover shadow opacity",
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Section top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Section bottom padding",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Frame shape selector"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,946 @@
+{% doc %}
+  @prompt
+    displays a "New arrivals" product showcase section from a modern e-commerce website, likely an online eyewear retailer. The section is topped by a navigation header featuring two selectable tabs: "New arrivals" (currently active and bolded) and "Bestsellers". To the far right, a prominent call-to-action button with a blue outline encourages users to "Shop new arrivals".
+    
+    Below this header is a horizontally scrollable product grid, presenting a curated selection of eyeglass frames. Four complete product "cards" are visible, with a fifth partially shown, indicating more items are available by scrolling right (an action prompted by a blue arrow icon).
+    
+    Each product card is designed with a clean, minimalist aesthetic on a white background. It features a high-quality, front-on studio photograph of the frames. At the bottom of each card, the product name (e.g., "Shepley", "Fremont") is displayed in a bold, elegant serif font, which contrasts nicely with the sans-serif UI text. The price (e.g., "$195", "$95") is clearly listed to the right of the name. Directly beneath the name, circular color swatches provide a quick visual preview of other available frame colors.
+    
+    Interactive icons are overlaid on the main product images. A heart icon in the top-left corner of each card serves as a "wishlist" or "favorite" button. A key feature is highlighted on the first product, "Shepley", which displays a distinct "Try on virtually" button next to a blue 3D cube icon. Other products, like "Fremont" and "Weller", feature a different, smaller icon in the top-right corner, possibly for "quick view" or "zoom". This differentiation suggests that the virtual try-on is a special feature not available for all items.
+    
+    The overall design is clean, spacious, and premium, using a neutral color palette with blue as a strategic accent for interactive elements. This layout effectively balances browsing (via tabs and scrolling) with detailed discovery (via swatches and icons)., use brand colours and make sure all the products displayed are clickable and users can view interact 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-new-arrivals-{{ ai_gen_id }} {
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+    background-color: #faf5f2;
+  }
+
+  .ai-new-arrivals-container-{{ ai_gen_id }} {
+    max-width: 1540px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-new-arrivals-header-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .ai-new-arrivals-tabs-{{ ai_gen_id }} {
+    display: flex;
+    gap: 40px;
+  }
+
+  .ai-new-arrivals-tab-{{ ai_gen_id }} {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: {{ block.settings.tab_font_size }}px;
+    color: #000000;
+    cursor: pointer;
+    font-weight: 400;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .ai-new-arrivals-tab-{{ ai_gen_id }}:hover {
+    color: #a76111;
+  }
+
+  .ai-new-arrivals-tab-{{ ai_gen_id }}.active {
+    color: #000000;
+    font-weight: 600;
+  }
+
+  .ai-new-arrivals-cta-{{ ai_gen_id }} {
+    padding: 12px 24px;
+    background-color: transparent;
+    color: #a76111;
+    border: 2px solid #a76111;
+    border-radius: {{ block.settings.cta_border_radius }}px;
+    font-size: {{ block.settings.cta_font_size }}px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  .ai-new-arrivals-cta-{{ ai_gen_id }}:hover {
+    background-color: #a76111;
+    color: #faf5f2;
+  }
+
+  .ai-new-arrivals-products-wrapper-{{ ai_gen_id }} {
+    position: relative;
+  }
+
+  .ai-new-arrivals-products-{{ ai_gen_id }} {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 10px;
+  }
+
+  .ai-new-arrivals-products-{{ ai_gen_id }}::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ai-new-arrivals-scroll-btn-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #faf5f2;
+    border: 2px solid #a76111;
+    color: #a76111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .ai-new-arrivals-scroll-btn-{{ ai_gen_id }}.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .ai-new-arrivals-scroll-btn-{{ ai_gen_id }}:hover {
+    background-color: #a76111;
+    color: #faf5f2;
+  }
+
+  .ai-new-arrivals-scroll-btn-{{ ai_gen_id }}.left {
+    left: -24px;
+  }
+
+  .ai-new-arrivals-scroll-btn-{{ ai_gen_id }}.right {
+    right: -24px;
+  }
+
+  .ai-new-arrivals-product-card-{{ ai_gen_id }} {
+    min-width: 280px;
+    flex-shrink: 0;
+    background-color: #ffffff;
+    border-radius: {{ block.settings.card_border_radius }}px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+
+  .ai-new-arrivals-product-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-new-arrivals-product-link-{{ ai_gen_id }} {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .ai-new-arrivals-product-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+    background-color: #f5f5f5;
+  }
+
+  .ai-new-arrivals-product-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-new-arrivals-product-card-{{ ai_gen_id }}:hover .ai-new-arrivals-product-image-{{ ai_gen_id }} {
+    transform: scale(1.05);
+  }
+
+  .ai-new-arrivals-wishlist-btn-{{ ai_gen_id }} {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1;
+  }
+
+  .ai-new-arrivals-wishlist-btn-{{ ai_gen_id }}:hover {
+    background-color: #ffffff;
+    transform: scale(1.1);
+  }
+
+  .ai-new-arrivals-wishlist-btn-{{ ai_gen_id }} svg {
+    width: 18px;
+    height: 18px;
+    stroke: #000000;
+    fill: none;
+    transition: all 0.3s ease;
+  }
+
+  .ai-new-arrivals-wishlist-btn-{{ ai_gen_id }}:hover svg {
+    stroke: #a76111;
+    fill: #a76111;
+  }
+
+  .ai-new-arrivals-feature-badge-{{ ai_gen_id }} {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 6px 12px;
+    background-color: #a76111;
+    color: #ffffff;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .ai-new-arrivals-feature-badge-{{ ai_gen_id }} svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .ai-new-arrivals-product-info-{{ ai_gen_id }} {
+    padding: 20px;
+  }
+
+  .ai-new-arrivals-product-name-{{ ai_gen_id }} {
+    font-size: {{ block.settings.product_name_size }}px;
+    font-weight: 600;
+    color: #000000;
+    margin: 0 0 8px 0;
+    font-family: {{ block.settings.product_name_font }};
+    transition: color 0.3s ease;
+  }
+
+  .ai-new-arrivals-product-link-{{ ai_gen_id }}:hover .ai-new-arrivals-product-name-{{ ai_gen_id }} {
+    color: #a76111;
+  }
+
+  .ai-new-arrivals-product-price-{{ ai_gen_id }} {
+    font-size: {{ block.settings.product_price_size }}px;
+    color: #000000;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .ai-new-arrivals-color-swatches-{{ ai_gen_id }} {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .ai-new-arrivals-color-swatch-{{ ai_gen_id }} {
+    width: {{ block.settings.swatch_size }}px;
+    height: {{ block.settings.swatch_size }}px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ai-new-arrivals-color-swatch-{{ ai_gen_id }}:hover {
+    border-color: #a76111;
+    transform: scale(1.1);
+  }
+
+  .ai-new-arrivals-tab-content-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-new-arrivals-tab-content-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-new-arrivals-quick-view-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1;
+    opacity: 0;
+  }
+
+  .ai-new-arrivals-product-card-{{ ai_gen_id }}:hover .ai-new-arrivals-quick-view-{{ ai_gen_id }} {
+    opacity: 1;
+  }
+
+  .ai-new-arrivals-quick-view-{{ ai_gen_id }}:hover {
+    background-color: #a76111;
+  }
+
+  .ai-new-arrivals-quick-view-{{ ai_gen_id }} svg {
+    width: 18px;
+    height: 18px;
+    stroke: #000000;
+  }
+
+  .ai-new-arrivals-quick-view-{{ ai_gen_id }}:hover svg {
+    stroke: #ffffff;
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-new-arrivals-header-{{ ai_gen_id }} {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .ai-new-arrivals-tabs-{{ ai_gen_id }} {
+      gap: 24px;
+    }
+
+    .ai-new-arrivals-product-card-{{ ai_gen_id }} {
+      min-width: 240px;
+    }
+
+    .ai-new-arrivals-scroll-btn-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ai-new-arrivals-quick-view-{{ ai_gen_id }} {
+      opacity: 1;
+    }
+  }
+{% endstyle %}
+
+<new-arrivals-{{ ai_gen_id }} class="ai-new-arrivals-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-new-arrivals-container-{{ ai_gen_id }}">
+    <div class="ai-new-arrivals-header-{{ ai_gen_id }}">
+      <div class="ai-new-arrivals-tabs-{{ ai_gen_id }}">
+        <button 
+          class="ai-new-arrivals-tab-{{ ai_gen_id }} active" 
+          data-tab="new-arrivals"
+          aria-label="Show new arrivals"
+        >
+          {{ block.settings.tab_1_title }}
+        </button>
+        <button 
+          class="ai-new-arrivals-tab-{{ ai_gen_id }}" 
+          data-tab="bestsellers"
+          aria-label="Show bestsellers"
+        >
+          {{ block.settings.tab_2_title }}
+        </button>
+      </div>
+      {% if block.settings.cta_url != blank %}
+        <a href="{{ block.settings.cta_url }}" class="ai-new-arrivals-cta-{{ ai_gen_id }}">
+          {{ block.settings.cta_text }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="ai-new-arrivals-tab-content-{{ ai_gen_id }} active" data-content="new-arrivals">
+      <div class="ai-new-arrivals-products-wrapper-{{ ai_gen_id }}">
+        <button class="ai-new-arrivals-scroll-btn-{{ ai_gen_id }} left" aria-label="Scroll left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <div class="ai-new-arrivals-products-{{ ai_gen_id }}" data-scroll-container="new-arrivals">
+          {% if block.settings.collection_1 != blank %}
+            {% for product in block.settings.collection_1.products limit: block.settings.products_limit %}
+              <div class="ai-new-arrivals-product-card-{{ ai_gen_id }}">
+                <a href="{{ product.url }}" class="ai-new-arrivals-product-link-{{ ai_gen_id }}">
+                  <div class="ai-new-arrivals-product-image-wrapper-{{ ai_gen_id }}">
+                    {% if product.featured_image %}
+                      <img 
+                        src="{{ product.featured_image | image_url: width: 600 }}" 
+                        alt="{{ product.featured_image.alt | escape }}"
+                        class="ai-new-arrivals-product-image-{{ ai_gen_id }}"
+                        loading="lazy"
+                        width="600"
+                        height="600"
+                      >
+                    {% else %}
+                      <div class="ai-new-arrivals-product-image-{{ ai_gen_id }}">
+                        {{ 'product-1' | placeholder_svg_tag }}
+                      </div>
+                    {% endif %}
+                    
+                    {% if forloop.index == 1 and block.settings.show_virtual_tryon %}
+                      <div class="ai-new-arrivals-feature-badge-{{ ai_gen_id }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                        </svg>
+                        {{ block.settings.virtual_tryon_text }}
+                      </div>
+                    {% endif %}
+
+                    <button class="ai-new-arrivals-quick-view-{{ ai_gen_id }}" aria-label="Quick view" data-product-url="{{ product.url }}">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  <div class="ai-new-arrivals-product-info-{{ ai_gen_id }}">
+                    <h3 class="ai-new-arrivals-product-name-{{ ai_gen_id }}">
+                      {{ product.title }}
+                    </h3>
+                    <div class="ai-new-arrivals-product-price-{{ ai_gen_id }}">
+                      {{ product.price | money }}
+                    </div>
+                    {% if block.settings.show_color_swatches and product.options_with_values.size > 0 %}
+                      <div class="ai-new-arrivals-color-swatches-{{ ai_gen_id }}">
+                        {% for option in product.options_with_values %}
+                          {% if option.name == 'Color' or option.name == 'Colour' %}
+                            {% for value in option.values limit: 4 %}
+                              {% assign color_value = value | downcase | replace: ' ', '' %}
+                              <div 
+                                class="ai-new-arrivals-color-swatch-{{ ai_gen_id }}" 
+                                style="background-color: {{ color_value }};"
+                                title="{{ value }}"
+                              ></div>
+                            {% endfor %}
+                          {% endif %}
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </a>
+                <button class="ai-new-arrivals-wishlist-btn-{{ ai_gen_id }}" aria-label="Add to wishlist" data-product-id="{{ product.id }}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                  </svg>
+                </button>
+              </div>
+            {% endfor %}
+          {% else %}
+            {% for i in (1..6) %}
+              <div class="ai-new-arrivals-product-card-{{ ai_gen_id }}">
+                <a href="#" class="ai-new-arrivals-product-link-{{ ai_gen_id }}">
+                  <div class="ai-new-arrivals-product-image-wrapper-{{ ai_gen_id }}">
+                    <div class="ai-new-arrivals-product-image-{{ ai_gen_id }}">
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    </div>
+                    <button class="ai-new-arrivals-quick-view-{{ ai_gen_id }}" aria-label="Quick view">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="ai-new-arrivals-product-info-{{ ai_gen_id }}">
+                    <h3 class="ai-new-arrivals-product-name-{{ ai_gen_id }}">Product Name</h3>
+                    <div class="ai-new-arrivals-product-price-{{ ai_gen_id }}">£195</div>
+                    <div class="ai-new-arrivals-color-swatches-{{ ai_gen_id }}">
+                      <div class="ai-new-arrivals-color-swatch-{{ ai_gen_id }}" style="background-color: #000000;"></div>
+                      <div class="ai-new-arrivals-color-swatch-{{ ai_gen_id }}" style="background-color: #8B4513;"></div>
+                      <div class="ai-new-arrivals-color-swatch-{{ ai_gen_id }}" style="background-color: #D4AF37;"></div>
+                    </div>
+                  </div>
+                </a>
+                <button class="ai-new-arrivals-wishlist-btn-{{ ai_gen_id }}" aria-label="Add to wishlist">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                  </svg>
+                </button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+        <button class="ai-new-arrivals-scroll-btn-{{ ai_gen_id }} right visible" aria-label="Scroll right">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="ai-new-arrivals-tab-content-{{ ai_gen_id }}" data-content="bestsellers">
+      <div class="ai-new-arrivals-products-wrapper-{{ ai_gen_id }}">
+        <button class="ai-new-arrivals-scroll-btn-{{ ai_gen_id }} left" aria-label="Scroll left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <div class="ai-new-arrivals-products-{{ ai_gen_id }}" data-scroll-container="bestsellers">
+          {% if block.settings.collection_2 != blank %}
+            {% for product in block.settings.collection_2.products limit: block.settings.products_limit %}
+              <div class="ai-new-arrivals-product-card-{{ ai_gen_id }}">
+                <a href="{{ product.url }}" class="ai-new-arrivals-product-link-{{ ai_gen_id }}">
+                  <div class="ai-new-arrivals-product-image-wrapper-{{ ai_gen_id }}">
+                    {% if product.featured_image %}
+                      <img 
+                        src="{{ product.featured_image | image_url: width: 600 }}" 
+                        alt="{{ product.featured_image.alt | escape }}"
+                        class="ai-new-arrivals-product-image-{{ ai_gen_id }}"
+                        loading="lazy"
+                        width="600"
+                        height="600"
+                      >
+                    {% else %}
+                      <div class="ai-new-arrivals-product-image-{{ ai_gen_id }}">
+                        {{ 'product-1' | placeholder_svg_tag }}
+                      </div>
+                    {% endif %}
+
+                    <button class="ai-new-arrivals-quick-view-{{ ai_gen_id }}" aria-label="Quick view" data-product-url="{{ product.url }}">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  <div class="ai-new-arrivals-product-info-{{ ai_gen_id }}">
+                    <h3 class="ai-new-arrivals-product-name-{{ ai_gen_id }}">
+                      {{ product.title }}
+                    </h3>
+                    <div class="ai-new-arrivals-product-price-{{ ai_gen_id }}">
+                      {{ product.price | money }}
+                    </div>
+                    {% if block.settings.show_color_swatches and product.options_with_values.size > 0 %}
+                      <div class="ai-new-arrivals-color-swatches-{{ ai_gen_id }}">
+                        {% for option in product.options_with_values %}
+                          {% if option.name == 'Color' or option.name == 'Colour' %}
+                            {% for value in option.values limit: 4 %}
+                              {% assign color_value = value | downcase | replace: ' ', '' %}
+                              <div 
+                                class="ai-new-arrivals-color-swatch-{{ ai_gen_id }}" 
+                                style="background-color: {{ color_value }};"
+                                title="{{ value }}"
+                              ></div>
+                            {% endfor %}
+                          {% endif %}
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </a>
+                <button class="ai-new-arrivals-wishlist-btn-{{ ai_gen_id }}" aria-label="Add to wishlist" data-product-id="{{ product.id }}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                  </svg>
+                </button>
+              </div>
+            {% endfor %}
+          {% else %}
+            {% for i in (1..6) %}
+              <div class="ai-new-arrivals-product-card-{{ ai_gen_id }}">
+                <a href="#" class="ai-new-arrivals-product-link-{{ ai_gen_id }}">
+                  <div class="ai-new-arrivals-product-image-wrapper-{{ ai_gen_id }}">
+                    <div class="ai-new-arrivals-product-image-{{ ai_gen_id }}">
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    </div>
+                    <button class="ai-new-arrivals-quick-view-{{ ai_gen_id }}" aria-label="Quick view">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="ai-new-arrivals-product-info-{{ ai_gen_id }}">
+                    <h3 class="ai-new-arrivals-product-name-{{ ai_gen_id }}">Product Name</h3>
+                    <div class="ai-new-arrivals-product-price-{{ ai_gen_id }}">£195</div>
+                    <div class="ai-new-arrivals-color-swatches-{{ ai_gen_id }}">
+                      <div class="ai-new-arrivals-color-swatch-{{ ai_gen_id }}" style="background-color: #000000;"></div>
+                      <div class="ai-new-arrivals-color-swatch-{{ ai_gen_id }}" style="background-color: #8B4513;"></div>
+                      <div class="ai-new-arrivals-color-swatch-{{ ai_gen_id }}" style="background-color: #D4AF37;"></div>
+                    </div>
+                  </div>
+                </a>
+                <button class="ai-new-arrivals-wishlist-btn-{{ ai_gen_id }}" aria-label="Add to wishlist">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                  </svg>
+                </button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+        <button class="ai-new-arrivals-scroll-btn-{{ ai_gen_id }} right visible" aria-label="Scroll right">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</new-arrivals-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class NewArrivals{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.tabs = this.querySelectorAll('.ai-new-arrivals-tab-{{ ai_gen_id }}');
+        this.tabContents = this.querySelectorAll('.ai-new-arrivals-tab-content-{{ ai_gen_id }}');
+        this.scrollContainers = this.querySelectorAll('.ai-new-arrivals-products-{{ ai_gen_id }}');
+        
+        this.setupTabs();
+        this.setupScrollButtons();
+        this.updateScrollButtons();
+        this.setupWishlistButtons();
+        this.setupQuickViewButtons();
+      }
+
+      setupTabs() {
+        this.tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            const targetTab = tab.getAttribute('data-tab');
+            
+            this.tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            
+            this.tabContents.forEach(content => {
+              if (content.getAttribute('data-content') === targetTab) {
+                content.classList.add('active');
+              } else {
+                content.classList.remove('active');
+              }
+            });
+
+            this.updateScrollButtons();
+          });
+        });
+      }
+
+      setupScrollButtons() {
+        const wrappers = this.querySelectorAll('.ai-new-arrivals-products-wrapper-{{ ai_gen_id }}');
+        
+        wrappers.forEach(wrapper => {
+          const container = wrapper.querySelector('.ai-new-arrivals-products-{{ ai_gen_id }}');
+          const leftBtn = wrapper.querySelector('.ai-new-arrivals-scroll-btn-{{ ai_gen_id }}.left');
+          const rightBtn = wrapper.querySelector('.ai-new-arrivals-scroll-btn-{{ ai_gen_id }}.right');
+          
+          leftBtn.addEventListener('click', () => {
+            container.scrollBy({ left: -300, behavior: 'smooth' });
+          });
+          
+          rightBtn.addEventListener('click', () => {
+            container.scrollBy({ left: 300, behavior: 'smooth' });
+          });
+          
+          container.addEventListener('scroll', () => {
+            this.updateScrollButtonsForContainer(container, leftBtn, rightBtn);
+          });
+        });
+      }
+
+      updateScrollButtons() {
+        const activeContent = this.querySelector('.ai-new-arrivals-tab-content-{{ ai_gen_id }}.active');
+        if (activeContent) {
+          const wrapper = activeContent.querySelector('.ai-new-arrivals-products-wrapper-{{ ai_gen_id }}');
+          const container = wrapper.querySelector('.ai-new-arrivals-products-{{ ai_gen_id }}');
+          const leftBtn = wrapper.querySelector('.ai-new-arrivals-scroll-btn-{{ ai_gen_id }}.left');
+          const rightBtn = wrapper.querySelector('.ai-new-arrivals-scroll-btn-{{ ai_gen_id }}.right');
+          
+          this.updateScrollButtonsForContainer(container, leftBtn, rightBtn);
+        }
+      }
+
+      updateScrollButtonsForContainer(container, leftBtn, rightBtn) {
+        const scrollLeft = container.scrollLeft;
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        
+        if (scrollLeft <= 0) {
+          leftBtn.classList.remove('visible');
+        } else {
+          leftBtn.classList.add('visible');
+        }
+        
+        if (scrollLeft >= maxScroll - 1) {
+          rightBtn.classList.remove('visible');
+        } else {
+          rightBtn.classList.add('visible');
+        }
+      }
+
+      setupWishlistButtons() {
+        const wishlistButtons = this.querySelectorAll('.ai-new-arrivals-wishlist-btn-{{ ai_gen_id }}');
+        
+        wishlistButtons.forEach(button => {
+          button.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const productId = button.getAttribute('data-product-id');
+            const svg = button.querySelector('svg');
+            
+            if (svg.style.fill === 'none' || svg.style.fill === '') {
+              svg.style.fill = '#a76111';
+              svg.style.stroke = '#a76111';
+            } else {
+              svg.style.fill = 'none';
+              svg.style.stroke = '#000000';
+            }
+            
+            if (productId) {
+              console.log('Added product to wishlist:', productId);
+            }
+          });
+        });
+      }
+
+      setupQuickViewButtons() {
+        const quickViewButtons = this.querySelectorAll('.ai-new-arrivals-quick-view-{{ ai_gen_id }}');
+        
+        quickViewButtons.forEach(button => {
+          button.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const productUrl = button.getAttribute('data-product-url');
+            
+            if (productUrl) {
+              window.location.href = productUrl;
+            }
+          });
+        });
+      }
+    }
+
+    customElements.define('new-arrivals-{{ ai_gen_id }}', NewArrivals{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "New arrivals showcase",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Tabs"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_title",
+      "label": "Tab 1 title",
+      "default": "New arrivals"
+    },
+    {
+      "type": "collection",
+      "id": "collection_1",
+      "label": "Tab 1 collection"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_title",
+      "label": "Tab 2 title",
+      "default": "Bestsellers"
+    },
+    {
+      "type": "collection",
+      "id": "collection_2",
+      "label": "Tab 2 collection"
+    },
+    {
+      "type": "range",
+      "id": "tab_font_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tab font size",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Shop new arrivals"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "cta_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Button font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "cta_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "label": "Products to show",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Card border radius",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "product_name_font",
+      "label": "Product name font",
+      "options": [
+        {
+          "value": "serif",
+          "label": "Serif"
+        },
+        {
+          "value": "sans-serif",
+          "label": "Sans-serif"
+        }
+      ],
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "product_name_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Product name size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "product_price_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Product price size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Color swatches"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_swatches",
+      "label": "Show color swatches",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "swatch_size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Swatch size",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_virtual_tryon",
+      "label": "Show virtual try-on badge",
+      "default": true,
+      "info": "Displays on first product only"
+    },
+    {
+      "type": "text",
+      "id": "virtual_tryon_text",
+      "label": "Virtual try-on text",
+      "default": "Try on virtually"
+    }
+  ],
+  "presets": [
+    {
+      "name": "New arrivals showcase"
+    }
+  ]
+}
+{% endschema %}

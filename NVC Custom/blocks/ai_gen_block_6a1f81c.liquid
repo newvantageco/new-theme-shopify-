@@ -1,0 +1,824 @@
+{% doc %}
+  @prompt
+    Recreating This Section for Your Online Brand
+    Transform the physical-store layout into a premium online-first experience with two parts: the main headline and the two-column booking section.
+    
+    Part 1: Main Headline
+    
+    Pre-Headline: Small, all-caps, letter-spaced accent font.
+    Example: A PERSONALISED EXPERIENCE
+    
+    Main Headline: Primary large sans-serif font. Replace store links with your services.
+    Example: Book a <a href="#">virtual consultation</a>, get expert style advice, and find your perfect pair with our <a href="#">home try-on</a> service.
+    
+    Part 2: Booking Section ("Virtual Store")
+    
+    Left Column (Invitation)
+    
+    Pre-Headline: All-caps accent font.
+    Example: EXPERT ADVICE AWAITS
+    
+    Headline: Standard smaller bold headline font.
+    Example: Book a Virtual Consultation
+    
+    Paragraph: Explain value and ease of a virtual appointment.
+    Example: "Get one-on-one time with our expert stylists from the comfort of your home. We'll help with fit, measurements, and curate frames perfectly suited to your features and style."
+    
+    CTA Buttons:
+    
+    Primary solid black: BOOK A CONSULTATION →
+    
+    Secondary outline: EXPLORE HOME TRY-ON
+    
+    Right Column (Visual)
+    
+    Use an image representing your online service.
+    Example: A professional, welcoming photo of a stylist on a laptop screen, with an out-of-focus home try-on kit in the foreground.
+    
+    Contain the image in a sharp-cornered rectangle consistent with brand style.
+    
+    Final Summary
+    This section converts a store-focused layout into a powerful online invitation, highlighting expert help and frame selection from home. The design is clean, premium, and fully aligned with New Vantage Co.’s modern, online-first brand identity.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-virtual-store-{{ ai_gen_id }} {
+    background-color: {{ block.settings.section_bg_color }};
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+  }
+
+  .ai-virtual-store-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-virtual-store-main-headline-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: {{ block.settings.headline_spacing }}px;
+  }
+
+  .ai-virtual-store-pre-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.pre_headline_size }}px;
+    font-weight: {{ block.settings.pre_headline_weight }};
+    text-transform: uppercase;
+    letter-spacing: {{ block.settings.pre_headline_spacing }}px;
+    color: {{ block.settings.pre_headline_color }};
+    margin-bottom: 16px;
+    font-family: var(--g-font-1);
+  }
+
+  .ai-virtual-store-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.main_headline_size }}px;
+    font-weight: {{ block.settings.main_headline_weight }};
+    line-height: 1.3;
+    color: {{ block.settings.main_headline_color }};
+    margin: 0;
+    font-family: var(--g-font-1);
+  }
+
+  .ai-virtual-store-headline-{{ ai_gen_id }} a {
+    color: {{ block.settings.link_color }};
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+    transition: color 0.3s ease;
+  }
+
+  .ai-virtual-store-headline-{{ ai_gen_id }} a:hover {
+    color: {{ block.settings.link_hover_color }};
+  }
+
+  .ai-virtual-store-booking-section-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ block.settings.column_gap }}px;
+    align-items: center;
+    margin-top: {{ block.settings.booking_section_spacing }}px;
+  }
+
+  .ai-virtual-store-left-column-{{ ai_gen_id }} {
+    padding-right: 20px;
+  }
+
+  .ai-virtual-store-invitation-pre-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.invitation_pre_headline_size }}px;
+    font-weight: {{ block.settings.invitation_pre_headline_weight }};
+    text-transform: uppercase;
+    letter-spacing: {{ block.settings.invitation_pre_headline_spacing }}px;
+    color: {{ block.settings.invitation_pre_headline_color }};
+    margin-bottom: 12px;
+    font-family: var(--g-font-1);
+  }
+
+  .ai-virtual-store-invitation-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.invitation_headline_size }}px;
+    font-weight: {{ block.settings.invitation_headline_weight }};
+    line-height: 1.3;
+    color: {{ block.settings.invitation_headline_color }};
+    margin: 0 0 20px;
+    font-family: var(--g-font-1);
+  }
+
+  .ai-virtual-store-invitation-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.invitation_text_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.invitation_text_color }};
+    margin-bottom: 32px;
+    font-family: var(--g-font-2);
+  }
+
+  .ai-virtual-store-buttons-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .ai-virtual-store-btn-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    font-size: {{ block.settings.button_font_size }}px;
+    font-weight: {{ block.settings.button_font_weight }};
+    text-transform: uppercase;
+    letter-spacing: {{ block.settings.button_letter_spacing }}px;
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+    font-family: var(--g-font-1);
+    min-height: 56px;
+  }
+
+  .ai-virtual-store-btn-primary-{{ ai_gen_id }} {
+    background-color: {{ block.settings.primary_button_bg }};
+    color: {{ block.settings.primary_button_color }};
+    border-color: {{ block.settings.primary_button_bg }};
+  }
+
+  .ai-virtual-store-btn-primary-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.primary_button_hover_bg }};
+    color: {{ block.settings.primary_button_hover_color }};
+    border-color: {{ block.settings.primary_button_hover_bg }};
+  }
+
+  .ai-virtual-store-btn-secondary-{{ ai_gen_id }} {
+    background-color: transparent;
+    color: {{ block.settings.secondary_button_color }};
+    border-color: {{ block.settings.secondary_button_border }};
+  }
+
+  .ai-virtual-store-btn-secondary-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.secondary_button_hover_bg }};
+    color: {{ block.settings.secondary_button_hover_color }};
+    border-color: {{ block.settings.secondary_button_hover_bg }};
+  }
+
+  .ai-virtual-store-btn-arrow-{{ ai_gen_id }} {
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-virtual-store-btn-{{ ai_gen_id }}:hover .ai-virtual-store-btn-arrow-{{ ai_gen_id }} {
+    transform: translateX(4px);
+  }
+
+  .ai-virtual-store-right-column-{{ ai_gen_id }} {
+    position: relative;
+  }
+
+  .ai-virtual-store-image-container-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+  }
+
+  .ai-virtual-store-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-virtual-store-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    position: relative;
+  }
+
+  .ai-virtual-store-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+    opacity: 0.3;
+  }
+
+  .ai-virtual-store-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    font-family: var(--g-font-2);
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-virtual-store-booking-section-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .ai-virtual-store-left-column-{{ ai_gen_id }} {
+      padding-right: 0;
+      order: 2;
+    }
+
+    .ai-virtual-store-right-column-{{ ai_gen_id }} {
+      order: 1;
+    }
+
+    .ai-virtual-store-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.main_headline_size | times: 0.8 }}px;
+    }
+
+    .ai-virtual-store-invitation-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.invitation_headline_size | times: 0.9 }}px;
+    }
+
+    .ai-virtual-store-buttons-{{ ai_gen_id }} {
+      flex-direction: column;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .ai-virtual-store-container-{{ ai_gen_id }} {
+      padding: 0 16px;
+    }
+
+    .ai-virtual-store-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.main_headline_size | times: 0.7 }}px;
+    }
+
+    .ai-virtual-store-btn-{{ ai_gen_id }} {
+      padding: {{ block.settings.button_padding_vertical | times: 0.8 }}px {{ block.settings.button_padding_horizontal | times: 0.8 }}px;
+      font-size: {{ block.settings.button_font_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-virtual-store-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-virtual-store-container-{{ ai_gen_id }}">
+    
+    {% if block.settings.show_main_headline %}
+      <div class="ai-virtual-store-main-headline-{{ ai_gen_id }}">
+        {% if block.settings.pre_headline != blank %}
+          <div class="ai-virtual-store-pre-headline-{{ ai_gen_id }}">
+            {{ block.settings.pre_headline }}
+          </div>
+        {% endif %}
+        
+        {% if block.settings.main_headline != blank %}
+          <h2 class="ai-virtual-store-headline-{{ ai_gen_id }}">
+            {{ block.settings.main_headline }}
+          </h2>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="ai-virtual-store-booking-section-{{ ai_gen_id }}">
+      
+      <div class="ai-virtual-store-left-column-{{ ai_gen_id }}">
+        {% if block.settings.invitation_pre_headline != blank %}
+          <div class="ai-virtual-store-invitation-pre-headline-{{ ai_gen_id }}">
+            {{ block.settings.invitation_pre_headline }}
+          </div>
+        {% endif %}
+        
+        {% if block.settings.invitation_headline != blank %}
+          <h3 class="ai-virtual-store-invitation-headline-{{ ai_gen_id }}">
+            {{ block.settings.invitation_headline }}
+          </h3>
+        {% endif %}
+        
+        {% if block.settings.invitation_text != blank %}
+          <div class="ai-virtual-store-invitation-text-{{ ai_gen_id }}">
+            {{ block.settings.invitation_text }}
+          </div>
+        {% endif %}
+        
+        <div class="ai-virtual-store-buttons-{{ ai_gen_id }}">
+          {% if block.settings.primary_button_label != blank %}
+            <a 
+              href="{{ block.settings.primary_button_link }}" 
+              class="ai-virtual-store-btn-{{ ai_gen_id }} ai-virtual-store-btn-primary-{{ ai_gen_id }}"
+            >
+              {{ block.settings.primary_button_label }}
+              <span class="ai-virtual-store-btn-arrow-{{ ai_gen_id }}">→</span>
+            </a>
+          {% endif %}
+          
+          {% if block.settings.secondary_button_label != blank %}
+            <a 
+              href="{{ block.settings.secondary_button_link }}" 
+              class="ai-virtual-store-btn-{{ ai_gen_id }} ai-virtual-store-btn-secondary-{{ ai_gen_id }}"
+            >
+              {{ block.settings.secondary_button_label }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="ai-virtual-store-right-column-{{ ai_gen_id }}">
+        <div class="ai-virtual-store-image-container-{{ ai_gen_id }}">
+          {% if block.settings.service_image %}
+            <img
+              src="{{ block.settings.service_image | image_url: width: 800 }}"
+              alt="{{ block.settings.service_image.alt | escape }}"
+              class="ai-virtual-store-image-{{ ai_gen_id }}"
+              loading="lazy"
+              width="{{ block.settings.service_image.width }}"
+              height="{{ block.settings.service_image.height }}"
+            >
+          {% else %}
+            <div class="ai-virtual-store-image-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+              <div class="ai-virtual-store-empty-state-{{ ai_gen_id }}">
+                Add an image representing your virtual service
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Virtual store booking",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section settings"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Background color",
+      "default": "#faf5f2"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Main headline"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_main_headline",
+      "label": "Show main headline section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "pre_headline",
+      "label": "Pre-headline",
+      "default": "A PERSONALISED EXPERIENCE"
+    },
+    {
+      "type": "richtext",
+      "id": "main_headline",
+      "label": "Main headline",
+      "default": "<p>Book a <a href=\"#\">virtual consultation</a>, get expert style advice, and find your perfect pair with our <a href=\"#\">home try-on</a> service.</p>"
+    },
+    {
+      "type": "range",
+      "id": "headline_spacing",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Spacing below headline",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Main headline style"
+    },
+    {
+      "type": "range",
+      "id": "pre_headline_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Pre-headline size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "pre_headline_spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Pre-headline letter spacing",
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "pre_headline_weight",
+      "label": "Pre-headline weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "color",
+      "id": "pre_headline_color",
+      "label": "Pre-headline color",
+      "default": "#a76111"
+    },
+    {
+      "type": "range",
+      "id": "main_headline_size",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Main headline size",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "main_headline_weight",
+      "label": "Main headline weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "color",
+      "id": "main_headline_color",
+      "label": "Main headline color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover color",
+      "default": "#a76111"
+    },
+    {
+      "type": "header",
+      "content": "Booking section"
+    },
+    {
+      "type": "range",
+      "id": "booking_section_spacing",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Spacing above booking section",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between columns",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Left column content"
+    },
+    {
+      "type": "text",
+      "id": "invitation_pre_headline",
+      "label": "Pre-headline",
+      "default": "EXPERT ADVICE AWAITS"
+    },
+    {
+      "type": "text",
+      "id": "invitation_headline",
+      "label": "Headline",
+      "default": "Book a Virtual Consultation"
+    },
+    {
+      "type": "textarea",
+      "id": "invitation_text",
+      "label": "Description",
+      "default": "Get one-on-one time with our expert stylists from the comfort of your home. We'll help with fit, measurements, and curate frames perfectly suited to your features and style."
+    },
+    {
+      "type": "header",
+      "content": "Left column style"
+    },
+    {
+      "type": "range",
+      "id": "invitation_pre_headline_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Pre-headline size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "invitation_pre_headline_spacing",
+      "min": 0,
+      "max": 4,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Pre-headline letter spacing",
+      "default": 1.5
+    },
+    {
+      "type": "select",
+      "id": "invitation_pre_headline_weight",
+      "label": "Pre-headline weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "color",
+      "id": "invitation_pre_headline_color",
+      "label": "Pre-headline color",
+      "default": "#a76111"
+    },
+    {
+      "type": "range",
+      "id": "invitation_headline_size",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Headline size",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "invitation_headline_weight",
+      "label": "Headline weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "color",
+      "id": "invitation_headline_color",
+      "label": "Headline color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "invitation_text_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "invitation_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Primary button"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "label": "Button text",
+      "default": "BOOK A CONSULTATION"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_bg",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_hover_bg",
+      "label": "Hover background color",
+      "default": "#a76111"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_hover_color",
+      "label": "Hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Secondary button"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Button text",
+      "default": "EXPLORE HOME TRY-ON"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_border",
+      "label": "Border color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_hover_bg",
+      "label": "Hover background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_hover_color",
+      "label": "Hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "button_font_weight",
+      "label": "Font weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "button_letter_spacing",
+      "min": 0,
+      "max": 3,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Letter spacing",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "min": 12,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "min": 20,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Right column image"
+    },
+    {
+      "type": "image_picker",
+      "id": "service_image",
+      "label": "Service image"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Image border radius",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Virtual store booking"
+    }
+  ]
+}
+{% endschema %}

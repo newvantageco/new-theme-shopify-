@@ -1,0 +1,1041 @@
+{% doc %}
+  @prompt
+    The Direct & Confident Approach
+    This version is bold and directly addresses the customer's pain points.
+    
+    (Headline)
+    
+    Luxury Glasses, Radically Fair Price.
+    (Sub-headline) For too long, buying glasses has meant a frustrating choice: pay £200+ for designer quality or settle for cheap, flimsy plastic that won’t last. We knew there had to be a better way.
+    
+    One Fair Price. Everything Included. £129.
+    No upsells, no "premium" add-ons, no hidden fees. Just exceptional glasses with everything you actually need, built right into the price.
+    
+    Every pair of New Vantage Co. glasses comes standard with:
+    
+    Premium Prescription Lenses: Including free anti-scratch and anti-glare coatings.
+    
+    Advanced Lens Options: Choose blue light filtering for screen use or thin 1.6 high-index lenses for stronger prescriptions, at no extra cost.
+    
+    Full UV400 Polarisation: For all sunglasses, to eliminate glare and protect your eyes.
+    
+    The Quality You Can See and Feel.
+    Why do our frames feel so different? We don't cut corners. While many brands use cheap, injected plastic, we craft every frame from premium, plant-based Italian acetate.
+    
+    Our Way: The New Vantage Standard	The Old Way: Big Brand Markups & Cheap Alternatives
+    Premium Italian Acetate: Durable, substantial, with rich colours that last a lifetime.	Mass-Produced Plastic: Flimsy, brittle, and feels cheap to the touch.
+    Crafted and Hand-Polished: A difference in fit and finish you'll notice immediately.	Moulded & Mass-Assembled: Lacks character and durability.
+    Lenses Included: All the advanced features you need, standard.	Expensive Add-Ons: Price quickly doubles for polarisation or blue light filters.
+    
+    Export to Sheets
+    
+    How Is This Possible?
+    It's simple. We design our glasses in-house, partner directly with the world's best craftspeople, and sell them straight to you. There are no middlemen, no retail licensing fees, and no outrageous brand markups.
+    
+    This isn't about being cheap; it's about being smart. You get glasses made with the same premium mate, Premium Italian Acetate: Durable, substantial, with rich colours that last a lifetime.	Mass-Produced Plastic: Flimsy, brittle, and feels cheap to the touch.
+    Crafted and Hand-Polished: A difference in fit and finish you'll notice immediately.	Moulded & Mass-Assembled: Lacks character and durability.
+    Lenses Included: All the advanced features you need, standard.	Expensive Add-Ons: Price quickly doubles for polarisation or blue light filters.
+    
+    Export to Sheets
+    
+    How Is This Possible?
+    It's simple. We design our glasses in-house, partner directly with the world's best craftspeople, and sell them straight to you. There are no middlemen, no retail licensing fees, and no outrageous brand markups.
+    
+    This isn't about being cheap; it's about being smart. You get glasses made with the same premium materials and care as a £200+ legacy brand, for a price that's simply fair.
+    
+    Why this copy works:
+    Addresses Skepticism Head-On: The "How Is This Possible?" section provides a logical, trustworthy reason for the price.
+    
+    Makes Invisible Value Tangible: The comparison table clearly and simply educates the customer on the material difference (Acetate vs. Plastic) and its benefits without getting too technical.
+    
+    Eliminates Doubt: By stating "One Fair Price. Everything Included," you remove the fear of hidden costs and upsells, which is a major pain point for online glasses shoppers.
+    
+    Customer-Centric Language: It speaks directly to the customer ("You Deserve," "Everything you actually need") instead of about the company.
+    
+    Confident Tone: The copy is assertive and proud of its value proposition, which makes the brand feel more trustworthy than a brand that sounds defensive.
+    
+    Mobile-Friendly: The use of clear headlines, short paragraphs, bullet points, and a table makes the information easy to scan and digest on any device., can you add Basic prescription upto  -3or +3 and bluelight should be standard in our phlilosipy and we take pride in give customers all of this  anything above -3 and plus 3 we charage less then triditonal high street or online retialers because its truly possible to getthese  without charging you more then what it worth 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-value-hero-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+  }
+
+  .ai-value-hero-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-value-hero-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .ai-value-hero-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.headline_size }}px;
+    font-weight: {{ block.settings.headline_weight }};
+    color: {{ block.settings.headline_color }};
+    margin: 0 0 20px;
+    line-height: 1.2;
+  }
+
+  .ai-value-hero-subheadline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subheadline_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 30px;
+  }
+
+  .ai-value-hero-price-banner-{{ ai_gen_id }} {
+    background-color: {{ block.settings.price_banner_bg }};
+    color: {{ block.settings.price_banner_text }};
+    padding: 30px;
+    border-radius: {{ block.settings.border_radius }}px;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .ai-value-hero-price-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.price_title_size }}px;
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+
+  .ai-value-hero-price-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .ai-value-hero-included-{{ ai_gen_id }} {
+    margin-bottom: 50px;
+  }
+
+  .ai-value-hero-included-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.section_title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.headline_color }};
+    text-align: center;
+    margin: 0 0 30px;
+  }
+
+  .ai-value-hero-included-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .ai-value-hero-included-item-{{ ai_gen_id }} {
+    background-color: {{ block.settings.feature_bg }};
+    padding: 25px;
+    border-radius: {{ block.settings.border_radius }}px;
+    border: 1px solid {{ block.settings.feature_border }};
+  }
+
+  .ai-value-hero-included-item-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.feature_title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.headline_color }};
+    margin: 0 0 10px;
+  }
+
+  .ai-value-hero-included-item-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .ai-value-hero-higher-rx-{{ ai_gen_id }} {
+    background-color: {{ block.settings.higher_rx_bg }};
+    padding: 30px;
+    border-radius: {{ block.settings.border_radius }}px;
+    margin-bottom: 50px;
+    border: 2px solid {{ block.settings.higher_rx_border }};
+  }
+
+  .ai-value-hero-higher-rx-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.feature_title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.headline_color }};
+    margin: 0 0 10px;
+    text-align: center;
+  }
+
+  .ai-value-hero-higher-rx-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+    text-align: center;
+    margin: 0;
+  }
+
+  .ai-value-hero-comparison-{{ ai_gen_id }} {
+    margin-bottom: 50px;
+  }
+
+  .ai-value-hero-comparison-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.section_title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.headline_color }};
+    text-align: center;
+    margin: 0 0 30px;
+  }
+
+  .ai-value-hero-table-{{ ai_gen_id }} {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: {{ block.settings.table_bg }};
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+  }
+
+  .ai-value-hero-table-{{ ai_gen_id }} thead {
+    background-color: {{ block.settings.table_header_bg }};
+  }
+
+  .ai-value-hero-table-{{ ai_gen_id }} th {
+    padding: 20px;
+    text-align: left;
+    font-size: {{ block.settings.table_header_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.table_header_text }};
+    border-bottom: 2px solid {{ block.settings.table_border }};
+  }
+
+  .ai-value-hero-table-{{ ai_gen_id }} td {
+    padding: 20px;
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.text_color }};
+    border-bottom: 1px solid {{ block.settings.table_border }};
+    line-height: 1.6;
+  }
+
+  .ai-value-hero-table-{{ ai_gen_id }} tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .ai-value-hero-table-{{ ai_gen_id }} tbody tr:hover {
+    background-color: {{ block.settings.table_row_hover }};
+  }
+
+  .ai-value-hero-explanation-{{ ai_gen_id }} {
+    background-color: {{ block.settings.explanation_bg }};
+    padding: 40px;
+    border-radius: {{ block.settings.border_radius }}px;
+    margin-bottom: 50px;
+  }
+
+  .ai-value-hero-explanation-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.section_title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.headline_color }};
+    margin: 0 0 20px;
+    text-align: center;
+  }
+
+  .ai-value-hero-explanation-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .ai-value-hero-explanation-text-{{ ai_gen_id }} p {
+    margin: 0 0 15px;
+  }
+
+  .ai-value-hero-explanation-text-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-value-hero-cta-{{ ai_gen_id }} {
+    text-align: center;
+  }
+
+  .ai-value-hero-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: {{ block.settings.button_padding_v }}px {{ block.settings.button_padding_h }}px;
+    background-color: {{ block.settings.button_bg }};
+    color: {{ block.settings.button_text_color }};
+    font-size: {{ block.settings.button_size }}px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: {{ block.settings.button_radius }}px;
+    transition: all 0.3s ease;
+    border: 2px solid {{ block.settings.button_bg }};
+  }
+
+  .ai-value-hero-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg }};
+    color: {{ block.settings.button_hover_text }};
+    border-color: {{ block.settings.button_hover_bg }};
+    transform: translateY(-2px);
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-value-hero-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding_top | times: 0.7 }}px 0 {{ block.settings.section_padding_bottom | times: 0.7 }}px;
+    }
+
+    .ai-value-hero-headline-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.headline_size }}px * 0.65);
+    }
+
+    .ai-value-hero-subheadline-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.subheadline_size }}px * 0.9);
+    }
+
+    .ai-value-hero-price-banner-{{ ai_gen_id }} {
+      padding: 25px 20px;
+      margin-bottom: 35px;
+    }
+
+    .ai-value-hero-price-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.price_title_size }}px * 0.7);
+    }
+
+    .ai-value-hero-included-{{ ai_gen_id }} {
+      margin-bottom: 35px;
+    }
+
+    .ai-value-hero-included-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .ai-value-hero-included-item-{{ ai_gen_id }} {
+      padding: 20px;
+    }
+
+    .ai-value-hero-higher-rx-{{ ai_gen_id }} {
+      padding: 25px 20px;
+      margin-bottom: 35px;
+    }
+
+    .ai-value-hero-comparison-{{ ai_gen_id }} {
+      margin-bottom: 35px;
+    }
+
+    .ai-value-hero-table-{{ ai_gen_id }} {
+      font-size: 14px;
+    }
+
+    .ai-value-hero-table-{{ ai_gen_id }} th,
+    .ai-value-hero-table-{{ ai_gen_id }} td {
+      padding: 15px 12px;
+    }
+
+    .ai-value-hero-explanation-{{ ai_gen_id }} {
+      padding: 30px 20px;
+      margin-bottom: 35px;
+    }
+
+    .ai-value-hero-button-{{ ai_gen_id }} {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-value-hero-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-value-hero-container-{{ ai_gen_id }}">
+    
+    <div class="ai-value-hero-header-{{ ai_gen_id }}">
+      {% if block.settings.headline != blank %}
+        <h1 class="ai-value-hero-headline-{{ ai_gen_id }}">{{ block.settings.headline }}</h1>
+      {% endif %}
+      
+      {% if block.settings.subheadline != blank %}
+        <div class="ai-value-hero-subheadline-{{ ai_gen_id }}">
+          {{ block.settings.subheadline }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if block.settings.show_price_banner %}
+      <div class="ai-value-hero-price-banner-{{ ai_gen_id }}">
+        {% if block.settings.price_title != blank %}
+          <div class="ai-value-hero-price-title-{{ ai_gen_id }}">{{ block.settings.price_title }}</div>
+        {% endif %}
+        {% if block.settings.price_subtitle != blank %}
+          <div class="ai-value-hero-price-subtitle-{{ ai_gen_id }}">{{ block.settings.price_subtitle }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_included %}
+      <div class="ai-value-hero-included-{{ ai_gen_id }}">
+        {% if block.settings.included_title != blank %}
+          <h2 class="ai-value-hero-included-title-{{ ai_gen_id }}">{{ block.settings.included_title }}</h2>
+        {% endif %}
+
+        <div class="ai-value-hero-included-grid-{{ ai_gen_id }}">
+          {% if block.settings.included_1_title != blank %}
+            <div class="ai-value-hero-included-item-{{ ai_gen_id }}">
+              <div class="ai-value-hero-included-item-title-{{ ai_gen_id }}">{{ block.settings.included_1_title }}</div>
+              {% if block.settings.included_1_text != blank %}
+                <div class="ai-value-hero-included-item-text-{{ ai_gen_id }}">{{ block.settings.included_1_text }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% if block.settings.included_2_title != blank %}
+            <div class="ai-value-hero-included-item-{{ ai_gen_id }}">
+              <div class="ai-value-hero-included-item-title-{{ ai_gen_id }}">{{ block.settings.included_2_title }}</div>
+              {% if block.settings.included_2_text != blank %}
+                <div class="ai-value-hero-included-item-text-{{ ai_gen_id }}">{{ block.settings.included_2_text }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% if block.settings.included_3_title != blank %}
+            <div class="ai-value-hero-included-item-{{ ai_gen_id }}">
+              <div class="ai-value-hero-included-item-title-{{ ai_gen_id }}">{{ block.settings.included_3_title }}</div>
+              {% if block.settings.included_3_text != blank %}
+                <div class="ai-value-hero-included-item-text-{{ ai_gen_id }}">{{ block.settings.included_3_text }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% if block.settings.included_4_title != blank %}
+            <div class="ai-value-hero-included-item-{{ ai_gen_id }}">
+              <div class="ai-value-hero-included-item-title-{{ ai_gen_id }}">{{ block.settings.included_4_title }}</div>
+              {% if block.settings.included_4_text != blank %}
+                <div class="ai-value-hero-included-item-text-{{ ai_gen_id }}">{{ block.settings.included_4_text }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_higher_rx %}
+      <div class="ai-value-hero-higher-rx-{{ ai_gen_id }}">
+        {% if block.settings.higher_rx_title != blank %}
+          <div class="ai-value-hero-higher-rx-title-{{ ai_gen_id }}">{{ block.settings.higher_rx_title }}</div>
+        {% endif %}
+        {% if block.settings.higher_rx_text != blank %}
+          <div class="ai-value-hero-higher-rx-text-{{ ai_gen_id }}">{{ block.settings.higher_rx_text }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_comparison %}
+      <div class="ai-value-hero-comparison-{{ ai_gen_id }}">
+        {% if block.settings.comparison_title != blank %}
+          <h2 class="ai-value-hero-comparison-title-{{ ai_gen_id }}">{{ block.settings.comparison_title }}</h2>
+        {% endif %}
+
+        <table class="ai-value-hero-table-{{ ai_gen_id }}">
+          <thead>
+            <tr>
+              <th>{{ block.settings.table_header_1 }}</th>
+              <th>{{ block.settings.table_header_2 }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if block.settings.table_row_1_col_1 != blank %}
+              <tr>
+                <td>{{ block.settings.table_row_1_col_1 }}</td>
+                <td>{{ block.settings.table_row_1_col_2 }}</td>
+              </tr>
+            {% endif %}
+
+            {% if block.settings.table_row_2_col_1 != blank %}
+              <tr>
+                <td>{{ block.settings.table_row_2_col_1 }}</td>
+                <td>{{ block.settings.table_row_2_col_2 }}</td>
+              </tr>
+            {% endif %}
+
+            {% if block.settings.table_row_3_col_1 != blank %}
+              <tr>
+                <td>{{ block.settings.table_row_3_col_1 }}</td>
+                <td>{{ block.settings.table_row_3_col_2 }}</td>
+              </tr>
+            {% endif %}
+
+            {% if block.settings.table_row_4_col_1 != blank %}
+              <tr>
+                <td>{{ block.settings.table_row_4_col_1 }}</td>
+                <td>{{ block.settings.table_row_4_col_2 }}</td>
+              </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_explanation %}
+      <div class="ai-value-hero-explanation-{{ ai_gen_id }}">
+        {% if block.settings.explanation_title != blank %}
+          <h2 class="ai-value-hero-explanation-title-{{ ai_gen_id }}">{{ block.settings.explanation_title }}</h2>
+        {% endif %}
+        {% if block.settings.explanation_text != blank %}
+          <div class="ai-value-hero-explanation-text-{{ ai_gen_id }}">
+            {{ block.settings.explanation_text }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_cta and block.settings.cta_button_text != blank %}
+      <div class="ai-value-hero-cta-{{ ai_gen_id }}">
+        <a href="{{ block.settings.button_link }}" class="ai-value-hero-button-{{ ai_gen_id }}">
+          {{ block.settings.cta_button_text }}
+        </a>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Value proposition hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 800,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Container width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "richtext",
+      "id": "headline",
+      "label": "Headline",
+      "default": "<p>Luxury Glasses, Radically Fair Price.</p>"
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Size",
+      "default": 48
+    },
+    {
+      "type": "select",
+      "id": "headline_weight",
+      "label": "Weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Subheadline"
+    },
+    {
+      "type": "richtext",
+      "id": "subheadline",
+      "label": "Subheadline",
+      "default": "<p>For too long, buying glasses has meant a frustrating choice: pay £200+ for designer quality or settle for cheap, flimsy plastic that won't last. We knew there had to be a better way.</p>"
+    },
+    {
+      "type": "range",
+      "id": "subheadline_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Size",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Price banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price_banner",
+      "label": "Show price banner",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "price_title",
+      "label": "Title",
+      "default": "One Fair Price. Everything Included. £129."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "price_subtitle",
+      "label": "Subtitle",
+      "default": "No upsells, no premium add-ons, no hidden fees. Just exceptional glasses with everything you actually need."
+    },
+    {
+      "type": "range",
+      "id": "price_title_size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "price_banner_bg",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "price_banner_text",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "What's included"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_included",
+      "label": "Show included section",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "included_title",
+      "label": "Title",
+      "default": "Every pair of New Vantage Co. glasses comes standard with:"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "included_1_title",
+      "label": "Item 1 title",
+      "default": "Basic Prescription Lenses (up to -3 or +3)"
+    },
+    {
+      "type": "text",
+      "id": "included_1_text",
+      "label": "Item 1 text",
+      "default": "Including free anti-scratch and anti-glare coatings."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "included_2_title",
+      "label": "Item 2 title",
+      "default": "Blue Light Filtering"
+    },
+    {
+      "type": "text",
+      "id": "included_2_text",
+      "label": "Item 2 text",
+      "default": "Standard on all lenses to protect your eyes from screen use."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "included_3_title",
+      "label": "Item 3 title",
+      "default": "Full UV400 Polarisation"
+    },
+    {
+      "type": "text",
+      "id": "included_3_text",
+      "label": "Item 3 text",
+      "default": "For all sunglasses, to eliminate glare and protect your eyes."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "included_4_title",
+      "label": "Item 4 title",
+      "default": "Premium Italian Acetate Frames"
+    },
+    {
+      "type": "text",
+      "id": "included_4_text",
+      "label": "Item 4 text",
+      "default": "Hand-polished, durable, and built to last a lifetime."
+    },
+    {
+      "type": "range",
+      "id": "feature_title_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Title size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "feature_bg",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "feature_border",
+      "label": "Border",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "header",
+      "content": "Higher prescriptions"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_higher_rx",
+      "label": "Show higher prescription section",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "higher_rx_title",
+      "label": "Title",
+      "default": "Need a Stronger Prescription?"
+    },
+    {
+      "type": "text",
+      "id": "higher_rx_text",
+      "label": "Text",
+      "default": "For prescriptions above -3 or +3, we charge less than traditional high street or online retailers. It's truly possible to get high-index lenses without charging you more than what they're worth."
+    },
+    {
+      "type": "color",
+      "id": "higher_rx_bg",
+      "label": "Background",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "higher_rx_border",
+      "label": "Border",
+      "default": "#a76111"
+    },
+    {
+      "type": "header",
+      "content": "Comparison table"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_comparison",
+      "label": "Show comparison",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "comparison_title",
+      "label": "Title",
+      "default": "The Quality You Can See and Feel"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "table_header_1",
+      "label": "Header 1",
+      "default": "Our Way: The New Vantage Standard"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "table_header_2",
+      "label": "Header 2",
+      "default": "The Old Way: Big Brand Markups & Cheap Alternatives"
+    },
+    {
+      "type": "text",
+      "id": "table_row_1_col_1",
+      "label": "Row 1 column 1",
+      "default": "Premium Italian Acetate: Durable, substantial, with rich colours that last a lifetime."
+    },
+    {
+      "type": "text",
+      "id": "table_row_1_col_2",
+      "label": "Row 1 column 2",
+      "default": "Mass-Produced Plastic: Flimsy, brittle, and feels cheap to the touch."
+    },
+    {
+      "type": "text",
+      "id": "table_row_2_col_1",
+      "label": "Row 2 column 1",
+      "default": "Crafted and Hand-Polished: A difference in fit and finish you'll notice immediately."
+    },
+    {
+      "type": "text",
+      "id": "table_row_2_col_2",
+      "label": "Row 2 column 2",
+      "default": "Moulded & Mass-Assembled: Lacks character and durability."
+    },
+    {
+      "type": "text",
+      "id": "table_row_3_col_1",
+      "label": "Row 3 column 1",
+      "default": "Lenses Included: All the advanced features you need, standard."
+    },
+    {
+      "type": "text",
+      "id": "table_row_3_col_2",
+      "label": "Row 3 column 2",
+      "default": "Expensive Add-Ons: Price quickly doubles for polarisation or blue light filters."
+    },
+    {
+      "type": "text",
+      "id": "table_row_4_col_1",
+      "label": "Row 4 column 1"
+    },
+    {
+      "type": "text",
+      "id": "table_row_4_col_2",
+      "label": "Row 4 column 2"
+    },
+    {
+      "type": "range",
+      "id": "table_header_size",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Header size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "table_bg",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "table_header_bg",
+      "label": "Header background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "table_header_text",
+      "label": "Header text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "table_border",
+      "label": "Border",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "table_row_hover",
+      "label": "Row hover",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "header",
+      "content": "Explanation"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_explanation",
+      "label": "Show explanation",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "explanation_title",
+      "label": "Title",
+      "default": "How Is This Possible?"
+    },
+    {
+      "type": "richtext",
+      "id": "explanation_text",
+      "label": "Text",
+      "default": "<p>It's simple. We design our glasses in-house, partner directly with the world's best craftspeople, and sell them straight to you. There are no middlemen, no retail licensing fees, and no outrageous brand markups.</p><p>This isn't about being cheap; it's about being smart. You get glasses made with the same premium materials and care as a £200+ legacy brand, for a price that's simply fair.</p>"
+    },
+    {
+      "type": "color",
+      "id": "explanation_bg",
+      "label": "Background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "Button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Button size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_v",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_h",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 4
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Hover background",
+      "default": "#a76111"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text",
+      "label": "Hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#faf5f2"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "section_title_size",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Section title size",
+      "default": 28
+    }
+  ],
+  "presets": [
+    {
+      "name": "Value proposition hero"
+    }
+  ]
+}
+{% endschema %}

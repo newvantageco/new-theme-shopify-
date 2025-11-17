@@ -1,0 +1,1272 @@
+{% doc %}
+  @prompt
+    Sizing & Fit Guide
+    Find your perfect fit. Frame measurements appear inside your current glasses and help ensure comfort and balance.
+    Frame Width: total width end to end.
+    Lens Width: horizontal lens size.
+    Bridge Width: distance between lenses.
+    Temple Arm: arm length hinge to tip.
+    Fit Tip: Frame width should sit just wider than your cheekbones.
+    
+    Prescription & Lens Options
+    Every New Vantage Co. lens is optical-grade, anti-reflective, scratch-resistant, and UV-protected. Each order is verified twice for accuracy.
+    Single Vision: standard correction.
+    Progressives: seamless vision for all distances.
+    Readers: magnification from +0.25 to +2.75.
+    Non-Prescription: clear lenses for style and protection.
+    Add-Ons: Blue-Light Filtering for screen comfort; Light-Responsive lenses that adapt to brightness.
+    
+    Submitting Your Prescription
+    Ordering is simple:
+    
+    Choose your frames and check out.
+    
+    Upload a photo of your valid prescription via the link we send.
+    
+    No copy? Provide your optician’s details—we’ll confirm it for you.
+    Each pair is hand-assembled and rechecked by a qualified technician to guarantee precision before dispatch.
+    
+    Implementation (Shopify)
+    Add these as collapsible rows under Product Information: Sizing & Fit Guide, Lens Options, Prescription Upload.
+    This clear, structured format gives customers confidence, reinforces your professional optical standards, and strengthens New Vantage Co.’s identity as precise, premium, and trustworthy., /* ==========================================================================
+       Custom Premium Product Page Styles
+       ========================================================================== */
+    
+    .premium-product-page-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Default is two columns */
+      gap: 40px;
+      max-width: 1400px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    
+    /* Let's make it a 3-column layout on larger screens, like the example */
+    @media (min-width: 1024px) {
+      .premium-product-page-container {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas: "value-props gallery details";
+      }
+      .premium-product-gallery { grid-area: gallery; }
+      .premium-product-details { grid-area: details; }
+      .premium-product-value-props { grid-area: value-props; }
+    }
+    
+    /* Tablet view - stack value props on top */
+    @media (min-width: 769px) and (max-width: 1023px) {
+      .premium-product-page-container {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+          "value-props"
+          "gallery"
+          "details";
+      }
+    }
+    
+    /* Mobile view - everything stacks */
+    @media (max-width: 768px) {
+      .premium-product-page-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+    
+    /* --- Column Styling --- */
+    
+    /* Product Gallery */
+    .premium-product-gallery img {
+      width: 100%;
+      margin-bottom: 10px;
+      border-radius: 8px;
+    }
+    
+    /* Product Details */
+    .premium-product-details h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      font-weight: 600;
+    }
+    
+    .trust-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 20px;
+    }
+    
+    .trust-badges span {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      background-color: #f4f4f4;
+      border-radius: 15px;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .product-price {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    
+    .product-price .compare-price {
+      font-size: 1rem;
+      color: #888;
+      margin-left: 10px;
+    }
+    
+    .reviews-placeholder {
+      margin-bottom: 25px;
+      font-size: 0.9rem;
+    }
+    
+    .product-variant-group {
+      margin-bottom: 20px;
+    }
+    
+    , can you add frame description too
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-eyewear-guide-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+    margin: {{ block.settings.margin }}px 0;
+    max-width: 100%;
+  }
+
+  .ai-eyewear-guide-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .ai-eyewear-guide-title-{{ ai_gen_id }} {
+    color: {{ block.settings.heading_color }};
+    font-size: {{ block.settings.heading_size }}px;
+    font-weight: 600;
+    margin: 0 0 10px;
+    line-height: 1.3;
+  }
+
+  .ai-eyewear-guide-subtitle-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.text_size }}px;
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  .ai-eyewear-guide-sections-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .ai-eyewear-guide-section-{{ ai_gen_id }} {
+    border: 1px solid {{ block.settings.border_color }};
+    border-radius: {{ block.settings.section_border_radius }}px;
+    overflow: hidden;
+    background-color: {{ block.settings.section_background_color }};
+  }
+
+  .ai-eyewear-guide-section-header-{{ ai_gen_id }} {
+    padding: 20px;
+    background-color: {{ block.settings.section_header_bg }};
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    border: none;
+    width: 100%;
+    text-align: left;
+  }
+
+  .ai-eyewear-guide-section-header-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.section_header_hover_bg }};
+  }
+
+  .ai-eyewear-guide-section-title-{{ ai_gen_id }} {
+    color: {{ block.settings.section_title_color }};
+    font-size: {{ block.settings.section_title_size }}px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .ai-eyewear-guide-section-icon-{{ ai_gen_id }} {
+    color: {{ block.settings.section_title_color }};
+    transition: transform 0.3s ease;
+    font-size: 18px;
+  }
+
+  .ai-eyewear-guide-section-content-{{ ai_gen_id }} {
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+
+  .ai-eyewear-guide-section-{{ ai_gen_id }}.active .ai-eyewear-guide-section-content-{{ ai_gen_id }} {
+    max-height: 1000px;
+    padding: 20px;
+  }
+
+  .ai-eyewear-guide-section-{{ ai_gen_id }}.active .ai-eyewear-guide-section-icon-{{ ai_gen_id }} {
+    transform: rotate(180deg);
+  }
+
+  .ai-eyewear-guide-content-text-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.text_size }}px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .ai-eyewear-guide-measurements-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+  }
+
+  .ai-eyewear-guide-measurement-{{ ai_gen_id }} {
+    background-color: {{ block.settings.measurement_bg }};
+    padding: 15px;
+    border-radius: {{ block.settings.measurement_border_radius }}px;
+    border: 1px solid {{ block.settings.measurement_border_color }};
+  }
+
+  .ai-eyewear-guide-measurement-title-{{ ai_gen_id }} {
+    color: {{ block.settings.measurement_title_color }};
+    font-size: {{ block.settings.measurement_title_size }}px;
+    font-weight: 600;
+    margin: 0 0 5px;
+  }
+
+  .ai-eyewear-guide-measurement-desc-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.measurement_text_size }}px;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .ai-eyewear-guide-lens-options-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+  }
+
+  .ai-eyewear-guide-lens-option-{{ ai_gen_id }} {
+    background-color: {{ block.settings.lens_option_bg }};
+    padding: 15px;
+    border-radius: {{ block.settings.lens_option_border_radius }}px;
+    border: 1px solid {{ block.settings.lens_option_border_color }};
+  }
+
+  .ai-eyewear-guide-lens-title-{{ ai_gen_id }} {
+    color: {{ block.settings.lens_title_color }};
+    font-size: {{ block.settings.lens_title_size }}px;
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+
+  .ai-eyewear-guide-lens-desc-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.lens_text_size }}px;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .ai-eyewear-guide-frame-features-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+  }
+
+  .ai-eyewear-guide-frame-feature-{{ ai_gen_id }} {
+    background-color: {{ block.settings.frame_feature_bg }};
+    padding: 15px;
+    border-radius: {{ block.settings.frame_feature_border_radius }}px;
+    border: 1px solid {{ block.settings.frame_feature_border_color }};
+  }
+
+  .ai-eyewear-guide-frame-feature-title-{{ ai_gen_id }} {
+    color: {{ block.settings.frame_feature_title_color }};
+    font-size: {{ block.settings.frame_feature_title_size }}px;
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+
+  .ai-eyewear-guide-frame-feature-desc-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.frame_feature_text_size }}px;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .ai-eyewear-guide-steps-{{ ai_gen_id }} {
+    counter-reset: step-counter;
+  }
+
+  .ai-eyewear-guide-step-{{ ai_gen_id }} {
+    counter-increment: step-counter;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: {{ block.settings.step_bg }};
+    border-radius: {{ block.settings.step_border_radius }}px;
+    border: 1px solid {{ block.settings.step_border_color }};
+  }
+
+  .ai-eyewear-guide-step-number-{{ ai_gen_id }} {
+    background-color: {{ block.settings.step_number_bg }};
+    color: {{ block.settings.step_number_color }};
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    margin-right: 15px;
+    flex-shrink: 0;
+  }
+
+  .ai-eyewear-guide-step-number-{{ ai_gen_id }}::before {
+    content: counter(step-counter);
+  }
+
+  .ai-eyewear-guide-step-content-{{ ai_gen_id }} {
+    flex: 1;
+  }
+
+  .ai-eyewear-guide-step-title-{{ ai_gen_id }} {
+    color: {{ block.settings.step_title_color }};
+    font-size: {{ block.settings.step_title_size }}px;
+    font-weight: 600;
+    margin: 0 0 5px;
+  }
+
+  .ai-eyewear-guide-step-desc-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.step_text_size }}px;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .ai-eyewear-guide-highlight-{{ ai_gen_id }} {
+    background-color: {{ block.settings.highlight_bg }};
+    color: {{ block.settings.highlight_text_color }};
+    padding: 15px;
+    border-radius: {{ block.settings.highlight_border_radius }}px;
+    margin: 20px 0;
+    border-left: 4px solid {{ block.settings.highlight_accent_color }};
+  }
+
+  .ai-eyewear-guide-highlight-title-{{ ai_gen_id }} {
+    font-weight: 600;
+    margin: 0 0 8px;
+    font-size: {{ block.settings.highlight_title_size }}px;
+  }
+
+  .ai-eyewear-guide-highlight-text-{{ ai_gen_id }} {
+    margin: 0;
+    font-size: {{ block.settings.highlight_text_size }}px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-eyewear-guide-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding | times: 0.7 }}px;
+    }
+
+    .ai-eyewear-guide-measurements-{{ ai_gen_id }},
+    .ai-eyewear-guide-lens-options-{{ ai_gen_id }},
+    .ai-eyewear-guide-frame-features-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-eyewear-guide-section-header-{{ ai_gen_id }} {
+      padding: 15px;
+    }
+
+    .ai-eyewear-guide-section-{{ ai_gen_id }}.active .ai-eyewear-guide-section-content-{{ ai_gen_id }} {
+      padding: 15px;
+    }
+  }
+{% endstyle %}
+
+<eyewear-guide-{{ ai_gen_id }}
+  class="ai-eyewear-guide-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.show_header %}
+    <div class="ai-eyewear-guide-header-{{ ai_gen_id }}">
+      {% if block.settings.main_title != blank %}
+        <h2 class="ai-eyewear-guide-title-{{ ai_gen_id }}">{{ block.settings.main_title }}</h2>
+      {% endif %}
+      {% if block.settings.subtitle != blank %}
+        <p class="ai-eyewear-guide-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="ai-eyewear-guide-sections-{{ ai_gen_id }}">
+    {% if block.settings.show_frame_section %}
+      <div class="ai-eyewear-guide-section-{{ ai_gen_id }}" data-section="frame">
+        <button 
+          class="ai-eyewear-guide-section-header-{{ ai_gen_id }}"
+          aria-expanded="false"
+          aria-controls="frame-content-{{ ai_gen_id }}"
+        >
+          <h3 class="ai-eyewear-guide-section-title-{{ ai_gen_id }}">{{ block.settings.frame_title }}</h3>
+          <span class="ai-eyewear-guide-section-icon-{{ ai_gen_id }}">▼</span>
+        </button>
+        <div 
+          class="ai-eyewear-guide-section-content-{{ ai_gen_id }}"
+          id="frame-content-{{ ai_gen_id }}"
+        >
+          <div class="ai-eyewear-guide-content-text-{{ ai_gen_id }}">
+            {{ block.settings.frame_description }}
+          </div>
+
+          <div class="ai-eyewear-guide-frame-features-{{ ai_gen_id }}">
+            <div class="ai-eyewear-guide-frame-feature-{{ ai_gen_id }}">
+              <h4 class="ai-eyewear-guide-frame-feature-title-{{ ai_gen_id }}">Italian Acetate</h4>
+              <p class="ai-eyewear-guide-frame-feature-desc-{{ ai_gen_id }}">Premium acetate sourced from Italy for superior durability and comfort</p>
+            </div>
+            <div class="ai-eyewear-guide-frame-feature-{{ ai_gen_id }}">
+              <h4 class="ai-eyewear-guide-frame-feature-title-{{ ai_gen_id }}">Handcrafted Quality</h4>
+              <p class="ai-eyewear-guide-frame-feature-desc-{{ ai_gen_id }}">Each frame is carefully crafted with attention to detail and precision</p>
+            </div>
+            <div class="ai-eyewear-guide-frame-feature-{{ ai_gen_id }}">
+              <h4 class="ai-eyewear-guide-frame-feature-title-{{ ai_gen_id }}">Lightweight Design</h4>
+              <p class="ai-eyewear-guide-frame-feature-desc-{{ ai_gen_id }}">Engineered for all-day comfort without compromising on style</p>
+            </div>
+            <div class="ai-eyewear-guide-frame-feature-{{ ai_gen_id }}">
+              <h4 class="ai-eyewear-guide-frame-feature-title-{{ ai_gen_id }}">Adjustable Fit</h4>
+              <p class="ai-eyewear-guide-frame-feature-desc-{{ ai_gen_id }}">Nose pads and temple arms can be adjusted for your perfect fit</p>
+            </div>
+          </div>
+
+          {% if block.settings.show_frame_care %}
+            <div class="ai-eyewear-guide-highlight-{{ ai_gen_id }}">
+              <h4 class="ai-eyewear-guide-highlight-title-{{ ai_gen_id }}">Frame Care</h4>
+              <p class="ai-eyewear-guide-highlight-text-{{ ai_gen_id }}">{{ block.settings.frame_care_text }}</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_sizing_section %}
+      <div class="ai-eyewear-guide-section-{{ ai_gen_id }}" data-section="sizing">
+        <button 
+          class="ai-eyewear-guide-section-header-{{ ai_gen_id }}"
+          aria-expanded="false"
+          aria-controls="sizing-content-{{ ai_gen_id }}"
+        >
+          <h3 class="ai-eyewear-guide-section-title-{{ ai_gen_id }}">{{ block.settings.sizing_title }}</h3>
+          <span class="ai-eyewear-guide-section-icon-{{ ai_gen_id }}">▼</span>
+        </button>
+        <div 
+          class="ai-eyewear-guide-section-content-{{ ai_gen_id }}"
+          id="sizing-content-{{ ai_gen_id }}"
+        >
+          <div class="ai-eyewear-guide-content-text-{{ ai_gen_id }}">
+            {{ block.settings.sizing_description }}
+          </div>
+
+          <div class="ai-eyewear-guide-measurements-{{ ai_gen_id }}">
+            <div class="ai-eyewear-guide-measurement-{{ ai_gen_id }}">
+              <h4 class="ai-eyewear-guide-measurement-title-{{ ai_gen_id }}">Frame Width</h4>
+              <p class="ai-eyewear-guide-measurement-desc-{{ ai_gen_id }}">Total width end to end</p>
+            </div>
+            <div class="ai-eyewear-guide-measurement-{{ ai_gen_id }}">
+              <h4 class="ai-eyewear-guide-measurement-title-{{ ai_gen_id }}">Lens Width</h4>
+              <p class="ai-eyewear-guide-measurement-desc-{{ ai_gen_id }}">Horizontal lens size</p>
+            </div>
+            <div class="ai-eyewear-guide-measurement-{{ ai_gen_id }}">
+              <h4 class="ai-eyewear-guide-measurement-title-{{ ai_gen_id }}">Bridge Width</h4>
+              <p class="ai-eyewear-guide-measurement-desc-{{ ai_gen_id }}">Distance between lenses</p>
+            </div>
+            <div class="ai-eyewear-guide-measurement-{{ ai_gen_id }}">
+              <h4 class="ai-eyewear-guide-measurement-title-{{ ai_gen_id }}">Temple Arm</h4>
+              <p class="ai-eyewear-guide-measurement-desc-{{ ai_gen_id }}">Arm length hinge to tip</p>
+            </div>
+          </div>
+
+          {% if block.settings.show_fit_tip %}
+            <div class="ai-eyewear-guide-highlight-{{ ai_gen_id }}">
+              <h4 class="ai-eyewear-guide-highlight-title-{{ ai_gen_id }}">Fit Tip</h4>
+              <p class="ai-eyewear-guide-highlight-text-{{ ai_gen_id }}">{{ block.settings.fit_tip_text }}</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_lens_section %}
+      <div class="ai-eyewear-guide-section-{{ ai_gen_id }}" data-section="lens">
+        <button 
+          class="ai-eyewear-guide-section-header-{{ ai_gen_id }}"
+          aria-expanded="false"
+          aria-controls="lens-content-{{ ai_gen_id }}"
+        >
+          <h3 class="ai-eyewear-guide-section-title-{{ ai_gen_id }}">{{ block.settings.lens_title }}</h3>
+          <span class="ai-eyewear-guide-section-icon-{{ ai_gen_id }}">▼</span>
+        </button>
+        <div 
+          class="ai-eyewear-guide-section-content-{{ ai_gen_id }}"
+          id="lens-content-{{ ai_gen_id }}"
+        >
+          <div class="ai-eyewear-guide-content-text-{{ ai_gen_id }}">
+            {{ block.settings.lens_description }}
+          </div>
+
+          <div class="ai-eyewear-guide-lens-options-{{ ai_gen_id }}">
+            <div class="ai-eyewear-guide-lens-option-{{ ai_gen_id }}">
+              <h4 class="ai-eyewear-guide-lens-title-{{ ai_gen_id }}">Single Vision</h4>
+              <p class="ai-eyewear-guide-lens-desc-{{ ai_gen_id }}">Standard correction for distance or reading</p>
+            </div>
+            <div class="ai-eyewear-guide-lens-option-{{ ai_gen_id }}">
+              <h4 class="ai-eyewear-guide-lens-title-{{ ai_gen_id }}">Progressives</h4>
+              <p class="ai-eyewear-guide-lens-desc-{{ ai_gen_id }}">Seamless vision for all distances</p>
+            </div>
+            <div class="ai-eyewear-guide-lens-option-{{ ai_gen_id }}">
+              <h4 class="ai-eyewear-guide-lens-title-{{ ai_gen_id }}">Readers</h4>
+              <p class="ai-eyewear-guide-lens-desc-{{ ai_gen_id }}">Magnification from +0.25 to +2.75</p>
+            </div>
+            <div class="ai-eyewear-guide-lens-option-{{ ai_gen_id }}">
+              <h4 class="ai-eyewear-guide-lens-title-{{ ai_gen_id }}">Non-Prescription</h4>
+              <p class="ai-eyewear-guide-lens-desc-{{ ai_gen_id }}">Clear lenses for style and protection</p>
+            </div>
+          </div>
+
+          {% if block.settings.show_addons %}
+            <div class="ai-eyewear-guide-highlight-{{ ai_gen_id }}">
+              <h4 class="ai-eyewear-guide-highlight-title-{{ ai_gen_id }}">Add-Ons Available</h4>
+              <p class="ai-eyewear-guide-highlight-text-{{ ai_gen_id }}">Blue-Light Filtering for screen comfort • Light-Responsive lenses that adapt to brightness</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_prescription_section %}
+      <div class="ai-eyewear-guide-section-{{ ai_gen_id }}" data-section="prescription">
+        <button 
+          class="ai-eyewear-guide-section-header-{{ ai_gen_id }}"
+          aria-expanded="false"
+          aria-controls="prescription-content-{{ ai_gen_id }}"
+        >
+          <h3 class="ai-eyewear-guide-section-title-{{ ai_gen_id }}">{{ block.settings.prescription_title }}</h3>
+          <span class="ai-eyewear-guide-section-icon-{{ ai_gen_id }}">▼</span>
+        </button>
+        <div 
+          class="ai-eyewear-guide-section-content-{{ ai_gen_id }}"
+          id="prescription-content-{{ ai_gen_id }}"
+        >
+          <div class="ai-eyewear-guide-content-text-{{ ai_gen_id }}">
+            {{ block.settings.prescription_description }}
+          </div>
+
+          <div class="ai-eyewear-guide-steps-{{ ai_gen_id }}">
+            <div class="ai-eyewear-guide-step-{{ ai_gen_id }}">
+              <div class="ai-eyewear-guide-step-number-{{ ai_gen_id }}"></div>
+              <div class="ai-eyewear-guide-step-content-{{ ai_gen_id }}">
+                <h4 class="ai-eyewear-guide-step-title-{{ ai_gen_id }}">Choose your frames and check out</h4>
+                <p class="ai-eyewear-guide-step-desc-{{ ai_gen_id }}">Select your preferred style and complete your purchase</p>
+              </div>
+            </div>
+            <div class="ai-eyewear-guide-step-{{ ai_gen_id }}">
+              <div class="ai-eyewear-guide-step-number-{{ ai_gen_id }}"></div>
+              <div class="ai-eyewear-guide-step-content-{{ ai_gen_id }}">
+                <h4 class="ai-eyewear-guide-step-title-{{ ai_gen_id }}">Upload your prescription</h4>
+                <p class="ai-eyewear-guide-step-desc-{{ ai_gen_id }}">Use the link we send to upload a photo of your valid prescription</p>
+              </div>
+            </div>
+            <div class="ai-eyewear-guide-step-{{ ai_gen_id }}">
+              <div class="ai-eyewear-guide-step-number-{{ ai_gen_id }}"></div>
+              <div class="ai-eyewear-guide-step-content-{{ ai_gen_id }}">
+                <h4 class="ai-eyewear-guide-step-title-{{ ai_gen_id }}">No prescription? No problem</h4>
+                <p class="ai-eyewear-guide-step-desc-{{ ai_gen_id }}">Provide your optician's details and we'll confirm it for you</p>
+              </div>
+            </div>
+          </div>
+
+          {% if block.settings.show_quality_note %}
+            <div class="ai-eyewear-guide-highlight-{{ ai_gen_id }}">
+              <h4 class="ai-eyewear-guide-highlight-title-{{ ai_gen_id }}">Quality Guarantee</h4>
+              <p class="ai-eyewear-guide-highlight-text-{{ ai_gen_id }}">{{ block.settings.quality_note_text }}</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</eyewear-guide-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class EyewearGuide{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.sections = this.querySelectorAll('.ai-eyewear-guide-section-{{ ai_gen_id }}');
+        this.setupEventListeners();
+        this.initializeDefaultState();
+      }
+
+      setupEventListeners() {
+        this.sections.forEach((section) => {
+          const header = section.querySelector('.ai-eyewear-guide-section-header-{{ ai_gen_id }}');
+          
+          header.addEventListener('click', () => {
+            this.toggleSection(section);
+          });
+        });
+      }
+
+      initializeDefaultState() {
+        const defaultOpen = '{{ block.settings.default_open_section }}';
+        if (defaultOpen && defaultOpen !== 'none') {
+          const targetSection = this.querySelector(`[data-section="${defaultOpen}"]`);
+          if (targetSection) {
+            this.openSection(targetSection);
+          }
+        }
+      }
+
+      toggleSection(section) {
+        const isActive = section.classList.contains('active');
+        
+        if (isActive) {
+          this.closeSection(section);
+        } else {
+          if ('{{ block.settings.accordion_behavior }}' === 'single') {
+            this.sections.forEach(s => this.closeSection(s));
+          }
+          this.openSection(section);
+        }
+      }
+
+      openSection(section) {
+        const header = section.querySelector('.ai-eyewear-guide-section-header-{{ ai_gen_id }}');
+        const content = section.querySelector('.ai-eyewear-guide-section-content-{{ ai_gen_id }}');
+        
+        section.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+
+      closeSection(section) {
+        const header = section.querySelector('.ai-eyewear-guide-section-header-{{ ai_gen_id }}');
+        const content = section.querySelector('.ai-eyewear-guide-section-content-{{ ai_gen_id }}');
+        
+        section.classList.remove('active');
+        header.setAttribute('aria-expanded', 'false');
+        content.style.maxHeight = '0';
+      }
+    }
+
+    customElements.define('eyewear-guide-{{ ai_gen_id }}', EyewearGuide{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Eyewear fit guide",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show header section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "main_title",
+      "label": "Main title",
+      "default": "Sizing & Fit Guide"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Find your perfect fit with our comprehensive guide"
+    },
+    {
+      "type": "select",
+      "id": "accordion_behavior",
+      "label": "Accordion behavior",
+      "options": [
+        {
+          "value": "single",
+          "label": "Single section open"
+        },
+        {
+          "value": "multiple",
+          "label": "Multiple sections open"
+        }
+      ],
+      "default": "single"
+    },
+    {
+      "type": "select",
+      "id": "default_open_section",
+      "label": "Default open section",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "frame",
+          "label": "Frame description"
+        },
+        {
+          "value": "sizing",
+          "label": "Sizing & fit"
+        },
+        {
+          "value": "lens",
+          "label": "Lens options"
+        },
+        {
+          "value": "prescription",
+          "label": "Prescription upload"
+        }
+      ],
+      "default": "frame"
+    },
+    {
+      "type": "header",
+      "content": "Frame description section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_frame_section",
+      "label": "Show frame description section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "frame_title",
+      "label": "Section title",
+      "default": "Frame Description"
+    },
+    {
+      "type": "richtext",
+      "id": "frame_description",
+      "label": "Description",
+      "default": "<p>Our frames are crafted from premium Italian acetate, designed for durability, comfort, and timeless style. Each pair is built to last with meticulous attention to detail.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_frame_care",
+      "label": "Show frame care information",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "frame_care_text",
+      "label": "Frame care text",
+      "default": "Clean with a microfiber cloth and store in the provided case when not in use. Avoid extreme temperatures and harsh chemicals."
+    },
+    {
+      "type": "header",
+      "content": "Sizing & fit section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sizing_section",
+      "label": "Show sizing section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sizing_title",
+      "label": "Section title",
+      "default": "Sizing & Fit Guide"
+    },
+    {
+      "type": "richtext",
+      "id": "sizing_description",
+      "label": "Description",
+      "default": "<p>Find your perfect fit. Frame measurements appear inside your current glasses and help ensure comfort and balance.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_fit_tip",
+      "label": "Show fit tip",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "fit_tip_text",
+      "label": "Fit tip text",
+      "default": "Frame width should sit just wider than your cheekbones"
+    },
+    {
+      "type": "header",
+      "content": "Lens options section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_lens_section",
+      "label": "Show lens options section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "lens_title",
+      "label": "Section title",
+      "default": "Prescription & Lens Options"
+    },
+    {
+      "type": "richtext",
+      "id": "lens_description",
+      "label": "Description",
+      "default": "<p>Every New Vantage Co. lens is optical-grade, anti-reflective, scratch-resistant, and UV-protected. Each order is verified twice for accuracy.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_addons",
+      "label": "Show add-ons information",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Prescription upload section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_prescription_section",
+      "label": "Show prescription section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "prescription_title",
+      "label": "Section title",
+      "default": "Submitting Your Prescription"
+    },
+    {
+      "type": "richtext",
+      "id": "prescription_description",
+      "label": "Description",
+      "default": "<p>Ordering is simple and straightforward. Follow these steps:</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quality_note",
+      "label": "Show quality guarantee",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "quality_note_text",
+      "label": "Quality guarantee text",
+      "default": "Each pair is hand-assembled and rechecked by a qualified technician to guarantee precision before dispatch"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Main heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "section_header_bg",
+      "label": "Section header background",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "section_header_hover_bg",
+      "label": "Section header hover background",
+      "default": "#f0f0f0"
+    },
+    {
+      "type": "color",
+      "id": "section_title_color",
+      "label": "Section title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "measurement_bg",
+      "label": "Measurement card background",
+      "default": "#faf5f2"
+    },
+    {
+      "type": "color",
+      "id": "measurement_border_color",
+      "label": "Measurement card border",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "color",
+      "id": "measurement_title_color",
+      "label": "Measurement title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "lens_option_bg",
+      "label": "Lens option background",
+      "default": "#faf5f2"
+    },
+    {
+      "type": "color",
+      "id": "lens_option_border_color",
+      "label": "Lens option border",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "color",
+      "id": "lens_title_color",
+      "label": "Lens option title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "frame_feature_bg",
+      "label": "Frame feature background",
+      "default": "#faf5f2"
+    },
+    {
+      "type": "color",
+      "id": "frame_feature_border_color",
+      "label": "Frame feature border",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "color",
+      "id": "frame_feature_title_color",
+      "label": "Frame feature title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "step_bg",
+      "label": "Step background",
+      "default": "#faf5f2"
+    },
+    {
+      "type": "color",
+      "id": "step_border_color",
+      "label": "Step border color",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "color",
+      "id": "step_number_bg",
+      "label": "Step number background",
+      "default": "#a76111"
+    },
+    {
+      "type": "color",
+      "id": "step_number_color",
+      "label": "Step number text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "step_title_color",
+      "label": "Step title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "highlight_bg",
+      "label": "Highlight background",
+      "default": "#f0f8ff"
+    },
+    {
+      "type": "color",
+      "id": "highlight_text_color",
+      "label": "Highlight text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "highlight_accent_color",
+      "label": "Highlight accent color",
+      "default": "#a76111"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Main heading size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Body text size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "section_title_size",
+      "min": 16,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Section title size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "measurement_title_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Measurement title size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "measurement_text_size",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Measurement text size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "lens_title_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Lens option title size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "lens_text_size",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Lens option text size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "frame_feature_title_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Frame feature title size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "frame_feature_text_size",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Frame feature text size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "step_title_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Step title size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "step_text_size",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Step text size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "highlight_title_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Highlight title size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "highlight_text_size",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Highlight text size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Container padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "margin",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Container margin",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Container border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "section_border_radius",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "unit": "px",
+      "label": "Section border radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "measurement_border_radius",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "label": "Measurement card border radius",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "lens_option_border_radius",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "label": "Lens option border radius",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "frame_feature_border_radius",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "label": "Frame feature border radius",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "step_border_radius",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "label": "Step border radius",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "highlight_border_radius",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "label": "Highlight border radius",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Eyewear fit guide"
+    }
+  ]
+}
+{% endschema %}

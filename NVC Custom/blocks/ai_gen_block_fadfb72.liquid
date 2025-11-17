@@ -1,0 +1,572 @@
+{% doc %}
+  @prompt
+    Adapting Aftercare for New Vantage Co.
+    Maintain elegant simplicity while reflecting your premium brand and the topic of aftercare.
+    
+    1. Headline & Copy (Right Column)
+    
+    Pre-Headline: All-caps, wide-tracked accent font sets a confident tone.
+    Example: OUR PROMISE TO YOU
+    
+    Main Headline: Bold sans-serif font, clear and inspiring.
+    Example: Wear With Confidence / Beyond the Purchase
+    
+    Paragraph: Standard body font. Outline key pillars: exchange policy, warranty, care subscription.
+    Example: "Your relationship with us doesn’t end at checkout. Every pair is backed by a comprehensive warranty and a 30-day exchange window. For complete peace of mind, join our Vantage Care plan for ongoing maintenance and support."
+    
+    2. CTA Button
+    
+    Style: Solid black rectangle, sharp corners.
+    
+    Text: White, all-caps with arrow icon.
+    Example: EXPLORE VANTAGE CARE → / LEARN ABOUT OUR PROMISE →
+    
+    3. Visual (Left Column)
+    
+    Prefer a short, silent looping video or high-quality GIF.
+    
+    Content Ideas:
+    
+    Adjustment: Technician’s hands adjusting frame arms.
+    
+    Clean & Polish: Glasses meticulously cleaned with branded microfiber cloth.
+    
+    Quality Check: Final inspection of hinges, finish, and lens mounting.
+    
+    Contained in a sharp-cornered rectangle.
+    
+    Visual Description
+    Left: Silent, looping video in a sharp-cornered frame showing expert handling of glasses.
+    Right: Text is calm and structured with small all-caps pre-headline: OUR PROMISE TO YOU, main headline: Wear With Confidence, and a concise paragraph outlining warranty, exchange, and care plan. Below sits a solid black CTA button: EXPLORE VANTAGE CARE →.
+    
+    Impact
+    This section reassures customers, building trust and reinforcing New Vantage Co.’s premium, careful, and confident brand identity post-purchase., work on css styling photo box with slightly softer coroners 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-aftercare-section-{{ ai_gen_id }} {
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-aftercare-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-aftercare-content-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .ai-aftercare-visual-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: {{ block.settings.visual_height }}px;
+    border-radius: {{ block.settings.visual_border_radius }}px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+  }
+
+  .ai-aftercare-visual-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-aftercare-visual-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 400px;
+    max-height: 300px;
+    opacity: 0.3;
+  }
+
+  .ai-aftercare-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-aftercare-visual-{{ ai_gen_id }} img,
+  .ai-aftercare-visual-{{ ai_gen_id }} video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-aftercare-text-content-{{ ai_gen_id }} {
+    padding: 0;
+  }
+
+  .ai-aftercare-pre-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.pre_headline_size }}px;
+    font-weight: 600;
+    letter-spacing: {{ block.settings.pre_headline_spacing }}em;
+    text-transform: uppercase;
+    color: {{ block.settings.pre_headline_color }};
+    margin: 0 0 16px;
+    line-height: 1.2;
+  }
+
+  .ai-aftercare-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.headline_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.headline_color }};
+    margin: 0 0 24px;
+    line-height: 1.4;
+  }
+
+  .ai-aftercare-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.description_color }};
+    margin: 0 0 32px;
+  }
+
+  .ai-aftercare-cta-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    font-size: {{ block.settings.button_text_size }}px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    border-radius: 0;
+    transition: all 0.3s ease;
+  }
+
+  .ai-aftercare-cta-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text_color }};
+    border-color: {{ block.settings.button_hover_border_color }};
+    transform: translateY(-1px);
+  }
+
+  .ai-aftercare-cta-arrow-{{ ai_gen_id }} {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-aftercare-cta-{{ ai_gen_id }}:hover .ai-aftercare-cta-arrow-{{ ai_gen_id }} {
+    transform: translateX(4px);
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-aftercare-content-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    {% if block.settings.mobile_layout == 'text_first' %}
+      .ai-aftercare-text-content-{{ ai_gen_id }} {
+        order: 1;
+      }
+      .ai-aftercare-visual-{{ ai_gen_id }} {
+        order: 2;
+      }
+    {% endif %}
+
+    .ai-aftercare-visual-{{ ai_gen_id }} {
+      height: {{ block.settings.visual_height | times: 0.7 }}px;
+    }
+
+    .ai-aftercare-pre-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.pre_headline_size | times: 0.9 }}px;
+    }
+
+    .ai-aftercare-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.headline_size | times: 0.8 }}px;
+    }
+
+    .ai-aftercare-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-aftercare-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-aftercare-container-{{ ai_gen_id }}">
+    <div class="ai-aftercare-content-{{ ai_gen_id }}">
+      <div class="ai-aftercare-visual-{{ ai_gen_id }}">
+        {% if block.settings.visual_type == 'video' and block.settings.video_url != blank %}
+          <video
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          >
+            <source src="{{ block.settings.video_url }}" type="video/mp4">
+          </video>
+        {% elsif block.settings.visual_type == 'image' and block.settings.image %}
+          <img
+            src="{{ block.settings.image | image_url: width: 800 }}"
+            alt="{{ block.settings.image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.image.width }}"
+            height="{{ block.settings.image.height }}"
+          >
+        {% else %}
+          <div class="ai-aftercare-visual-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+            <div class="ai-aftercare-empty-state-{{ ai_gen_id }}">
+              Add an image or video to showcase your aftercare service
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-aftercare-text-content-{{ ai_gen_id }}">
+        {% if block.settings.pre_headline != blank %}
+          <div class="ai-aftercare-pre-headline-{{ ai_gen_id }}">
+            {{ block.settings.pre_headline }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.headline != blank %}
+          <h2 class="ai-aftercare-headline-{{ ai_gen_id }}">
+            {{ block.settings.headline }}
+          </h2>
+        {% endif %}
+
+        {% if block.settings.description != blank %}
+          <div class="ai-aftercare-description-{{ ai_gen_id }}">
+            {{ block.settings.description }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.cta_text != blank %}
+          <a
+            href="{{ block.settings.cta_link | default: '#' }}"
+            class="ai-aftercare-cta-{{ ai_gen_id }}"
+          >
+            {{ block.settings.cta_text }}
+            <svg
+              class="ai-aftercare-cta-arrow-{{ ai_gen_id }}"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12,5 19,12 12,19"></polyline>
+            </svg>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Aftercare promise",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Visual content"
+    },
+    {
+      "type": "select",
+      "id": "visual_type",
+      "label": "Visual type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video URL"
+    },
+    {
+      "type": "range",
+      "id": "visual_height",
+      "min": 300,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "label": "Visual height",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "visual_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Visual border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Text content"
+    },
+    {
+      "type": "text",
+      "id": "pre_headline",
+      "label": "Pre-headline",
+      "default": "OUR PROMISE TO YOU"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Wear With Confidence"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Your relationship with us doesn't end at checkout. Every pair is backed by a comprehensive warranty and a 30-day exchange window. For complete peace of mind, join our Vantage Care plan for ongoing maintenance and support."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "EXPLORE VANTAGE CARE"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Mobile layout",
+      "options": [
+        {
+          "value": "visual_first",
+          "label": "Visual first"
+        },
+        {
+          "value": "text_first",
+          "label": "Text first"
+        }
+      ],
+      "default": "visual_first"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#faf5f2"
+    },
+    {
+      "type": "color",
+      "id": "pre_headline_color",
+      "label": "Pre-headline color",
+      "default": "#a76111"
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Headline color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "pre_headline_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Pre-headline size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "pre_headline_spacing",
+      "min": 0,
+      "max": 0.5,
+      "step": 0.1,
+      "unit": "em",
+      "label": "Pre-headline spacing",
+      "default": 0.4
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Headline size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Hover border color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aftercare promise"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1622 @@
+{% doc %}
+  @prompt
+    reate a clean, minimalist promotion bar at the top of my store.
+    It should display five evenly spaced messages with thin vertical divider lines:
+    “20% off first order” | “Free UK shipping” | “Free 30-day returns” | “Student discount available” | “Designed in London”.
+    The bar should have a soft mint-green background (#E6F1EC), dark green or copper text (#A76111), bold sans-serif font, and responsive layout that stacks neatly on mobile.
+    
+    The style should match the modern, refined aesthetic of New Vantage Co., a UK-based eyewear brand.
+    Make it lightweight, visually balanced, and SEO-friendly.Final Promotion Bar Items (6 total)
+    
+    20% off first order
+    
+    Free UK shipping
+    
+    Free 30-day returns
+    
+    Student discount available
+    
+    Prescription done with UK lab, Shopify AI Prompt for New Vantage Co. Promotion Bar
+    
+    Create a clean, minimalist promotion bar at the top of my store with the following six evenly spaced messages:
+    
+    20% off first order
+    
+    Free UK shipping
+    
+    Free 30-day returns
+    
+    Student discount available
+    
+    Prescription done with UK lab
+    
+    Designed in London
+    
+    Design Specifications:
+    
+    Background Color: Soft mint green (#E6F1EC)
+    
+    Text Color: Dark copper (#A76111)
+    
+    Typography: Bold, modern sans-serif font (similar to the one used on newvantageco.com
+    )
+    
+    Layout: Responsive design that stacks messages neatly on mobile devices
+    
+    Style: Minimalist and refined, reflecting the brand's London-based, eyewear-focused identity
+    
+    Ensure the bar is lightweight for fast loading and visually balanced across all devices., /* Promotion Bar Styles */
+    .promotion-bar {
+      background-color: #E6F1EC;       /* Mint-green background */
+      color: #A76111;                  /* Dark copper text */
+      font-family: 'Helvetica Neue', Arial, sans-serif;  /* Modern sans-serif font */
+      font-weight: bold;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #A76111; /* Subtle divider line */
+      text-align: center;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+    
+    .promotion-bar div {
+      flex: 1;
+      padding: 0 10px;
+      position: relative;
+    }
+    
+    /* Divider between items */
+    .promotion-bar div:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 25%;
+      height: 50%;
+      width: 1px;
+      background-color: #A76111;
+    }
+    
+    /* Responsive: stack vertically on mobile */
+    @media (max-width: 768px) {
+      .promotion-bar {
+        flex-direction: column;
+        padding: 8px 0;
+        font-size: 13px;
+      }
+    
+      .promotion-bar div {
+        padding: 6px 0;
+      }
+    
+      .promotion-bar div::after {
+        display: none; /* Remove dividers on mobile */
+      }
+    }
+    , Here are two examples of how you could combine these recommendations:
+    
+    Concept 1: The Premium Dark Bar
+    
+    Background: Solid black or dark charcoal.
+    
+    Text: White or very light grey.
+    
+    Typography: All caps, same font as your site's navigation, with letter-spacing of 1px or 2px.
+    
+    Dividers: A middle dot · colored in your copper/gold accent.
+    
+    Result: This would look incredibly sleek, matching the "Shop Now" button and the overall sophisticated tone.
+    
+    Concept 2: The Integrated Light Bar
+    
+    Background: The same warm, off-white as the model's shirt.
+    
+    Text: Black.
+    
+    Typography: All caps with increased letter-spacing.
+    
+    Icons: Simple, black line-art icons before each promotional point.
+    
+    Dividers: No visible dividers, just 3-4 spaces between each item.
+    
+    Result: This would feel seamless with the page, creating a very clean, minimalist, and modern look.
+    
+    By implementing these changes, your promotion bar will transform from a generic add-on into a beautifully integrated element that strengthens your brand's high-quality aesthetic., every aspect this should be editable and moveble
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-flexible-promo-bar-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    background-image: {% if block.settings.background_gradient %}linear-gradient({{ block.settings.gradient_angle }}deg, {{ block.settings.gradient_start }}, {{ block.settings.gradient_end }}){% else %}none{% endif %};
+    color: {{ block.settings.text_color }};
+    font-family: {{ block.settings.font_family }}, Arial, sans-serif;
+    font-weight: {{ block.settings.font_weight }};
+    text-transform: {{ block.settings.text_transform }};
+    display: flex;
+    justify-content: {{ block.settings.alignment }};
+    align-items: center;
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px;
+    margin: {{ block.settings.margin_top }}px {{ block.settings.margin_horizontal }}px {{ block.settings.margin_bottom }}px;
+    text-align: {{ block.settings.text_align }};
+    font-size: {{ block.settings.font_size }}px;
+    letter-spacing: {{ block.settings.letter_spacing }}px;
+    line-height: {{ block.settings.line_height }};
+    width: 100%;
+    gap: {{ block.settings.item_gap }}px;
+    border-top: {{ block.settings.border_top_width }}px {{ block.settings.border_top_style }} {{ block.settings.border_top_color }};
+    border-bottom: {{ block.settings.border_bottom_width }}px {{ block.settings.border_bottom_style }} {{ block.settings.border_bottom_color }};
+    border-left: {{ block.settings.border_left_width }}px {{ block.settings.border_left_style }} {{ block.settings.border_left_color }};
+    border-right: {{ block.settings.border_right_width }}px {{ block.settings.border_right_style }} {{ block.settings.border_right_color }};
+    border-radius: {{ block.settings.border_radius_top_left }}px {{ block.settings.border_radius_top_right }}px {{ block.settings.border_radius_bottom_right }}px {{ block.settings.border_radius_bottom_left }}px;
+    box-shadow: {{ block.settings.shadow_horizontal }}px {{ block.settings.shadow_vertical }}px {{ block.settings.shadow_blur }}px {{ block.settings.shadow_spread }}px {{ block.settings.shadow_color }};
+    position: {{ block.settings.position }};
+    z-index: {{ block.settings.z_index }};
+    opacity: {{ block.settings.opacity }};
+    {% if block.settings.enable_animation %}
+      animation: ai-promo-animation-{{ ai_gen_id }} {{ block.settings.animation_duration }}s {{ block.settings.animation_timing }} {{ block.settings.animation_delay }}s {{ block.settings.animation_iteration }};
+    {% endif %}
+  }
+
+  .ai-flexible-promo-bar-{{ ai_gen_id }} .ai-promo-item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.icon_spacing }}px;
+    white-space: nowrap;
+    padding: {{ block.settings.item_padding_vertical }}px {{ block.settings.item_padding_horizontal }}px;
+    margin: {{ block.settings.item_margin_vertical }}px {{ block.settings.item_margin_horizontal }}px;
+    background-color: {{ block.settings.item_background_color }};
+    border-radius: {{ block.settings.item_border_radius }}px;
+    border: {{ block.settings.item_border_width }}px {{ block.settings.item_border_style }} {{ block.settings.item_border_color }};
+    transition: all {{ block.settings.hover_transition_duration }}s ease;
+  }
+
+  .ai-flexible-promo-bar-{{ ai_gen_id }} .ai-promo-item-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.item_hover_background }};
+    color: {{ block.settings.item_hover_text_color }};
+    transform: {{ block.settings.hover_transform }};
+  }
+
+  .ai-flexible-promo-bar-{{ ai_gen_id }} .ai-promo-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    stroke: {{ block.settings.icon_color }};
+    stroke-width: {{ block.settings.icon_stroke_width }};
+    fill: none;
+    margin: {{ block.settings.icon_margin_top }}px {{ block.settings.icon_margin_right }}px {{ block.settings.icon_margin_bottom }}px {{ block.settings.icon_margin_left }}px;
+  }
+
+  .ai-flexible-promo-bar-{{ ai_gen_id }} .ai-promo-divider-{{ ai_gen_id }} {
+    color: {{ block.settings.divider_color }};
+    font-size: {{ block.settings.divider_size }}px;
+    margin: {{ block.settings.divider_margin_vertical }}px {{ block.settings.divider_margin_horizontal }}px;
+    font-weight: {{ block.settings.divider_font_weight }};
+    opacity: {{ block.settings.divider_opacity }};
+  }
+
+  {% if block.settings.enable_animation %}
+    @keyframes ai-promo-animation-{{ ai_gen_id }} {
+      0% { {{ block.settings.animation_from }} }
+      100% { {{ block.settings.animation_to }} }
+    }
+  {% endif %}
+
+  @media (max-width: {{ block.settings.tablet_breakpoint }}px) {
+    .ai-flexible-promo-bar-{{ ai_gen_id }} {
+      flex-direction: {{ block.settings.tablet_direction }};
+      justify-content: {{ block.settings.tablet_alignment }};
+      padding: {{ block.settings.tablet_padding_vertical }}px {{ block.settings.tablet_padding_horizontal }}px;
+      font-size: {{ block.settings.tablet_font_size }}px;
+      gap: {{ block.settings.tablet_item_gap }}px;
+      letter-spacing: {{ block.settings.tablet_letter_spacing }}px;
+    }
+
+    .ai-flexible-promo-bar-{{ ai_gen_id }} .ai-promo-divider-{{ ai_gen_id }} {
+      {% if block.settings.hide_dividers_tablet %}display: none;{% endif %}
+    }
+  }
+
+  @media (max-width: {{ block.settings.mobile_breakpoint }}px) {
+    .ai-flexible-promo-bar-{{ ai_gen_id }} {
+      flex-direction: {{ block.settings.mobile_direction }};
+      justify-content: {{ block.settings.mobile_alignment }};
+      padding: {{ block.settings.mobile_padding_vertical }}px {{ block.settings.mobile_padding_horizontal }}px;
+      font-size: {{ block.settings.mobile_font_size }}px;
+      gap: {{ block.settings.mobile_item_gap }}px;
+      letter-spacing: {{ block.settings.mobile_letter_spacing }}px;
+      margin: {{ block.settings.mobile_margin_vertical }}px {{ block.settings.mobile_margin_horizontal }}px;
+    }
+
+    .ai-flexible-promo-bar-{{ ai_gen_id }} .ai-promo-item-{{ ai_gen_id }} {
+      padding: {{ block.settings.mobile_item_padding }}px;
+      margin: {{ block.settings.mobile_item_margin }}px;
+    }
+
+    .ai-flexible-promo-bar-{{ ai_gen_id }} .ai-promo-icon-{{ ai_gen_id }} {
+      width: {{ block.settings.mobile_icon_size }}px;
+      height: {{ block.settings.mobile_icon_size }}px;
+    }
+
+    .ai-flexible-promo-bar-{{ ai_gen_id }} .ai-promo-divider-{{ ai_gen_id }} {
+      {% if block.settings.hide_dividers_mobile %}display: none;{% endif %}
+    }
+  }
+{% endstyle %}
+
+<div class="ai-flexible-promo-bar-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% assign messages = '' %}
+  {% assign message_count = 0 %}
+  
+  {% for i in (1..6) %}
+    {% assign message_key = 'message_' | append: i %}
+    {% assign message_value = block.settings[message_key] %}
+    {% if message_value != blank %}
+      {% if messages != blank %}
+        {% assign messages = messages | append: '|' %}
+      {% endif %}
+      {% assign messages = messages | append: message_value %}
+      {% assign message_count = message_count | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+
+  {% assign message_array = messages | split: '|' %}
+  {% for message in message_array %}
+    <div class="ai-promo-item-{{ ai_gen_id }}">
+      {% if block.settings.show_icons %}
+        {% case forloop.index %}
+          {% when 1 %}
+            <svg class="ai-promo-icon-{{ ai_gen_id }}" viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          {% when 2 %}
+            <svg class="ai-promo-icon-{{ ai_gen_id }}" viewBox="0 0 24 24">
+              <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          {% when 3 %}
+            <svg class="ai-promo-icon-{{ ai_gen_id }}" viewBox="0 0 24 24">
+              <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+            </svg>
+          {% when 4 %}
+            <svg class="ai-promo-icon-{{ ai_gen_id }}" viewBox="0 0 24 24">
+              <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+              <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+            </svg>
+          {% when 5 %}
+            <svg class="ai-promo-icon-{{ ai_gen_id }}" viewBox="0 0 24 24">
+              <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+            </svg>
+          {% when 6 %}
+            <svg class="ai-promo-icon-{{ ai_gen_id }}" viewBox="0 0 24 24">
+              <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+        {% endcase %}
+      {% endif %}
+      <span>{{ message }}</span>
+    </div>
+    
+    {% unless forloop.last %}
+      {% if block.settings.show_dividers %}
+        <span class="ai-promo-divider-{{ ai_gen_id }}">{{ block.settings.divider_symbol }}</span>
+      {% endif %}
+    {% endunless %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Flexible promotion bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Messages"
+    },
+    {
+      "type": "text",
+      "id": "message_1",
+      "label": "Message 1",
+      "default": "20% off first order"
+    },
+    {
+      "type": "text",
+      "id": "message_2",
+      "label": "Message 2",
+      "default": "Free UK shipping"
+    },
+    {
+      "type": "text",
+      "id": "message_3",
+      "label": "Message 3",
+      "default": "Free 30-day returns"
+    },
+    {
+      "type": "text",
+      "id": "message_4",
+      "label": "Message 4",
+      "default": "Student discount available"
+    },
+    {
+      "type": "text",
+      "id": "message_5",
+      "label": "Message 5",
+      "default": "Prescription done with UK lab"
+    },
+    {
+      "type": "text",
+      "id": "message_6",
+      "label": "Message 6",
+      "default": "Designed in London"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "checkbox",
+      "id": "background_gradient",
+      "label": "Enable gradient background",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "gradient_start",
+      "label": "Gradient start color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "gradient_end",
+      "label": "Gradient end color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "gradient_angle",
+      "min": 0,
+      "max": 360,
+      "step": 10,
+      "unit": "deg",
+      "label": "Gradient angle",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "label": "Opacity",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "font_family",
+      "label": "Font family",
+      "options": [
+        {
+          "value": "DM Sans",
+          "label": "DM Sans"
+        },
+        {
+          "value": "Helvetica Neue",
+          "label": "Helvetica Neue"
+        },
+        {
+          "value": "Arial",
+          "label": "Arial"
+        },
+        {
+          "value": "Georgia",
+          "label": "Georgia"
+        },
+        {
+          "value": "Times New Roman",
+          "label": "Times New Roman"
+        },
+        {
+          "value": "Verdana",
+          "label": "Verdana"
+        }
+      ],
+      "default": "DM Sans"
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "unit": "px",
+      "label": "Letter spacing",
+      "default": 1.5
+    },
+    {
+      "type": "range",
+      "id": "line_height",
+      "min": 1,
+      "max": 3,
+      "step": 0.1,
+      "label": "Line height",
+      "default": 1.4
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Layout & positioning"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Content alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        },
+        {
+          "value": "space-between",
+          "label": "Space between"
+        },
+        {
+          "value": "space-around",
+          "label": "Space around"
+        },
+        {
+          "value": "space-evenly",
+          "label": "Space evenly"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Position",
+      "options": [
+        {
+          "value": "static",
+          "label": "Static"
+        },
+        {
+          "value": "relative",
+          "label": "Relative"
+        },
+        {
+          "value": "absolute",
+          "label": "Absolute"
+        },
+        {
+          "value": "fixed",
+          "label": "Fixed"
+        },
+        {
+          "value": "sticky",
+          "label": "Sticky"
+        }
+      ],
+      "default": "static"
+    },
+    {
+      "type": "range",
+      "id": "z_index",
+      "min": 0,
+      "max": 1000,
+      "step": 10,
+      "label": "Z-index",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding horizontal",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_horizontal",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin horizontal",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "min": 5,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Item spacing",
+      "default": 25
+    },
+    {
+      "type": "header",
+      "content": "Item styling"
+    },
+    {
+      "type": "color",
+      "id": "item_background_color",
+      "label": "Item background color"
+    },
+    {
+      "type": "color",
+      "id": "item_hover_background",
+      "label": "Item hover background"
+    },
+    {
+      "type": "color",
+      "id": "item_hover_text_color",
+      "label": "Item hover text color"
+    },
+    {
+      "type": "range",
+      "id": "item_padding_vertical",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Item padding vertical",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "item_padding_horizontal",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Item padding horizontal",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "item_margin_vertical",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Item margin vertical",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "item_margin_horizontal",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Item margin horizontal",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "item_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Item border radius",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "item_border_width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Item border width",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "item_border_style",
+      "label": "Item border style",
+      "options": [
+        {
+          "value": "solid",
+          "label": "Solid"
+        },
+        {
+          "value": "dashed",
+          "label": "Dashed"
+        },
+        {
+          "value": "dotted",
+          "label": "Dotted"
+        }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "color",
+      "id": "item_border_color",
+      "label": "Item border color"
+    },
+    {
+      "type": "header",
+      "content": "Borders"
+    },
+    {
+      "type": "range",
+      "id": "border_top_width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Border top width",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "border_bottom_width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Border bottom width",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "border_left_width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Border left width",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "border_right_width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Border right width",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "border_top_style",
+      "label": "Border top style",
+      "options": [
+        {
+          "value": "solid",
+          "label": "Solid"
+        },
+        {
+          "value": "dashed",
+          "label": "Dashed"
+        },
+        {
+          "value": "dotted",
+          "label": "Dotted"
+        }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "select",
+      "id": "border_bottom_style",
+      "label": "Border bottom style",
+      "options": [
+        {
+          "value": "solid",
+          "label": "Solid"
+        },
+        {
+          "value": "dashed",
+          "label": "Dashed"
+        },
+        {
+          "value": "dotted",
+          "label": "Dotted"
+        }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "select",
+      "id": "border_left_style",
+      "label": "Border left style",
+      "options": [
+        {
+          "value": "solid",
+          "label": "Solid"
+        },
+        {
+          "value": "dashed",
+          "label": "Dashed"
+        },
+        {
+          "value": "dotted",
+          "label": "Dotted"
+        }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "select",
+      "id": "border_right_style",
+      "label": "Border right style",
+      "options": [
+        {
+          "value": "solid",
+          "label": "Solid"
+        },
+        {
+          "value": "dashed",
+          "label": "Dashed"
+        },
+        {
+          "value": "dotted",
+          "label": "Dotted"
+        }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "color",
+      "id": "border_top_color",
+      "label": "Border top color"
+    },
+    {
+      "type": "color",
+      "id": "border_bottom_color",
+      "label": "Border bottom color"
+    },
+    {
+      "type": "color",
+      "id": "border_left_color",
+      "label": "Border left color"
+    },
+    {
+      "type": "color",
+      "id": "border_right_color",
+      "label": "Border right color"
+    },
+    {
+      "type": "range",
+      "id": "border_radius_top_left",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius top left",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "border_radius_top_right",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius top right",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "border_radius_bottom_right",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius bottom right",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "border_radius_bottom_left",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius bottom left",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Shadow"
+    },
+    {
+      "type": "range",
+      "id": "shadow_horizontal",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Shadow horizontal",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "shadow_vertical",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Shadow vertical",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "shadow_blur",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Shadow blur",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "shadow_spread",
+      "min": -10,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Shadow spread",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "shadow_color",
+      "label": "Shadow color",
+      "default": "rgba(0,0,0,0.1)"
+    },
+    {
+      "type": "header",
+      "content": "Icons"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icons",
+      "label": "Show icons",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "icon_spacing",
+      "min": 2,
+      "max": 15,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon spacing",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "icon_stroke_width",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Icon stroke width",
+      "default": 1.5
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon stroke color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "icon_margin_top",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon margin top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "icon_margin_right",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon margin right",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "icon_margin_bottom",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon margin bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "icon_margin_left",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon margin left",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Dividers"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dividers",
+      "label": "Show dividers",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "divider_symbol",
+      "label": "Divider symbol",
+      "default": "·"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#A76111"
+    },
+    {
+      "type": "range",
+      "id": "divider_size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Divider size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "divider_margin_vertical",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Divider margin vertical",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "divider_margin_horizontal",
+      "min": 5,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Divider margin horizontal",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "divider_font_weight",
+      "label": "Divider font weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "divider_opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "label": "Divider opacity",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Hover effects"
+    },
+    {
+      "type": "range",
+      "id": "hover_transition_duration",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "unit": "s",
+      "label": "Hover transition duration",
+      "default": 0.3
+    },
+    {
+      "type": "select",
+      "id": "hover_transform",
+      "label": "Hover transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "scale(1.05)",
+          "label": "Scale up"
+        },
+        {
+          "value": "scale(0.95)",
+          "label": "Scale down"
+        },
+        {
+          "value": "translateY(-2px)",
+          "label": "Move up"
+        },
+        {
+          "value": "translateY(2px)",
+          "label": "Move down"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "Enable animation",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "animation_duration",
+      "min": 0.5,
+      "max": 5,
+      "step": 0.5,
+      "unit": "s",
+      "label": "Animation duration",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "animation_delay",
+      "min": 0,
+      "max": 3,
+      "step": 0.1,
+      "unit": "s",
+      "label": "Animation delay",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "animation_timing",
+      "label": "Animation timing",
+      "options": [
+        {
+          "value": "ease",
+          "label": "Ease"
+        },
+        {
+          "value": "ease-in",
+          "label": "Ease in"
+        },
+        {
+          "value": "ease-out",
+          "label": "Ease out"
+        },
+        {
+          "value": "ease-in-out",
+          "label": "Ease in out"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        }
+      ],
+      "default": "ease"
+    },
+    {
+      "type": "select",
+      "id": "animation_iteration",
+      "label": "Animation iteration",
+      "options": [
+        {
+          "value": "1",
+          "label": "Once"
+        },
+        {
+          "value": "infinite",
+          "label": "Infinite"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "text",
+      "id": "animation_from",
+      "label": "Animation from",
+      "default": "opacity: 0; transform: translateY(-20px);"
+    },
+    {
+      "type": "text",
+      "id": "animation_to",
+      "label": "Animation to",
+      "default": "opacity: 1; transform: translateY(0);"
+    },
+    {
+      "type": "header",
+      "content": "Tablet settings"
+    },
+    {
+      "type": "range",
+      "id": "tablet_breakpoint",
+      "min": 700,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "label": "Tablet breakpoint",
+      "default": 900
+    },
+    {
+      "type": "select",
+      "id": "tablet_direction",
+      "label": "Tablet direction",
+      "options": [
+        {
+          "value": "row",
+          "label": "Row"
+        },
+        {
+          "value": "column",
+          "label": "Column"
+        }
+      ],
+      "default": "row"
+    },
+    {
+      "type": "select",
+      "id": "tablet_alignment",
+      "label": "Tablet alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        },
+        {
+          "value": "space-between",
+          "label": "Space between"
+        },
+        {
+          "value": "space-around",
+          "label": "Space around"
+        },
+        {
+          "value": "space-evenly",
+          "label": "Space evenly"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "tablet_padding_vertical",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Tablet padding vertical",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "tablet_padding_horizontal",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Tablet padding horizontal",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "tablet_font_size",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Tablet font size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "tablet_letter_spacing",
+      "min": 0,
+      "max": 3,
+      "step": 0.1,
+      "unit": "px",
+      "label": "Tablet letter spacing",
+      "default": 1.2
+    },
+    {
+      "type": "range",
+      "id": "tablet_item_gap",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Tablet item spacing",
+      "default": 20
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_dividers_tablet",
+      "label": "Hide dividers on tablet",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Mobile settings"
+    },
+    {
+      "type": "range",
+      "id": "mobile_breakpoint",
+      "min": 400,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile breakpoint",
+      "default": 770
+    },
+    {
+      "type": "select",
+      "id": "mobile_direction",
+      "label": "Mobile direction",
+      "options": [
+        {
+          "value": "row",
+          "label": "Row"
+        },
+        {
+          "value": "column",
+          "label": "Column"
+        }
+      ],
+      "default": "column"
+    },
+    {
+      "type": "select",
+      "id": "mobile_alignment",
+      "label": "Mobile alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        },
+        {
+          "value": "space-between",
+          "label": "Space between"
+        },
+        {
+          "value": "space-around",
+          "label": "Space around"
+        },
+        {
+          "value": "space-evenly",
+          "label": "Space evenly"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_vertical",
+      "min": 5,
+      "max": 25,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile padding vertical",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_horizontal",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile padding horizontal",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_font_size",
+      "min": 8,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile font size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "mobile_letter_spacing",
+      "min": 0,
+      "max": 2,
+      "step": 0.1,
+      "unit": "px",
+      "label": "Mobile letter spacing",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "mobile_item_gap",
+      "min": 5,
+      "max": 25,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile item spacing",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_margin_vertical",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile margin vertical",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_margin_horizontal",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile margin horizontal",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_item_padding",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile item padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_item_margin",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile item margin",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_icon_size",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile icon size",
+      "default": 14
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_dividers_mobile",
+      "label": "Hide dividers on mobile",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Flexible promotion bar"
+    }
+  ]
+}
+{% endschema %}

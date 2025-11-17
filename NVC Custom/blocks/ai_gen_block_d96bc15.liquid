@@ -1,0 +1,898 @@
+{% doc %}
+  @prompt
+    The company's founder defended the price by making a direct comparison to established brands, arguing that the use of superior materials (acetate versus the injected plastic used in some lower-priced Ray-Ban models) and the inclusion of polarised lenses as standard means a comparably equipped product from a legacy brand would cost significantly more, in the range of £170 to over £200.4
+    This justification, while logical from a product development standpoint, highlights a dangerous disconnect. New Vantage Co. defines its value internally based on a bill of materials and features relative to legacy luxury brands. The target consumer, however, perceives value relative to a vast spectrum of readily available online alternatives. This includes glasses from £6 at SelectSpecs, frequent "2 for 1" deals from market leader Glasses Direct, and functionally adequate products from brands like Goodr.4 The founder's argument requires a level of consumer education on material science that is not widespread. Most shoppers cannot visually differentiate between acetate and injected plastic and are primarily guided by price, brand recognition, and style. Therefore, the brand's marketing cannot simply state "high quality"; it must actively and compellingly demonstrate it. Without a concerted effort to make the invisible value of superior materials and craftsmanship tangible, the brand risks being perceived as simply overpriced.
+    , align the colors and  129 brand price including polarised lenses or prescription lenses with bluelight or 1.6 index based on prescriptions also make sure it fully customizable and mobile friendly 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-quality-showcase-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding }}px 20px;
+    border-radius: {{ block.settings.border_radius }}px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-quality-showcase-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .ai-quality-showcase-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .ai-quality-showcase-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 16px;
+    line-height: 1.3;
+  }
+
+  .ai-quality-showcase-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.8;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .ai-quality-showcase-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+
+  .ai-quality-showcase-feature-{{ ai_gen_id }} {
+    background: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: 30px 24px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .ai-quality-showcase-feature-{{ ai_gen_id }}:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .ai-quality-showcase-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    margin: 0 auto 20px;
+    background: {{ block.settings.icon_background }};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ block.settings.icon_color }};
+  }
+
+  .ai-quality-showcase-icon-{{ ai_gen_id }} svg {
+    width: calc({{ block.settings.icon_size }}px * 0.5);
+    height: calc({{ block.settings.icon_size }}px * 0.5);
+  }
+
+  .ai-quality-showcase-feature-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.feature_title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 12px;
+    line-height: 1.3;
+  }
+
+  .ai-quality-showcase-feature-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.feature_description_size }}px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.8;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .ai-quality-showcase-comparison-{{ ai_gen_id }} {
+    background: {{ block.settings.comparison_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: 40px 30px;
+    text-align: center;
+    color: {{ block.settings.comparison_text_color }};
+    position: relative;
+    overflow: hidden;
+    border: 2px solid {{ block.settings.comparison_border_color }};
+  }
+
+  .ai-quality-showcase-comparison-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.comparison_title_size }}px;
+    font-weight: 600;
+    margin: 0 0 20px;
+    line-height: 1.3;
+    color: {{ block.settings.comparison_text_color }};
+  }
+
+  .ai-quality-showcase-comparison-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    align-items: center;
+    margin: 30px 0;
+  }
+
+  .ai-quality-showcase-comparison-item-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: {{ block.settings.card_border_radius }}px;
+    backdrop-filter: blur(10px);
+  }
+
+  .ai-quality-showcase-comparison-vs-{{ ai_gen_id }} {
+    font-size: 18px;
+    font-weight: 600;
+    opacity: 0.7;
+    padding: 0 15px;
+    color: {{ block.settings.comparison_text_color }};
+  }
+
+  .ai-quality-showcase-comparison-brand-{{ ai_gen_id }} {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: {{ block.settings.comparison_text_color }};
+  }
+
+  .ai-quality-showcase-comparison-price-{{ ai_gen_id }} {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: {{ block.settings.price_highlight_color }};
+  }
+
+  .ai-quality-showcase-comparison-features-{{ ai_gen_id }} {
+    font-size: 14px;
+    opacity: 0.9;
+    line-height: 1.4;
+    color: {{ block.settings.comparison_text_color }};
+    white-space: pre-line;
+  }
+
+  .ai-quality-showcase-price-breakdown-{{ ai_gen_id }} {
+    background: {{ block.settings.breakdown_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: 30px;
+    margin: 30px 0;
+    border: 1px solid {{ block.settings.breakdown_border_color }};
+  }
+
+  .ai-quality-showcase-breakdown-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.breakdown_title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 20px;
+    text-align: center;
+  }
+
+  .ai-quality-showcase-breakdown-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .ai-quality-showcase-breakdown-item-{{ ai_gen_id }} {
+    background: {{ block.settings.card_background }};
+    padding: 20px;
+    border-radius: {{ block.settings.card_border_radius }}px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .ai-quality-showcase-breakdown-label-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+
+  .ai-quality-showcase-breakdown-price-{{ ai_gen_id }} {
+    font-size: 24px;
+    font-weight: 700;
+    color: {{ block.settings.price_highlight_color }};
+    margin-bottom: 8px;
+  }
+
+  .ai-quality-showcase-breakdown-description-{{ ai_gen_id }} {
+    font-size: 12px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.8;
+    line-height: 1.4;
+  }
+
+  .ai-quality-showcase-cta-{{ ai_gen_id }} {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .ai-quality-showcase-button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    padding: 16px 32px;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: {{ block.settings.button_text_size }}px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .ai-quality-showcase-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text_color }};
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-quality-showcase-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding | times: 0.7 }}px 15px;
+    }
+
+    .ai-quality-showcase-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .ai-quality-showcase-comparison-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .ai-quality-showcase-comparison-vs-{{ ai_gen_id }} {
+      order: 2;
+      padding: 10px 0;
+    }
+
+    .ai-quality-showcase-breakdown-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .ai-quality-showcase-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.8);
+    }
+
+    .ai-quality-showcase-comparison-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.comparison_title_size }}px * 0.8);
+    }
+
+    .ai-quality-showcase-breakdown-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.breakdown_title_size }}px * 0.8);
+    }
+
+    .ai-quality-showcase-comparison-price-{{ ai_gen_id }} {
+      font-size: 24px;
+    }
+
+    .ai-quality-showcase-breakdown-price-{{ ai_gen_id }} {
+      font-size: 20px;
+    }
+
+    .ai-quality-showcase-feature-{{ ai_gen_id }} {
+      padding: 24px 20px;
+    }
+
+    .ai-quality-showcase-comparison-{{ ai_gen_id }} {
+      padding: 30px 20px;
+    }
+
+    .ai-quality-showcase-price-breakdown-{{ ai_gen_id }} {
+      padding: 24px 20px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .ai-quality-showcase-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding | times: 0.5 }}px 10px;
+    }
+
+    .ai-quality-showcase-feature-{{ ai_gen_id }} {
+      padding: 20px 16px;
+    }
+
+    .ai-quality-showcase-comparison-{{ ai_gen_id }} {
+      padding: 24px 16px;
+    }
+
+    .ai-quality-showcase-price-breakdown-{{ ai_gen_id }} {
+      padding: 20px 16px;
+    }
+
+    .ai-quality-showcase-button-{{ ai_gen_id }} {
+      padding: 14px 24px;
+      font-size: calc({{ block.settings.button_text_size }}px * 0.9);
+    }
+  }
+{% endstyle %}
+
+<div class="ai-quality-showcase-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-quality-showcase-container-{{ ai_gen_id }}">
+    {% if block.settings.title != blank or block.settings.subtitle != blank %}
+      <div class="ai-quality-showcase-header-{{ ai_gen_id }}">
+        {% if block.settings.title != blank %}
+          <h2 class="ai-quality-showcase-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+        {% endif %}
+        {% if block.settings.subtitle != blank %}
+          <p class="ai-quality-showcase-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="ai-quality-showcase-grid-{{ ai_gen_id }}">
+      {% if block.settings.feature_1_title != blank %}
+        <div class="ai-quality-showcase-feature-{{ ai_gen_id }}">
+          <div class="ai-quality-showcase-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3 class="ai-quality-showcase-feature-title-{{ ai_gen_id }}">{{ block.settings.feature_1_title }}</h3>
+          {% if block.settings.feature_1_description != blank %}
+            <p class="ai-quality-showcase-feature-description-{{ ai_gen_id }}">{{ block.settings.feature_1_description }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.feature_2_title != blank %}
+        <div class="ai-quality-showcase-feature-{{ ai_gen_id }}">
+          <div class="ai-quality-showcase-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+              <line x1="9" y1="9" x2="9.01" y2="9"/>
+              <line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+          </div>
+          <h3 class="ai-quality-showcase-feature-title-{{ ai_gen_id }}">{{ block.settings.feature_2_title }}</h3>
+          {% if block.settings.feature_2_description != blank %}
+            <p class="ai-quality-showcase-feature-description-{{ ai_gen_id }}">{{ block.settings.feature_2_description }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.feature_3_title != blank %}
+        <div class="ai-quality-showcase-feature-{{ ai_gen_id }}">
+          <div class="ai-quality-showcase-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 12l2 2 4-4"/>
+              <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
+              <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/>
+              <path d="M13 12h3"/>
+              <path d="M8 12H5"/>
+            </svg>
+          </div>
+          <h3 class="ai-quality-showcase-feature-title-{{ ai_gen_id }}">{{ block.settings.feature_3_title }}</h3>
+          {% if block.settings.feature_3_description != blank %}
+            <p class="ai-quality-showcase-feature-description-{{ ai_gen_id }}">{{ block.settings.feature_3_description }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if block.settings.show_price_breakdown %}
+      <div class="ai-quality-showcase-price-breakdown-{{ ai_gen_id }}">
+        {% if block.settings.breakdown_title != blank %}
+          <h3 class="ai-quality-showcase-breakdown-title-{{ ai_gen_id }}">{{ block.settings.breakdown_title }}</h3>
+        {% endif %}
+        
+        <div class="ai-quality-showcase-breakdown-grid-{{ ai_gen_id }}">
+          {% if block.settings.sunglasses_price != blank %}
+            <div class="ai-quality-showcase-breakdown-item-{{ ai_gen_id }}">
+              <div class="ai-quality-showcase-breakdown-label-{{ ai_gen_id }}">Sunglasses</div>
+              <div class="ai-quality-showcase-breakdown-price-{{ ai_gen_id }}">{{ block.settings.sunglasses_price }}</div>
+              <div class="ai-quality-showcase-breakdown-description-{{ ai_gen_id }}">{{ block.settings.sunglasses_description }}</div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.prescription_price != blank %}
+            <div class="ai-quality-showcase-breakdown-item-{{ ai_gen_id }}">
+              <div class="ai-quality-showcase-breakdown-label-{{ ai_gen_id }}">Prescription</div>
+              <div class="ai-quality-showcase-breakdown-price-{{ ai_gen_id }}">{{ block.settings.prescription_price }}</div>
+              <div class="ai-quality-showcase-breakdown-description-{{ ai_gen_id }}">{{ block.settings.prescription_description }}</div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.bluelight_price != blank %}
+            <div class="ai-quality-showcase-breakdown-item-{{ ai_gen_id }}">
+              <div class="ai-quality-showcase-breakdown-label-{{ ai_gen_id }}">Blue Light</div>
+              <div class="ai-quality-showcase-breakdown-price-{{ ai_gen_id }}">{{ block.settings.bluelight_price }}</div>
+              <div class="ai-quality-showcase-breakdown-description-{{ ai_gen_id }}">{{ block.settings.bluelight_description }}</div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.index_price != blank %}
+            <div class="ai-quality-showcase-breakdown-item-{{ ai_gen_id }}">
+              <div class="ai-quality-showcase-breakdown-label-{{ ai_gen_id }}">1.6 Index</div>
+              <div class="ai-quality-showcase-breakdown-price-{{ ai_gen_id }}">{{ block.settings.index_price }}</div>
+              <div class="ai-quality-showcase-breakdown-description-{{ ai_gen_id }}">{{ block.settings.index_description }}</div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_comparison %}
+      <div class="ai-quality-showcase-comparison-{{ ai_gen_id }}">
+        {% if block.settings.comparison_title != blank %}
+          <h3 class="ai-quality-showcase-comparison-title-{{ ai_gen_id }}">{{ block.settings.comparison_title }}</h3>
+        {% endif %}
+        
+        <div class="ai-quality-showcase-comparison-grid-{{ ai_gen_id }}">
+          <div class="ai-quality-showcase-comparison-item-{{ ai_gen_id }}">
+            <div class="ai-quality-showcase-comparison-brand-{{ ai_gen_id }}">{{ block.settings.our_brand_name }}</div>
+            <div class="ai-quality-showcase-comparison-price-{{ ai_gen_id }}">{{ block.settings.our_price }}</div>
+            <div class="ai-quality-showcase-comparison-features-{{ ai_gen_id }}">{{ block.settings.our_features }}</div>
+          </div>
+          
+          <div class="ai-quality-showcase-comparison-vs-{{ ai_gen_id }}">VS</div>
+          
+          <div class="ai-quality-showcase-comparison-item-{{ ai_gen_id }}">
+            <div class="ai-quality-showcase-comparison-brand-{{ ai_gen_id }}">{{ block.settings.competitor_brand_name }}</div>
+            <div class="ai-quality-showcase-comparison-price-{{ ai_gen_id }}">{{ block.settings.competitor_price }}</div>
+            <div class="ai-quality-showcase-comparison-features-{{ ai_gen_id }}">{{ block.settings.competitor_features }}</div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if block.settings.button_text != blank and block.settings.button_link != blank %}
+      <div class="ai-quality-showcase-cta-{{ ai_gen_id }}">
+        <a href="{{ block.settings.button_link }}" class="ai-quality-showcase-button-{{ ai_gen_id }}">
+          {{ block.settings.button_text }}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"/>
+            <polyline points="7,7 17,7 17,17"/>
+          </svg>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Quality showcase",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Superior Materials, Exceptional Value"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Discover why our premium acetate frames and polarised lenses deliver unmatched quality compared to mass-market alternatives"
+    },
+    {
+      "type": "header",
+      "content": "Feature 1"
+    },
+    {
+      "type": "text",
+      "id": "feature_1_title",
+      "label": "Title",
+      "default": "Premium Acetate Frames"
+    },
+    {
+      "type": "textarea",
+      "id": "feature_1_description",
+      "label": "Description",
+      "default": "Hand-crafted from Italian acetate, not injection-moulded plastic. Superior durability, comfort, and finish that ages beautifully."
+    },
+    {
+      "type": "header",
+      "content": "Feature 2"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_title",
+      "label": "Title",
+      "default": "Polarised Lenses Standard"
+    },
+    {
+      "type": "textarea",
+      "id": "feature_2_description",
+      "label": "Description",
+      "default": "Every pair includes premium polarised lenses as standard. No upgrades needed - superior glare reduction and eye protection included."
+    },
+    {
+      "type": "header",
+      "content": "Feature 3"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_title",
+      "label": "Title",
+      "default": "Direct-to-Consumer Value"
+    },
+    {
+      "type": "textarea",
+      "id": "feature_3_description",
+      "label": "Description",
+      "default": "Cut out the middleman markup. Get premium quality at a fraction of traditional retail prices without compromising on materials."
+    },
+    {
+      "type": "header",
+      "content": "Price breakdown"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price_breakdown",
+      "label": "Show price breakdown",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "breakdown_title",
+      "label": "Breakdown title",
+      "default": "Complete Pricing - All Options Included"
+    },
+    {
+      "type": "text",
+      "id": "sunglasses_price",
+      "label": "Sunglasses price",
+      "default": "£129"
+    },
+    {
+      "type": "textarea",
+      "id": "sunglasses_description",
+      "label": "Sunglasses description",
+      "default": "Polarised lenses included\nItalian acetate frames\nFree UK delivery"
+    },
+    {
+      "type": "text",
+      "id": "prescription_price",
+      "label": "Prescription price",
+      "default": "£129"
+    },
+    {
+      "type": "textarea",
+      "id": "prescription_description",
+      "label": "Prescription description",
+      "default": "Standard prescription lenses\nAnti-reflection coating\nSame premium frames"
+    },
+    {
+      "type": "text",
+      "id": "bluelight_price",
+      "label": "Blue light price",
+      "default": "£129"
+    },
+    {
+      "type": "textarea",
+      "id": "bluelight_description",
+      "label": "Blue light description",
+      "default": "Blue light filtering\nPrescription available\nDigital eye strain relief"
+    },
+    {
+      "type": "text",
+      "id": "index_price",
+      "label": "1.6 Index price",
+      "default": "£129"
+    },
+    {
+      "type": "textarea",
+      "id": "index_description",
+      "label": "1.6 Index description",
+      "default": "Thinner, lighter lenses\nHigh prescription friendly\nPremium optical clarity"
+    },
+    {
+      "type": "header",
+      "content": "Price comparison"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_comparison",
+      "label": "Show price comparison",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "comparison_title",
+      "label": "Comparison title",
+      "default": "Compare Like-for-Like Quality"
+    },
+    {
+      "type": "text",
+      "id": "our_brand_name",
+      "label": "Our brand name",
+      "default": "New Vantage Co"
+    },
+    {
+      "type": "text",
+      "id": "our_price",
+      "label": "Our price",
+      "default": "£129"
+    },
+    {
+      "type": "textarea",
+      "id": "our_features",
+      "label": "Our features",
+      "default": "Italian acetate frames\nPolarised lenses included\nPrescription options available\nFree UK delivery & returns"
+    },
+    {
+      "type": "text",
+      "id": "competitor_brand_name",
+      "label": "Competitor brand name",
+      "default": "Premium Brand"
+    },
+    {
+      "type": "text",
+      "id": "competitor_price",
+      "label": "Competitor price",
+      "default": "£170+"
+    },
+    {
+      "type": "textarea",
+      "id": "competitor_features",
+      "label": "Competitor features",
+      "default": "Similar acetate quality\nPolarised lens upgrade +£50\nPrescription upgrade +£80\nStandard delivery charges"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop Premium Eyewear"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#faf5f2"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "price_highlight_color",
+      "label": "Price highlight color",
+      "default": "#a76111"
+    },
+    {
+      "type": "color",
+      "id": "comparison_background",
+      "label": "Comparison background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "comparison_border_color",
+      "label": "Comparison border color",
+      "default": "#a76111"
+    },
+    {
+      "type": "color",
+      "id": "comparison_text_color",
+      "label": "Comparison text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "breakdown_background",
+      "label": "Breakdown background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "breakdown_border_color",
+      "label": "Breakdown border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Button hover background",
+      "default": "#a76111"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Sizing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Section border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Card border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "feature_title_size",
+      "min": 16,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Feature title size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "feature_description_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Feature description size",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "comparison_title_size",
+      "min": 18,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Comparison title size",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "breakdown_title_size",
+      "min": 18,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Breakdown title size",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 40,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Button text size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 6
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quality showcase"
+    }
+  ]
+}
+{% endschema %}

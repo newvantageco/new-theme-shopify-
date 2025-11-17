@@ -1,0 +1,843 @@
+{% doc %}
+  @prompt
+    2. Design & Content Best Practices
+    A great component is only as good as the content you put in it. For this portrait swiper, content is critical.
+    
+    Image Curation is Key: This is the most important rule.
+    
+    Use True Portrait Images: Don't just squash landscape photos. Use images that are composed vertically. This is perfect for showing off fashion on a model, taller products like bottles or posters, or detailed shots.
+    
+    Consider the "Safe Zone": The text and overlay will cover the bottom 30-40% of the image. Ensure the main subject of your photo is in the upper half or center so it isn't obscured.
+    
+    Consistency is Crucial: The swiper looks best when all the images share a similar aesthetic, colour palette, or photographic style. This makes the section feel cohesive and professional.
+    
+    Text Readability:
+    
+    Keep Titles Short: Aim for 2-4 word titles (e.g., "Autumn Knitwear," "Glassware Edit," "New Denim"). Long titles will wrap awkwardly and clutter the design.
+    
+    Balance the Overlay: The goal of the overlay is to make text readable, not to hide the image. An opacity between 0.3 and 0.5 is usually the sweet spot. A gradient is often better than a solid overlay as it keeps the top of the image clear.
+    
+    Strategic Page Placement: This section works best for:
+    
+    Homepage "Shop by Category": It's a visually engaging way to direct customers to your main collections right from the landing page.
+    
+    "Shop the Look" Features: Each slide could represent a different styled outfit or room, linking to a collection of those items.
+    
+    Highlighting New Arrivals: The dynamic, "story-like" format is perfect for showcasing what's new and trending.
+    
+    3. Why This Design is Trending (The Strategic Context)
+    This design's popularity in modern e-commerce, which you can see across many leading UK and global brands, is no accident. It taps directly into current user behaviour.
+    
+    The "Social Media Aesthetic": Users spend hours a day scrolling through vertical content on platforms like Instagram Reels, TikTok, , its a eyewear theme and also check if everything is displaying properly , can you make them like instagram posts side by side at once 4 collections 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-insta-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+    padding: {{ block.settings.section_padding }}px 0;
+    max-width: 100%;
+  }
+
+  .ai-insta-post-{{ ai_gen_id }} {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .ai-insta-post-{{ ai_gen_id }}:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-insta-post-placeholder-{{ ai_gen_id }} {
+    position: relative;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #faf5f2 0%, #f0ebe8 100%);
+    border-radius: {{ block.settings.border_radius }}px;
+    border: 2px dashed #a76111;
+  }
+
+  .ai-insta-post-placeholder-{{ ai_gen_id }} svg {
+    width: 60px;
+    height: 60px;
+    opacity: 0.3;
+    color: #a76111;
+  }
+
+  .ai-insta-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      {{ block.settings.overlay_color | color_modify: 'alpha', block.settings.overlay_opacity }} 0%,
+      transparent 50%,
+      {{ block.settings.overlay_color | color_modify: 'alpha', block.settings.overlay_opacity | times: 0.7 }} 100%
+    );
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .ai-insta-post-{{ ai_gen_id }}:hover .ai-insta-overlay-{{ ai_gen_id }} {
+    opacity: 1;
+  }
+
+  .ai-insta-content-{{ ai_gen_id }} {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: {{ block.settings.content_padding }}px;
+    color: white;
+    text-decoration: none;
+    z-index: 2;
+  }
+
+  .ai-insta-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: {{ block.settings.title_weight }};
+    text-transform: {{ block.settings.title_transform }};
+    margin: 0 0 {{ block.settings.title_spacing }}px;
+    line-height: 1.2;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    letter-spacing: 0.02em;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .ai-insta-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    font-weight: {{ block.settings.subtitle_weight }};
+    margin: 0 0 {{ block.settings.button_spacing }}px;
+    line-height: 1.4;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
+  }
+
+  .ai-insta-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: {{ block.settings.button_padding_v }}px {{ block.settings.button_padding_h }}px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: {{ block.settings.button_text_size }}px;
+    font-weight: {{ block.settings.button_text_weight }};
+    text-transform: {{ block.settings.button_text_transform }};
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(10px);
+    align-self: flex-start;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+  }
+
+  .ai-insta-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+    color: {{ block.settings.button_hover_text_color }};
+    border-color: {{ block.settings.button_hover_border_color }};
+    transform: translateY(20px) translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .ai-insta-post-{{ ai_gen_id }}:hover .ai-insta-title-{{ ai_gen_id }},
+  .ai-insta-post-{{ ai_gen_id }}:hover .ai-insta-subtitle-{{ ai_gen_id }},
+  .ai-insta-post-{{ ai_gen_id }}:hover .ai-insta-button-{{ ai_gen_id }} {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .ai-insta-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    background-color: rgba(167, 97, 17, 0.9);
+    color: white;
+    border-radius: 15px;
+    font-size: 12px;
+    text-align: center;
+    pointer-events: none;
+    backdrop-filter: blur(5px);
+    font-weight: 500;
+  }
+
+  .ai-insta-like-icon-{{ ai_gen_id }} {
+    position: absolute;
+    top: {{ block.settings.content_padding }}px;
+    right: {{ block.settings.content_padding }}px;
+    width: 24px;
+    height: 24px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+    z-index: 3;
+  }
+
+  .ai-insta-post-{{ ai_gen_id }}:hover .ai-insta-like-icon-{{ ai_gen_id }} {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  @media screen and (max-width: 1024px) {
+    .ai-insta-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_tablet }}, 1fr);
+      gap: {{ block.settings.grid_gap | times: 0.8 }}px;
+    }
+
+    .ai-insta-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.9 }}px;
+    }
+
+    .ai-insta-subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subtitle_size | times: 0.9 }}px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-insta-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+      gap: {{ block.settings.grid_gap | times: 0.6 }}px;
+    }
+
+    .ai-insta-content-{{ ai_gen_id }} {
+      padding: {{ block.settings.content_padding | times: 0.7 }}px;
+    }
+
+    .ai-insta-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.75 }}px;
+    }
+
+    .ai-insta-subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subtitle_size | times: 0.8 }}px;
+    }
+
+    .ai-insta-button-{{ ai_gen_id }} {
+      padding: {{ block.settings.button_padding_v | times: 0.8 }}px {{ block.settings.button_padding_h | times: 0.8 }}px;
+      font-size: {{ block.settings.button_text_size | times: 0.9 }}px;
+    }
+
+    .ai-insta-post-{{ ai_gen_id }} .ai-insta-title-{{ ai_gen_id }},
+    .ai-insta-post-{{ ai_gen_id }} .ai-insta-subtitle-{{ ai_gen_id }},
+    .ai-insta-post-{{ ai_gen_id }} .ai-insta-button-{{ ai_gen_id }} {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .ai-insta-overlay-{{ ai_gen_id }} {
+      opacity: 0.7;
+    }
+  }
+{% endstyle %}
+
+<div
+  class="ai-insta-grid-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {% for i in (1..4) %}
+    {% liquid
+      assign post_enabled_key = 'post_' | append: i | append: '_enabled'
+      assign post_image_key = 'post_' | append: i | append: '_image'
+      assign post_title_key = 'post_' | append: i | append: '_title'
+      assign post_subtitle_key = 'post_' | append: i | append: '_subtitle'
+      assign post_button_text_key = 'post_' | append: i | append: '_button_text'
+      assign post_button_link_key = 'post_' | append: i | append: '_button_link'
+
+      assign post_enabled = block.settings[post_enabled_key]
+      assign post_image = block.settings[post_image_key]
+      assign post_title = block.settings[post_title_key]
+      assign post_subtitle = block.settings[post_subtitle_key]
+      assign post_button_text = block.settings[post_button_text_key]
+      assign post_button_link = block.settings[post_button_link_key]
+    %}
+
+    {% if post_enabled %}
+      {% if post_image %}
+        <div
+          class="ai-insta-post-{{ ai_gen_id }}"
+          style="background-image: url('{{ post_image | image_url: width: 600 }}');"
+        >
+          <div class="ai-insta-overlay-{{ ai_gen_id }}"></div>
+          
+          {% if block.settings.show_like_icon %}
+            <svg class="ai-insta-like-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="white">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          {% endif %}
+
+          <a href="{{ post_button_link }}" class="ai-insta-content-{{ ai_gen_id }}">
+            {% if post_title != blank %}
+              <h3 class="ai-insta-title-{{ ai_gen_id }}">{{ post_title }}</h3>
+            {% endif %}
+
+            {% if post_subtitle != blank %}
+              <p class="ai-insta-subtitle-{{ ai_gen_id }}">{{ post_subtitle }}</p>
+            {% endif %}
+
+            {% if post_button_text != blank %}
+              <span class="ai-insta-button-{{ ai_gen_id }}">
+                {{ post_button_text }}
+              </span>
+            {% endif %}
+          </a>
+        </div>
+      {% else %}
+        <div class="ai-insta-post-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+          <div class="ai-insta-empty-state-{{ ai_gen_id }}">
+            Add image for post {{ i }}
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Instagram grid",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "columns_tablet",
+      "label": "Columns on tablet",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 5,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Grid gap",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Content padding",
+      "default": 25
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "label": "Overlay opacity",
+      "default": 0.4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_like_icon",
+      "label": "Show heart icon",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Title weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "title_transform",
+      "label": "Title transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+      ],
+      "default": "capitalize"
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "min": 5,
+      "max": 20,
+      "step": 5,
+      "unit": "px",
+      "label": "Title bottom spacing",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Subtitle"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "subtitle_weight",
+      "label": "Subtitle weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "button_spacing",
+      "min": 10,
+      "max": 25,
+      "step": 5,
+      "unit": "px",
+      "label": "Button top spacing",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background color",
+      "default": "rgba(255, 255, 255, 0.9)"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Hover background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border color",
+      "default": "rgba(255, 255, 255, 0.3)"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Hover border color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "button_padding_v",
+      "min": 6,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "button_padding_h",
+      "min": 12,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "button_text_weight",
+      "label": "Text weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "button_text_transform",
+      "label": "Text transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "header",
+      "content": "Post 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "post_1_enabled",
+      "label": "Enable post 1",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "post_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "post_1_title",
+      "label": "Title",
+      "default": "Sunglasses"
+    },
+    {
+      "type": "text",
+      "id": "post_1_subtitle",
+      "label": "Subtitle",
+      "default": "Premium collection"
+    },
+    {
+      "type": "text",
+      "id": "post_1_button_text",
+      "label": "Button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "post_1_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Post 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "post_2_enabled",
+      "label": "Enable post 2",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "post_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "post_2_title",
+      "label": "Title",
+      "default": "Optical"
+    },
+    {
+      "type": "text",
+      "id": "post_2_subtitle",
+      "label": "Subtitle",
+      "default": "Everyday frames"
+    },
+    {
+      "type": "text",
+      "id": "post_2_button_text",
+      "label": "Button text",
+      "default": "Explore"
+    },
+    {
+      "type": "url",
+      "id": "post_2_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Post 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "post_3_enabled",
+      "label": "Enable post 3",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "post_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "post_3_title",
+      "label": "Title",
+      "default": "New arrivals"
+    },
+    {
+      "type": "text",
+      "id": "post_3_subtitle",
+      "label": "Subtitle",
+      "default": "Latest styles"
+    },
+    {
+      "type": "text",
+      "id": "post_3_button_text",
+      "label": "Button text",
+      "default": "Discover"
+    },
+    {
+      "type": "url",
+      "id": "post_3_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Post 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "post_4_enabled",
+      "label": "Enable post 4",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "post_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "post_4_title",
+      "label": "Title",
+      "default": "Accessories"
+    },
+    {
+      "type": "text",
+      "id": "post_4_subtitle",
+      "label": "Subtitle",
+      "default": "Cases & more"
+    },
+    {
+      "type": "text",
+      "id": "post_4_button_text",
+      "label": "Button text",
+      "default": "View all"
+    },
+    {
+      "type": "url",
+      "id": "post_4_button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram grid"
+    }
+  ]
+}
+{% endschema %}
