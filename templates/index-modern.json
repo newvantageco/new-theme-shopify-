@@ -1,0 +1,121 @@
+{
+  "sections": {
+    "ultra_modern_hero": {
+      "type": "hero-ultra-modern",
+      "settings": {
+        "section_height": 90,
+        "content_alignment": "center",
+        "content_width": 900,
+        "bg_type": "gradient",
+        "gradient_style": "var(--nvc-gradient-primary)",
+        "animate_gradient": true,
+        "overlay_opacity": 0,
+        "show_decorative_shapes": true,
+        "eyebrow": "Premium Optical & Sunglasses",
+        "heading": "Discover Purposeful Eyewear",
+        "heading_size": "large",
+        "heading_gradient": false,
+        "subheading": "Well-crafted frames imported for comfort and clarity. Experience the perfect blend of style and function with our curated collection.",
+        "text_color": "light",
+        "button_label_1": "Shop Collection",
+        "button_link_1": "/collections/all",
+        "button_label_2": "Virtual Try-On",
+        "button_link_2": "/pages/virtual-try-on",
+        "show_trust_badges": true,
+        "show_scroll_indicator": true
+      },
+      "blocks": {
+        "trust_1": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "<svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'></path><circle cx='12' cy='10' r='3'></circle></svg>",
+            "text": "Free UK Shipping"
+          }
+        },
+        "trust_2": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "<svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'></path></svg>",
+            "text": "2-Year Guarantee"
+          }
+        },
+        "trust_3": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "<svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'></path><polyline points='9 22 9 12 15 12 15 22'></polyline></svg>",
+            "text": "30-Day Returns"
+          }
+        }
+      },
+      "block_order": ["trust_1", "trust_2", "trust_3"]
+    },
+    "featured_products_ultra": {
+      "type": "featured-products-ultra-modern",
+      "settings": {
+        "eyebrow": "Featured Collection",
+        "heading": "Discover Our Latest Frames",
+        "heading_size": "large",
+        "description": "Purposeful, well-crafted frames imported for comfort and clarity.",
+        "collection": "new-arrivals",
+        "products_to_show": 8,
+        "grid_item_width": 300,
+        "show_view_all": true,
+        "button_label": "View All Products",
+        "show_gradient_bg": true,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "contact_form_ultra": {
+      "type": "contact-form-ultra-modern",
+      "settings": {
+        "eyebrow": "Get In Touch",
+        "heading": "We'd Love to Hear From You",
+        "description": "Have a question about our frames? Need help with an order? Our team is here to help.",
+        "card_style": "solid",
+        "show_phone": true,
+        "show_subject": true,
+        "button_label": "Send Message",
+        "show_contact_info": true
+      },
+      "blocks": {
+        "contact_1": {
+          "type": "contact_info",
+          "settings": {
+            "icon": "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'></path><polyline points='22,6 12,13 2,6'></polyline></svg>",
+            "title": "Email",
+            "text": "hello@newvantageco.com",
+            "link": "mailto:hello@newvantageco.com",
+            "link_text": "Send Email"
+          }
+        },
+        "contact_2": {
+          "type": "contact_info",
+          "settings": {
+            "icon": "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'></path></svg>",
+            "title": "Phone",
+            "text": "+44 7930 531847",
+            "link": "tel:+447930531847",
+            "link_text": "Call Us"
+          }
+        },
+        "contact_3": {
+          "type": "contact_info",
+          "settings": {
+            "icon": "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'></path><circle cx='12' cy='10' r='3'></circle></svg>",
+            "title": "Visit Us",
+            "text": "124 City Road, London EC1V 2NX",
+            "link": "https://maps.google.com",
+            "link_text": "Get Directions"
+          }
+        }
+      },
+      "block_order": ["contact_1", "contact_2", "contact_3"]
+    }
+  },
+  "order": [
+    "ultra_modern_hero",
+    "featured_products_ultra",
+    "contact_form_ultra"
+  ]
+}

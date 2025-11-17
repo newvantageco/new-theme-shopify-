@@ -1,0 +1,403 @@
+/**
+ * NVC Modern Design Overrides
+ * Applies ultra-modern styling to existing theme components
+ * This makes the theme look modern WITHOUT changing templates
+ */
+
+/* ============================================
+   1. APPLY MODERN FONTS TO BODY
+   ============================================ */
+
+body, .body-theme {
+  font-family: var(--nvc-font-body, 'Inter', -apple-system, BlinkMacSystemFont, sans-serif) !important;
+}
+
+h1, h2, h3, h4, h5, h6,
+.heading, .title, .product-card__title {
+  font-family: var(--nvc-font-display, 'Outfit', 'Plus Jakarta Sans', sans-serif) !important;
+}
+
+/* ============================================
+   2. MODERNIZE BUTTONS
+   ============================================ */
+
+.btn, button[type="submit"], .button,
+.product-card__overlay-btn,
+.btn-theme,
+input[type="submit"] {
+  font-family: var(--nvc-font-body) !important;
+  font-weight: 600 !important;
+  border-radius: var(--nvc-radius-xl, 1rem) !important;
+  padding: var(--nvc-space-4, 1rem) var(--nvc-space-8, 2rem) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.btn-theme.gradient-theme-vertical,
+.btn-primary,
+button[type="submit"] {
+  background: var(--nvc-gradient-primary, linear-gradient(135deg, #667eea 0%, #764ba2 100%)) !important;
+  border: none !important;
+  color: white !important;
+  box-shadow: var(--nvc-shadow-primary, 0 20px 40px -10px rgba(139, 92, 246, 0.3)) !important;
+}
+
+.btn:hover,
+button[type="submit"]:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: var(--nvc-shadow-primary), var(--nvc-glow-primary, 0 0 20px rgba(139, 92, 246, 0.5)) !important;
+}
+
+/* ============================================
+   3. MODERN PRODUCT CARDS
+   ============================================ */
+
+.product-card {
+  background: white;
+  border-radius: var(--nvc-radius-2xl, 1.5rem) !important;
+  overflow: hidden;
+  box-shadow: var(--nvc-shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08)) !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative;
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--nvc-gradient-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 10;
+}
+
+.product-card:hover {
+  transform: translateY(-12px) scale(1.02) !important;
+  box-shadow: var(--nvc-shadow-2xl, 0 25px 50px -12px rgba(0, 0, 0, 0.25)),
+              var(--nvc-shadow-primary) !important;
+}
+
+.product-card:hover::before {
+  transform: scaleX(1);
+}
+
+.product-card__image-wr img,
+.product-card__image img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.product-card:hover img {
+  transform: scale(1.1) rotate(2deg) !important;
+}
+
+.product-card__price {
+  font-family: var(--nvc-font-accent, 'Space Grotesk', monospace) !important;
+  font-size: var(--nvc-text-xl, 1.25rem) !important;
+  font-weight: 700 !important;
+  background: var(--nvc-gradient-primary);
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text;
+}
+
+/* ============================================
+   4. MODERN INPUTS & FORMS
+   ============================================ */
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="search"],
+textarea,
+select {
+  width: 100%;
+  padding: var(--nvc-space-4, 1rem) var(--nvc-space-6, 1.5rem) !important;
+  font-family: var(--nvc-font-body) !important;
+  font-size: var(--nvc-text-base, 1rem) !important;
+  color: var(--nvc-gray-900, #18181b) !important;
+  background: white !important;
+  border: 2px solid var(--nvc-gray-200, #e4e4e7) !important;
+  border-radius: var(--nvc-radius-xl, 1rem) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  outline: none !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--nvc-primary-500, #8b5cf6) !important;
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1),
+              var(--nvc-shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1)) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ============================================
+   5. MODERN NAVIGATION
+   ============================================ */
+
+.header, header, .site-header {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: var(--nvc-shadow-sm, 0 1px 3px 0 rgba(0, 0, 0, 0.1)) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.header.scrolled,
+header.scrolled {
+  background: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: var(--nvc-shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1)) !important;
+}
+
+.nav-link, .menu-link, a.link {
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.nav-link::after,
+.menu-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--nvc-gradient-primary);
+  transform: translateX(-50%);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover::after,
+.menu-link:hover::after {
+  width: 80%;
+}
+
+/* ============================================
+   6. MODERN SECTIONS
+   ============================================ */
+
+.section, section {
+  position: relative;
+}
+
+.container, .wrapper, .page-width {
+  max-width: var(--nvc-container-7xl, 80rem);
+  padding-left: var(--nvc-space-6, 1.5rem);
+  padding-right: var(--nvc-space-6, 1.5rem);
+}
+
+@media (min-width: 768px) {
+  .container, .wrapper, .page-width {
+    padding-left: var(--nvc-space-8, 2rem);
+    padding-right: var(--nvc-space-8, 2rem);
+  }
+}
+
+/* ============================================
+   7. MODERN CARDS & PANELS
+   ============================================ */
+
+.card, .panel, .box {
+  background: white;
+  border-radius: var(--nvc-radius-2xl, 1.5rem) !important;
+  padding: var(--nvc-space-8, 2rem) !important;
+  box-shadow: var(--nvc-shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08)) !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.card:hover,
+.panel:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: var(--nvc-shadow-2xl, 0 25px 50px -12px rgba(0, 0, 0, 0.25)) !important;
+}
+
+/* ============================================
+   8. MODERN BADGES & LABELS
+   ============================================ */
+
+.badge, .label, .tag, .product-card__label {
+  padding: var(--nvc-space-2, 0.5rem) var(--nvc-space-4, 1rem) !important;
+  background: var(--nvc-gradient-primary) !important;
+  color: white !important;
+  font-size: var(--nvc-text-xs, 0.75rem) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  border-radius: var(--nvc-radius-full, 9999px) !important;
+  box-shadow: var(--nvc-shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1)) !important;
+}
+
+/* Sale badge */
+.badge--sale,
+.product-card__pricesale .badge {
+  background: var(--nvc-gradient-sunset, linear-gradient(135deg, #f093fb 0%, #f5576c 100%)) !important;
+}
+
+/* ============================================
+   9. SMOOTH ANIMATIONS
+   ============================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in,
+.aos-animate {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ============================================
+   10. MODERN GRID LAYOUTS
+   ============================================ */
+
+.grid, .product-grid, .collection-grid {
+  display: grid;
+  gap: var(--nvc-space-8, 2rem) !important;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+}
+
+@media (min-width: 768px) {
+  .grid, .product-grid, .collection-grid {
+    gap: var(--nvc-space-10, 2.5rem) !important;
+  }
+}
+
+/* ============================================
+   11. MODERN COLORS
+   ============================================ */
+
+/* Override theme primary color with modern gradient */
+.color-primary,
+.text-primary {
+  background: var(--nvc-gradient-primary) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text;
+}
+
+/* ============================================
+   12. MODERN SHADOWS
+   ============================================ */
+
+.shadow,
+.elevated {
+  box-shadow: var(--nvc-shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1)) !important;
+}
+
+.shadow-xl {
+  box-shadow: var(--nvc-shadow-2xl, 0 25px 50px -12px rgba(0, 0, 0, 0.25)) !important;
+}
+
+/* ============================================
+   13. GLASSMORPHISM EFFECTS
+   ============================================ */
+
+.glass-effect,
+.announcement-bar,
+.promo-banner {
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ============================================
+   14. IMAGE HOVER EFFECTS
+   ============================================ */
+
+.image-wrapper,
+.media-wrapper {
+  overflow: hidden;
+  border-radius: var(--nvc-radius-2xl, 1.5rem);
+}
+
+.image-wrapper img,
+.media-wrapper img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.image-wrapper:hover img,
+.media-wrapper:hover img,
+.product-card:hover .image-wrapper img {
+  transform: scale(1.1) !important;
+}
+
+/* ============================================
+   15. RESPONSIVE UTILITIES
+   ============================================ */
+
+@media (max-width: 768px) {
+  .btn, button {
+    padding: var(--nvc-space-3, 0.75rem) var(--nvc-space-6, 1.5rem) !important;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px) scale(1.01) !important;
+  }
+}
+
+/* ============================================
+   16. SMOOTH SCROLL
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ============================================
+   17. MODERN FOCUS STYLES
+   ============================================ */
+
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--nvc-primary-500, #8b5cf6) !important;
+  outline-offset: 2px !important;
+}
+
+/* ============================================
+   18. LOADING STATES
+   ============================================ */
+
+.loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    left: 100%;
+  }
+}
