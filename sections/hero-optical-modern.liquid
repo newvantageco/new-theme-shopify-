@@ -1,0 +1,671 @@
+{% comment %}
+  Modern Optical Hero Section
+  Inspired by: Warby Parker, Ray-Ban, SunGod, Bloobloom
+  Features: Immersive visuals, smooth animations, virtual try-on CTA, modern typography
+{% endcomment %}
+
+{%- liquid
+  assign section_id = section.id
+  assign enable_video = section.settings.enable_video
+  assign video_url = section.settings.video_url
+  assign image = section.settings.hero_image
+  assign mobile_image = section.settings.mobile_image
+  assign overlay_opacity = section.settings.overlay_opacity
+  assign overlay_color = section.settings.overlay_color
+  assign content_position = section.settings.content_position
+  assign enable_parallax = section.settings.enable_parallax
+-%}
+
+<style>
+  .nvc-hero-{{ section_id }} {
+    position: relative;
+    min-height: {{ section.settings.desktop_height }}vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: {{ section.settings.background_color }};
+  }
+
+  .nvc-hero-{{ section_id }} .hero-media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .nvc-hero-{{ section_id }} .hero-media img,
+  .nvc-hero-{{ section_id }} .hero-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  {%- if enable_parallax -%}
+  .nvc-hero-{{ section_id }} .hero-media.parallax {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  {%- endif -%}
+
+  .nvc-hero-{{ section_id }} .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: {{ overlay_color }};
+    opacity: {{ overlay_opacity }};
+    z-index: 2;
+    mix-blend-mode: multiply;
+  }
+
+  .nvc-hero-{{ section_id }} .hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+    padding: 2rem;
+    text-align: {{ section.settings.text_alignment }};
+    animation: heroFadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+  }
+
+  @keyframes heroFadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .nvc-hero-{{ section_id }} .hero-eyebrow {
+    font-size: {{ section.settings.eyebrow_size }}px;
+    font-weight: 600;
+    letter-spacing: {{ section.settings.eyebrow_spacing }}em;
+    text-transform: uppercase;
+    color: {{ section.settings.eyebrow_color }};
+    margin-bottom: 1rem;
+    animation: heroFadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    opacity: 0;
+  }
+
+  .nvc-hero-{{ section_id }} .hero-headline {
+    font-size: clamp(40px, {{ section.settings.headline_size }}px, {{ section.settings.headline_size }}px);
+    font-weight: {{ section.settings.headline_weight }};
+    line-height: 1.1;
+    color: {{ section.settings.headline_color }};
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+    animation: heroFadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    opacity: 0;
+  }
+
+  .nvc-hero-{{ section_id }} .hero-description {
+    font-size: {{ section.settings.description_size }}px;
+    line-height: 1.6;
+    color: {{ section.settings.description_color }};
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: heroFadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    opacity: 0;
+  }
+
+  .nvc-hero-{{ section_id }} .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    justify-content: {{ section.settings.text_alignment }};
+    flex-wrap: wrap;
+    animation: heroFadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+    opacity: 0;
+  }
+
+  .nvc-hero-{{ section_id }} .hero-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: {{ section.settings.button_padding }}px {{ section.settings.button_padding | times: 2 }}px;
+    font-size: {{ section.settings.button_font_size }}px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: {{ section.settings.button_radius }}px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    text-decoration: none;
+    border: 2px solid transparent;
+  }
+
+  .nvc-hero-{{ section_id }} .hero-btn-primary {
+    background: {{ section.settings.primary_button_bg }};
+    color: {{ section.settings.primary_button_color }};
+    border-color: {{ section.settings.primary_button_bg }};
+  }
+
+  .nvc-hero-{{ section_id }} .hero-btn-primary:hover {
+    background: {{ section.settings.primary_button_hover_bg }};
+    border-color: {{ section.settings.primary_button_hover_bg }};
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .nvc-hero-{{ section_id }} .hero-btn-secondary {
+    background: transparent;
+    color: {{ section.settings.secondary_button_color }};
+    border-color: {{ section.settings.secondary_button_color }};
+  }
+
+  .nvc-hero-{{ section_id }} .hero-btn-secondary:hover {
+    background: {{ section.settings.secondary_button_color }};
+    color: {{ section.settings.secondary_button_hover_color }};
+    transform: translateY(-2px);
+  }
+
+  .nvc-hero-{{ section_id }} .hero-features {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 3rem;
+    z-index: 10;
+    animation: heroFadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+    opacity: 0;
+  }
+
+  .nvc-hero-{{ section_id }} .hero-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: {{ section.settings.feature_color }};
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .nvc-hero-{{ section_id }} .hero-feature svg {
+    width: 24px;
+    height: 24px;
+    opacity: 0.8;
+  }
+
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .nvc-hero-{{ section_id }} {
+      min-height: {{ section.settings.mobile_height }}vh;
+    }
+
+    .nvc-hero-{{ section_id }} .hero-content {
+      padding: 1.5rem;
+    }
+
+    .nvc-hero-{{ section_id }} .hero-headline {
+      font-size: clamp(32px, 8vw, 48px);
+    }
+
+    .nvc-hero-{{ section_id }} .hero-ctas {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .nvc-hero-{{ section_id }} .hero-btn {
+      justify-content: center;
+      width: 100%;
+    }
+
+    .nvc-hero-{{ section_id }} .hero-features {
+      flex-direction: column;
+      gap: 1rem;
+      bottom: 1.5rem;
+    }
+
+    .nvc-hero-{{ section_id }} .hero-media.mobile {
+      display: block;
+    }
+
+    .nvc-hero-{{ section_id }} .hero-media.desktop {
+      display: none;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .nvc-hero-{{ section_id }} .hero-media.mobile {
+      display: none;
+    }
+
+    .nvc-hero-{{ section_id }} .hero-media.desktop {
+      display: block;
+    }
+  }
+
+  /* Hover effect on hero */
+  .nvc-hero-{{ section_id }}:hover .hero-media img {
+    transform: scale(1.05);
+  }
+</style>
+
+<section class="nvc-hero-{{ section_id }}">
+  <!-- Hero Media (Image or Video) -->
+  <div class="hero-media desktop{% if enable_parallax %} parallax{% endif %}" data-parallax="true">
+    {%- if enable_video and video_url != blank -%}
+      <video autoplay loop muted playsinline>
+        <source src="{{ video_url }}" type="video/mp4">
+      </video>
+    {%- elsif image != blank -%}
+      {{ image | image_url: width: 2000 | image_tag: loading: 'eager', alt: section.settings.headline }}
+    {%- else -%}
+      <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); width: 100%; height: 100%;"></div>
+    {%- endif -%}
+  </div>
+
+  {%- if mobile_image != blank -%}
+  <div class="hero-media mobile">
+    {{ mobile_image | image_url: width: 1000 | image_tag: loading: 'eager', alt: section.settings.headline }}
+  </div>
+  {%- endif -%}
+
+  <!-- Overlay -->
+  <div class="hero-overlay"></div>
+
+  <!-- Content -->
+  <div class="hero-content container">
+    {%- if section.settings.eyebrow != blank -%}
+      <div class="hero-eyebrow">{{ section.settings.eyebrow }}</div>
+    {%- endif -%}
+
+    {%- if section.settings.headline != blank -%}
+      <h1 class="hero-headline">{{ section.settings.headline }}</h1>
+    {%- endif -%}
+
+    {%- if section.settings.description != blank -%}
+      <div class="hero-description">{{ section.settings.description }}</div>
+    {%- endif -%}
+
+    <div class="hero-ctas">
+      {%- if section.settings.primary_button_text != blank -%}
+        <a href="{{ section.settings.primary_button_link }}" class="hero-btn hero-btn-primary">
+          {{ section.settings.primary_button_text }}
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 8h14M9 1l6 7-6 7"/>
+          </svg>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.secondary_button_text != blank -%}
+        <a href="{{ section.settings.secondary_button_link }}" class="hero-btn hero-btn-secondary">
+          {{ section.settings.secondary_button_text }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <!-- Bottom Features -->
+  {%- if section.settings.show_features -%}
+  <div class="hero-features">
+    <div class="hero-feature">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      <span>Virtual Try-On</span>
+    </div>
+    <div class="hero-feature">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+      <span>Free UK Shipping</span>
+    </div>
+    <div class="hero-feature">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+      <span>2-Year Warranty</span>
+    </div>
+  </div>
+  {%- endif -%}
+</section>
+
+<script>
+  {%- if enable_parallax -%}
+  // Simple parallax effect
+  document.addEventListener('DOMContentLoaded', function() {
+    const parallaxElement = document.querySelector('.nvc-hero-{{ section_id }} .hero-media.parallax');
+    if (parallaxElement) {
+      window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * 0.5;
+        parallaxElement.style.transform = `translate3d(0, ${rate}px, 0)`;
+      });
+    }
+  });
+  {%- endif -%}
+</script>
+
+{% schema %}
+{
+  "name": "Hero - Optical Modern",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "label": "Desktop height",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "label": "Mobile height",
+      "default": 70
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content position",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "bottom", "label": "Bottom" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video",
+      "label": "Enable video background",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video URL",
+      "info": "Upload video to Shopify Files and paste URL here"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image (optional)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_parallax",
+      "label": "Enable parallax effect",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "label": "Overlay opacity",
+      "default": 0.3
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "New Collection"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Eyebrow size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_spacing",
+      "min": 0,
+      "max": 0.3,
+      "step": 0.05,
+      "label": "Eyebrow letter spacing",
+      "default": 0.15
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#a76111"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "See The World Differently"
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "min": 32,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Headline size",
+      "default": 72
+    },
+    {
+      "type": "select",
+      "id": "headline_weight",
+      "label": "Headline weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Headline color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Handcrafted frames designed for comfort, clarity, and confidence. Free UK shipping on all orders."
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Primary Button"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Button text",
+      "default": "Shop Collection"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_bg",
+      "label": "Background color",
+      "default": "#a76111"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_hover_bg",
+      "label": "Hover background",
+      "default": "#8b5209"
+    },
+    {
+      "type": "header",
+      "content": "Secondary Button"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Button text",
+      "default": "Virtual Try-On"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_color",
+      "label": "Text/Border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_hover_color",
+      "label": "Hover text color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Button Styles"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_padding",
+      "min": 12,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Features Bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_features",
+      "label": "Show feature icons",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "feature_color",
+      "label": "Feature color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero - Optical Modern"
+    }
+  ]
+}
+{% endschema %}

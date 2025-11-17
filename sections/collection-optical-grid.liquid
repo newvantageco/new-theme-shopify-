@@ -1,0 +1,717 @@
+{% comment %}
+  Modern Optical Collection Grid
+  Features: Advanced filtering, quick view, virtual try-on, smooth animations
+  Inspired by: Bloobloom, Warby Parker collection pages
+{% endcomment %}
+
+{%- liquid
+  assign products_per_row = section.settings.products_per_row
+  assign enable_filtering = section.settings.enable_filtering
+  assign enable_quick_view = section.settings.enable_quick_view
+-%}
+
+<style>
+  .nvc-collection-optical {
+    --collection-primary: {{ section.settings.primary_color }};
+    --collection-text: {{ section.settings.text_color }};
+    padding: {{ section.settings.section_padding }}px 0;
+  }
+
+  .nvc-collection-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Collection Header */
+  .nvc-collection-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    animation: fadeInUp 0.8s ease;
+  }
+
+  .nvc-collection-title {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700;
+    color: var(--collection-text);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .nvc-collection-description {
+    font-size: 18px;
+    color: var(--collection-text);
+    opacity: 0.7;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .nvc-collection-count {
+    font-size: 14px;
+    color: var(--collection-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 1rem;
+  }
+
+  /* Filters */
+  .nvc-filters-wrapper {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .nvc-filters-sidebar {
+    position: sticky;
+    top: 120px;
+    background: #f8f8f8;
+    padding: 2rem;
+    border-radius: 16px;
+  }
+
+  .nvc-filter-group {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .nvc-filter-group:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .nvc-filter-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--collection-text);
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .nvc-filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .nvc-filter-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .nvc-filter-option:hover {
+    color: var(--collection-primary);
+  }
+
+  .nvc-filter-option input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--collection-primary);
+  }
+
+  .nvc-filter-option label {
+    font-size: 15px;
+    cursor: pointer;
+    flex: 1;
+  }
+
+  .nvc-filter-count {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  /* Product Grid */
+  .nvc-products-grid {
+    display: grid;
+    grid-template-columns: repeat({{ products_per_row }}, 1fr);
+    gap: 2rem;
+  }
+
+  .nvc-product-card {
+    position: relative;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: fadeIn 0.6s ease;
+  }
+
+  .nvc-product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  .nvc-product-image-wrapper {
+    position: relative;
+    aspect-ratio: 4/3;
+    background: #f8f8f8;
+    overflow: hidden;
+  }
+
+  .nvc-product-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .nvc-product-card:hover .nvc-product-image-wrapper img {
+    transform: scale(1.08);
+  }
+
+  .nvc-product-badges {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 5;
+  }
+
+  .nvc-badge {
+    padding: 0.4rem 0.8rem;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 20px;
+    width: fit-content;
+  }
+
+  .nvc-badge-new {
+    background: var(--collection-primary);
+    color: white;
+  }
+
+  .nvc-badge-sale {
+    background: #e74c3c;
+    color: white;
+  }
+
+  .nvc-product-actions {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 5;
+  }
+
+  .nvc-product-card:hover .nvc-product-actions {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .nvc-action-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .nvc-action-btn:hover {
+    background: var(--collection-primary);
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .nvc-action-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .nvc-product-info {
+    padding: 1.5rem;
+  }
+
+  .nvc-product-vendor {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--collection-primary);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .nvc-product-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--collection-text);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .nvc-product-price {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--collection-text);
+  }
+
+  .nvc-price-compare {
+    font-size: 15px;
+    text-decoration: line-through;
+    opacity: 0.5;
+    font-weight: 400;
+  }
+
+  .nvc-color-swatches {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .nvc-color-dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .nvc-color-dot:hover {
+    transform: scale(1.2);
+    border-color: var(--collection-primary);
+  }
+
+  .nvc-quick-add {
+    width: 100%;
+    padding: 0.875rem;
+    background: var(--collection-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 1rem;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .nvc-product-card:hover .nvc-quick-add {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .nvc-quick-add:hover {
+    background: color-mix(in srgb, var(--collection-primary) 85%, black);
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .nvc-products-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .nvc-filters-wrapper {
+      grid-template-columns: 1fr;
+    }
+
+    .nvc-filters-sidebar {
+      position: relative;
+      top: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nvc-products-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .nvc-product-actions {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .nvc-quick-add {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .nvc-products-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .nvc-collection-container {
+      padding: 0 1rem;
+    }
+  }
+</style>
+
+<div class="nvc-collection-optical">
+  <div class="nvc-collection-container">
+    <!-- Collection Header -->
+    <div class="nvc-collection-header">
+      <h1 class="nvc-collection-title">{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}
+        <div class="nvc-collection-description">{{ collection.description }}</div>
+      {%- endif -%}
+      <div class="nvc-collection-count">{{ collection.products_count }} Products</div>
+    </div>
+
+    <!-- Filters & Products -->
+    <div class="nvc-filters-wrapper">
+      {%- if enable_filtering -%}
+      <!-- Filters Sidebar -->
+      <aside class="nvc-filters-sidebar">
+        <div class="nvc-filter-group">
+          <div class="nvc-filter-title">
+            Frame Shape
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+          <div class="nvc-filter-options">
+            <div class="nvc-filter-option">
+              <input type="checkbox" id="round" name="shape" value="round">
+              <label for="round">Round</label>
+              <span class="nvc-filter-count">(24)</span>
+            </div>
+            <div class="nvc-filter-option">
+              <input type="checkbox" id="square" name="shape" value="square">
+              <label for="square">Square</label>
+              <span class="nvc-filter-count">(18)</span>
+            </div>
+            <div class="nvc-filter-option">
+              <input type="checkbox" id="cat-eye" name="shape" value="cat-eye">
+              <label for="cat-eye">Cat-Eye</label>
+              <span class="nvc-filter-count">(12)</span>
+            </div>
+            <div class="nvc-filter-option">
+              <input type="checkbox" id="aviator" name="shape" value="aviator">
+              <label for="aviator">Aviator</label>
+              <span class="nvc-filter-count">(15)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="nvc-filter-group">
+          <div class="nvc-filter-title">
+            Material
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+          <div class="nvc-filter-options">
+            <div class="nvc-filter-option">
+              <input type="checkbox" id="acetate" name="material" value="acetate">
+              <label for="acetate">Acetate</label>
+              <span class="nvc-filter-count">(42)</span>
+            </div>
+            <div class="nvc-filter-option">
+              <input type="checkbox" id="metal" name="material" value="metal">
+              <label for="metal">Metal</label>
+              <span class="nvc-filter-count">(28)</span>
+            </div>
+            <div class="nvc-filter-option">
+              <input type="checkbox" id="titanium" name="material" value="titanium">
+              <label for="titanium">Titanium</label>
+              <span class="nvc-filter-count">(16)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="nvc-filter-group">
+          <div class="nvc-filter-title">
+            Gender
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+          <div class="nvc-filter-options">
+            <div class="nvc-filter-option">
+              <input type="checkbox" id="unisex" name="gender" value="unisex">
+              <label for="unisex">Unisex</label>
+              <span class="nvc-filter-count">(56)</span>
+            </div>
+            <div class="nvc-filter-option">
+              <input type="checkbox" id="women" name="gender" value="women">
+              <label for="women">Women</label>
+              <span class="nvc-filter-count">(32)</span>
+            </div>
+            <div class="nvc-filter-option">
+              <input type="checkbox" id="men" name="gender" value="men">
+              <label for="men">Men</label>
+              <span class="nvc-filter-count">(28)</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+      {%- endif -%}
+
+      <!-- Products Grid -->
+      <div class="nvc-products-main">
+        <div class="nvc-products-grid">
+          {%- for product in collection.products -%}
+            <div class="nvc-product-card" data-product-id="{{ product.id }}">
+              <!-- Product Image -->
+              <div class="nvc-product-image-wrapper">
+                <a href="{{ product.url }}">
+                  {%- if product.featured_image -%}
+                    <img
+                      src="{{ product.featured_image | image_url: width: 600 }}"
+                      alt="{{ product.title }}"
+                      loading="lazy"
+                    >
+                  {%- endif -%}
+                </a>
+
+                <!-- Badges -->
+                <div class="nvc-product-badges">
+                  {%- if product.tags contains 'new' -%}
+                    <span class="nvc-badge nvc-badge-new">New</span>
+                  {%- endif -%}
+                  {%- if product.compare_at_price > product.price -%}
+                    <span class="nvc-badge nvc-badge-sale">Sale</span>
+                  {%- endif -%}
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="nvc-product-actions">
+                  <button class="nvc-action-btn" data-quick-view="{{ product.id }}" aria-label="Quick view {{ product.title }}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </button>
+                  <button class="nvc-action-btn" data-add-wishlist="{{ product.id }}" aria-label="Add {{ product.title }} to wishlist">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Product Info -->
+              <div class="nvc-product-info">
+                <div class="nvc-product-vendor">{{ product.vendor }}</div>
+                <h3 class="nvc-product-title">
+                  <a href="{{ product.url }}">{{ product.title }}</a>
+                </h3>
+                <div class="nvc-product-price">
+                  <span>{{ product.price | money }}</span>
+                  {%- if product.compare_at_price > product.price -%}
+                    <span class="nvc-price-compare">{{ product.compare_at_price | money }}</span>
+                  {%- endif -%}
+                </div>
+
+                {%- if product.variants.size > 1 -%}
+                <div class="nvc-color-swatches">
+                  {%- for variant in product.variants limit: 5 -%}
+                    <div
+                      class="nvc-color-dot"
+                      style="background: {{ variant.metafields.color.hex | default: '#cccccc' }};"
+                      title="{{ variant.title }}"
+                    ></div>
+                  {%- endfor -%}
+                </div>
+                {%- endif -%}
+
+                <button class="nvc-quick-add" data-quick-add="{{ product.variants.first.id }}" aria-label="Quick add {{ product.title }} to cart">
+                  Quick Add
+                </button>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Collection Grid - Accessible Event Handlers
+  (function() {
+    'use strict';
+
+    function quickView(productId) {
+      // Open quick view modal
+      console.log('Quick view for product:', productId);
+      alert('Quick View modal will open here');
+    }
+
+    function addToWishlist(productId) {
+      console.log('Add to wishlist:', productId);
+      // Trigger wishlist event
+      window.dispatchEvent(new CustomEvent('add-to-wishlist', {
+        detail: { productId: productId }
+      }));
+    }
+
+    function quickAdd(variantId) {
+      // Quick add to cart
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: variantId,
+          quantity: 1
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('Added to cart!');
+        // Trigger cart update event
+        window.dispatchEvent(new CustomEvent('cart:updated'));
+      })
+      .catch(error => {
+        alert('Error adding to cart. Please try again.');
+      });
+    }
+
+    // Initialize event listeners when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      // Quick view buttons
+      document.querySelectorAll('[data-quick-view]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const productId = this.dataset.quickView;
+          quickView(productId);
+        });
+      });
+
+      // Wishlist buttons
+      document.querySelectorAll('[data-add-wishlist]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const productId = this.dataset.addWishlist;
+          addToWishlist(productId);
+        });
+      });
+
+      // Quick add buttons
+      document.querySelectorAll('[data-quick-add]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const variantId = this.dataset.quickAdd;
+          quickAdd(variantId);
+        });
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Collection - Optical Grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "label": "Products per row",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Design"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary color",
+      "default": "#a76111"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "label": "Enable filtering",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_quick_view",
+      "label": "Enable quick view",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
