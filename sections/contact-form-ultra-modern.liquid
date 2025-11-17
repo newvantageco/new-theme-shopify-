@@ -1,0 +1,450 @@
+{% comment %}
+  Ultra Modern Contact Form Section
+  Features: Modern input styles, glassmorphism, smooth animations
+{% endcomment %}
+
+<section
+  class="nvc-container-modern"
+  style="padding-top: var(--nvc-space-20); padding-bottom: var(--nvc-space-20);"
+  data-section-id="{{ section.id }}"
+  data-section-type="contact-form-ultra">
+
+  <div style="max-width: 800px; margin: 0 auto;">
+
+    {%- comment -%} Section Header {%- endcomment -%}
+    <div style="text-align: center; margin-bottom: var(--nvc-space-16);">
+      {% if section.settings.eyebrow != blank %}
+        <p
+          class="nvc-label nvc-text-gradient"
+          data-reveal="float"
+          style="margin-bottom: var(--nvc-space-3);">
+          {{ section.settings.eyebrow }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2
+          class="nvc-heading-1"
+          data-reveal="float"
+          data-reveal-delay="100">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p
+          class="nvc-body-lg"
+          data-reveal="float"
+          data-reveal-delay="200"
+          style="margin-top: var(--nvc-space-6); color: var(--nvc-gray-600);">
+          {{ section.settings.description }}
+        </p>
+      {% endif %}
+    </div>
+
+    {%- comment -%} Form Card {%- endcomment -%}
+    <div
+      class="{% if section.settings.card_style == 'glass' %}nvc-glass-card{% else %}nvc-card-modern{% endif %}"
+      data-reveal="scale"
+      data-reveal-delay="300">
+
+      {% form 'contact' %}
+        {% if form.posted_successfully? %}
+          <div
+            class="form-success"
+            style="
+              padding: var(--nvc-space-6);
+              background: rgba(16, 185, 129, 0.1);
+              border-left: 4px solid var(--nvc-accent-emerald);
+              border-radius: var(--nvc-radius-xl);
+              margin-bottom: var(--nvc-space-8);
+            ">
+            <p class="nvc-body" style="color: var(--nvc-accent-emerald); font-weight: 600;">
+              {{ 'contact.form.post_success' | t }}
+            </p>
+          </div>
+        {% endif %}
+
+        {% if form.errors %}
+          <div
+            class="form-errors"
+            style="
+              padding: var(--nvc-space-6);
+              background: rgba(239, 68, 68, 0.1);
+              border-left: 4px solid #ef4444;
+              border-radius: var(--nvc-radius-xl);
+              margin-bottom: var(--nvc-space-8);
+            ">
+            <p class="nvc-body" style="color: #dc2626; font-weight: 600; margin-bottom: var(--nvc-space-3);">
+              {{ 'contact.form.error_heading' | t }}
+            </p>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              {% for field in form.errors %}
+                <li style="color: #dc2626; margin-bottom: var(--nvc-space-2);">
+                  {{ form.errors.messages[field] }}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+        {%- comment -%} Form Grid {%- endcomment -%}
+        <div style="display: grid; gap: var(--nvc-space-6);">
+
+          {%- comment -%} Name Field {%- endcomment -%}
+          <div>
+            <label
+              for="ContactForm-name"
+              class="nvc-label"
+              style="display: block; margin-bottom: var(--nvc-space-2); color: var(--nvc-gray-700);">
+              Name *
+            </label>
+            <input
+              type="text"
+              id="ContactForm-name"
+              name="contact[name]"
+              class="nvc-input-modern"
+              value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+              placeholder="Your full name"
+              required>
+          </div>
+
+          {%- comment -%} Email Field {%- endcomment -%}
+          <div>
+            <label
+              for="ContactForm-email"
+              class="nvc-label"
+              style="display: block; margin-bottom: var(--nvc-space-2); color: var(--nvc-gray-700);">
+              Email *
+            </label>
+            <input
+              type="email"
+              id="ContactForm-email"
+              name="contact[email]"
+              class="nvc-input-modern"
+              value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+              placeholder="your.email@example.com"
+              autocorrect="off"
+              autocapitalize="off"
+              required>
+          </div>
+
+          {%- comment -%} Phone Field (Optional) {%- endcomment -%}
+          {% if section.settings.show_phone %}
+            <div>
+              <label
+                for="ContactForm-phone"
+                class="nvc-label"
+                style="display: block; margin-bottom: var(--nvc-space-2); color: var(--nvc-gray-700);">
+                Phone
+              </label>
+              <input
+                type="tel"
+                id="ContactForm-phone"
+                name="contact[phone]"
+                class="nvc-input-modern"
+                value="{{ form.phone }}"
+                placeholder="+44 7XXX XXXXXX">
+            </div>
+          {% endif %}
+
+          {%- comment -%} Subject Field {%- endcomment -%}
+          {% if section.settings.show_subject %}
+            <div>
+              <label
+                for="ContactForm-subject"
+                class="nvc-label"
+                style="display: block; margin-bottom: var(--nvc-space-2); color: var(--nvc-gray-700);">
+                Subject
+              </label>
+              <input
+                type="text"
+                id="ContactForm-subject"
+                name="contact[subject]"
+                class="nvc-input-modern"
+                value="{{ form.subject }}"
+                placeholder="How can we help?">
+            </div>
+          {% endif %}
+
+          {%- comment -%} Message Field {%- endcomment -%}
+          <div>
+            <label
+              for="ContactForm-body"
+              class="nvc-label"
+              style="display: block; margin-bottom: var(--nvc-space-2); color: var(--nvc-gray-700);">
+              Message *
+            </label>
+            <textarea
+              id="ContactForm-body"
+              name="contact[body]"
+              class="nvc-input-modern"
+              rows="6"
+              placeholder="Tell us more about your inquiry..."
+              required
+              style="resize: vertical; min-height: 150px;">{{ form.body }}</textarea>
+          </div>
+
+          {%- comment -%} Submit Button {%- endcomment -%}
+          <button
+            type="submit"
+            class="nvc-btn-modern nvc-btn-gradient"
+            data-magnetic
+            style="width: 100%; justify-content: center; padding: var(--nvc-space-5) var(--nvc-space-8);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            {{ section.settings.button_label | default: 'Send Message' }}
+          </button>
+
+        </div>
+      {% endform %}
+    </div>
+
+    {%- comment -%} Contact Info Cards {%- endcomment -%}
+    {% if section.settings.show_contact_info %}
+      <div
+        style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: var(--nvc-space-6);
+          margin-top: var(--nvc-space-16);"
+        data-reveal="float"
+        data-reveal-delay="400">
+
+        {% for block in section.blocks %}
+          {% if block.type == 'contact_info' %}
+            <div class="nvc-card-modern" style="text-align: center;">
+              {% if block.settings.icon != blank %}
+                <div
+                  style="
+                    width: 60px;
+                    height: 60px;
+                    margin: 0 auto var(--nvc-space-4);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: var(--nvc-gradient-primary);
+                    border-radius: var(--nvc-radius-xl);
+                    color: white;">
+                  {{ block.settings.icon }}
+                </div>
+              {% endif %}
+
+              <h3 class="nvc-heading-3" style="margin-bottom: var(--nvc-space-2); font-size: var(--nvc-text-lg);">
+                {{ block.settings.title }}
+              </h3>
+
+              <p class="nvc-body" style="color: var(--nvc-gray-600);">
+                {{ block.settings.text }}
+              </p>
+
+              {% if block.settings.link != blank %}
+                <a
+                  href="{{ block.settings.link }}"
+                  class="nvc-btn-modern nvc-btn-outline-modern"
+                  style="margin-top: var(--nvc-space-4); font-size: var(--nvc-text-sm); padding: var(--nvc-space-2) var(--nvc-space-4);">
+                  {{ block.settings.link_text | default: 'Contact' }}
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{%- comment -%} Form Enhancement Script {%- endcomment -%}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('[data-section-id="{{ section.id }}"] form');
+    if (!form) return;
+
+    // Add floating label effect
+    const inputs = form.querySelectorAll('.nvc-input-modern');
+    inputs.forEach(input => {
+      // Add focus effects
+      input.addEventListener('focus', function() {
+        this.parentElement.querySelector('label')?.classList.add('focused');
+      });
+
+      input.addEventListener('blur', function() {
+        if (!this.value) {
+          this.parentElement.querySelector('label')?.classList.remove('focused');
+        }
+      });
+    });
+
+    // Form submission handling
+    form.addEventListener('submit', function(e) {
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;">
+          <circle cx="12" cy="12" r="10"></circle>
+        </svg>
+        Sending...
+      `;
+
+      // Reset after 5 seconds if no redirect
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }, 5000);
+    });
+  });
+
+  // Add spin animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  `;
+  document.head.appendChild(style);
+</script>
+
+{% schema %}
+{
+  "name": "Contact Form (Ultra Modern)",
+  "tag": "section",
+  "class": "contact-form-ultra-modern-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Get In Touch"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "We'd Love to Hear From You"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Have a question about our frames? Need help with an order? Our team is here to help."
+    },
+    {
+      "type": "select",
+      "id": "card_style",
+      "label": "Card style",
+      "options": [
+        {
+          "value": "solid",
+          "label": "Solid"
+        },
+        {
+          "value": "glass",
+          "label": "Glassmorphism"
+        }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone",
+      "label": "Show phone field",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subject",
+      "label": "Show subject field",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Send Message"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact_info",
+      "label": "Show contact info cards",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "contact_info",
+      "name": "Contact Info Card",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Icon SVG",
+          "default": "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'></path><circle cx='12' cy='10' r='3'></circle></svg>"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Visit Us"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "124 City Road, London EC1V 2NX"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text",
+          "default": "Get Directions"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Form (Ultra Modern)",
+      "category": "Contact",
+      "blocks": [
+        {
+          "type": "contact_info",
+          "settings": {
+            "title": "Email",
+            "text": "hello@newvantageco.com",
+            "link": "mailto:hello@newvantageco.com",
+            "link_text": "Send Email"
+          }
+        },
+        {
+          "type": "contact_info",
+          "settings": {
+            "title": "Phone",
+            "text": "+44 7930 531847",
+            "link": "tel:+447930531847",
+            "link_text": "Call Us"
+          }
+        },
+        {
+          "type": "contact_info",
+          "settings": {
+            "title": "Visit Us",
+            "text": "124 City Road, London EC1V 2NX",
+            "link": "https://maps.google.com",
+            "link_text": "Get Directions"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

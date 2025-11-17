@@ -1,0 +1,649 @@
+{% comment %}
+  Ultra Modern Hero Banner Section
+  Features: Glassmorphism, animated gradients, parallax effects, modern CTAs
+{% endcomment %}
+
+<section
+  class="hero-ultra-modern"
+  data-section-id="{{ section.id }}"
+  data-section-type="hero-ultra-modern"
+  style="
+    position: relative;
+    min-height: {{ section.settings.section_height }}vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    {% if section.settings.text_color == 'light' %}
+      color: white;
+    {% else %}
+      color: var(--nvc-gray-900);
+    {% endif %}
+  ">
+
+  {%- comment -%} Background Layer {%- endcomment -%}
+  {% if section.settings.bg_type == 'image' and section.settings.background_image != blank %}
+    <div
+      class="hero-bg-image"
+      data-parallax="0.3"
+      style="
+        position: absolute;
+        inset: 0;
+        z-index: 0;">
+      <img
+        src="{{ section.settings.background_image | image_url: width: 2400 }}"
+        srcset="
+          {{ section.settings.background_image | image_url: width: 600 }} 600w,
+          {{ section.settings.background_image | image_url: width: 1200 }} 1200w,
+          {{ section.settings.background_image | image_url: width: 1800 }} 1800w,
+          {{ section.settings.background_image | image_url: width: 2400 }} 2400w
+        "
+        sizes="100vw"
+        alt="{{ section.settings.heading | escape }}"
+        loading="eager"
+        style="
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: {{ section.settings.image_position }};">
+    </div>
+
+    {%- comment -%} Overlay {%- endcomment -%}
+    <div
+      style="
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(0, 0, 0, {{ section.settings.overlay_opacity | times: 0.01 }}) 0%, rgba(0, 0, 0, {{ section.settings.overlay_opacity | times: 0.01 | times: 0.7 }}) 100%);
+        z-index: 1;">
+    </div>
+
+  {% elsif section.settings.bg_type == 'gradient' %}
+    <div
+      {% if section.settings.animate_gradient %}
+        class="nvc-gradient-animated"
+        data-gradient-animate
+      {% endif %}
+      style="
+        position: absolute;
+        inset: 0;
+        background: {{ section.settings.gradient_style }};
+        z-index: 0;">
+    </div>
+
+  {% elsif section.settings.bg_type == 'video' and section.settings.video_url != blank %}
+    <div style="position: absolute; inset: 0; z-index: 0;">
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        style="
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;">
+        <source src="{{ section.settings.video_url }}" type="video/mp4">
+      </video>
+    </div>
+
+    {%- comment -%} Overlay for video {%- endcomment -%}
+    <div
+      style="
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, {{ section.settings.overlay_opacity | times: 0.01 }});
+        z-index: 1;">
+    </div>
+  {% endif %}
+
+  {%- comment -%} Decorative Elements {%- endcomment -%}
+  {% if section.settings.show_decorative_shapes %}
+    <div style="position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden;">
+      {%- comment -%} Floating circles {%- endcomment -%}
+      <div
+        style="
+          position: absolute;
+          top: 20%;
+          right: 10%;
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+          border-radius: 50%;
+          filter: blur(60px);
+          animation: nvcFloatUp 20s ease-in-out infinite;">
+      </div>
+      <div
+        style="
+          position: absolute;
+          bottom: 20%;
+          left: 5%;
+          width: 400px;
+          height: 400px;
+          background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, transparent 70%);
+          border-radius: 50%;
+          filter: blur(80px);
+          animation: nvcFloatUp 25s ease-in-out infinite reverse;">
+      </div>
+    </div>
+  {% endif %}
+
+  {%- comment -%} Content Container {%- endcomment -%}
+  <div
+    class="nvc-container-modern"
+    style="position: relative; z-index: 2; width: 100%; padding-top: var(--nvc-space-12); padding-bottom: var(--nvc-space-12);">
+
+    <div
+      style="
+        max-width: {{ section.settings.content_width }}px;
+        {% if section.settings.content_alignment == 'center' %}
+          margin: 0 auto;
+          text-align: center;
+        {% elsif section.settings.content_alignment == 'right' %}
+          margin-left: auto;
+          text-align: right;
+        {% else %}
+          text-align: left;
+        {% endif %}
+      ">
+
+      {%- comment -%} Eyebrow {%- endcomment -%}
+      {% if section.settings.eyebrow != blank %}
+        <p
+          class="nvc-label"
+          data-reveal="float"
+          data-load-fade
+          style="
+            {% if section.settings.text_color == 'light' %}
+              color: rgba(255, 255, 255, 0.9);
+            {% else %}
+              color: var(--nvc-gray-700);
+            {% endif %}
+            margin-bottom: var(--nvc-space-4);">
+          {{ section.settings.eyebrow }}
+        </p>
+      {% endif %}
+
+      {%- comment -%} Heading {%- endcomment -%}
+      {% if section.settings.heading != blank %}
+        <h1
+          class="{% if section.settings.heading_size == 'large' %}nvc-display-1{% else %}nvc-display-2{% endif %}"
+          data-reveal="float"
+          data-reveal-delay="100"
+          data-load-fade
+          style="
+            margin-bottom: var(--nvc-space-6);
+            {% if section.settings.heading_gradient %}
+              background: var(--nvc-gradient-primary);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+            {% elsif section.settings.text_color == 'light' %}
+              color: white;
+            {% else %}
+              color: var(--nvc-gray-900);
+            {% endif %}
+          ">
+          {{ section.settings.heading }}
+        </h1>
+      {% endif %}
+
+      {%- comment -%} Subheading {%- endcomment -%}
+      {% if section.settings.subheading != blank %}
+        <p
+          class="nvc-body-xl"
+          data-reveal="float"
+          data-reveal-delay="200"
+          data-load-fade
+          style="
+            max-width: 700px;
+            {% if section.settings.content_alignment == 'center' %}
+              margin: 0 auto var(--nvc-space-8);
+            {% elsif section.settings.content_alignment == 'right' %}
+              margin: 0 0 var(--nvc-space-8) auto;
+            {% else %}
+              margin-bottom: var(--nvc-space-8);
+            {% endif %}
+            {% if section.settings.text_color == 'light' %}
+              color: rgba(255, 255, 255, 0.85);
+            {% else %}
+              color: var(--nvc-gray-600);
+            {% endif %}
+          ">
+          {{ section.settings.subheading }}
+        </p>
+      {% endif %}
+
+      {%- comment -%} CTA Buttons {%- endcomment -%}
+      <div
+        data-reveal="scale"
+        data-reveal-delay="300"
+        data-load-fade
+        style="
+          display: flex;
+          gap: var(--nvc-space-4);
+          flex-wrap: wrap;
+          {% if section.settings.content_alignment == 'center' %}
+            justify-content: center;
+          {% elsif section.settings.content_alignment == 'right' %}
+            justify-content: flex-end;
+          {% else %}
+            justify-content: flex-start;
+          {% endif %}
+        ">
+
+        {% if section.settings.button_label_1 != blank %}
+          <a
+            href="{{ section.settings.button_link_1 }}"
+            class="nvc-btn-modern nvc-btn-gradient"
+            data-magnetic>
+            {{ section.settings.button_label_1 }}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: var(--nvc-space-2);">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        {% endif %}
+
+        {% if section.settings.button_label_2 != blank %}
+          <a
+            href="{{ section.settings.button_link_2 }}"
+            class="nvc-btn-modern {% if section.settings.text_color == 'light' %}nvc-btn-glass{% else %}nvc-btn-outline-modern{% endif %}"
+            data-magnetic>
+            {{ section.settings.button_label_2 }}
+          </a>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Trust Badges / Features {%- endcomment -%}
+      {% if section.settings.show_trust_badges %}
+        <div
+          data-reveal="float"
+          data-reveal-delay="400"
+          style="
+            display: flex;
+            gap: var(--nvc-space-8);
+            margin-top: var(--nvc-space-12);
+            flex-wrap: wrap;
+            {% if section.settings.content_alignment == 'center' %}
+              justify-content: center;
+            {% elsif section.settings.content_alignment == 'right' %}
+              justify-content: flex-end;
+            {% else %}
+              justify-content: flex-start;
+            {% endif %}
+          ">
+
+          {% for block in section.blocks %}
+            {% if block.type == 'trust_badge' %}
+              <div style="display: flex; align-items: center; gap: var(--nvc-space-3);">
+                {% if block.settings.icon != blank %}
+                  <div style="
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: rgba(139, 92, 246, 0.1);
+                    border-radius: var(--nvc-radius-lg);
+                  ">
+                    {{ block.settings.icon }}
+                  </div>
+                {% endif %}
+                <span
+                  class="nvc-body"
+                  style="
+                    font-weight: 600;
+                    {% if section.settings.text_color == 'light' %}
+                      color: white;
+                    {% else %}
+                      color: var(--nvc-gray-900);
+                    {% endif %}
+                  ">
+                  {{ block.settings.text }}
+                </span>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {%- comment -%} Scroll Down Indicator {%- endcomment -%}
+  {% if section.settings.show_scroll_indicator %}
+    <div
+      style="
+        position: absolute;
+        bottom: var(--nvc-space-8);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 3;
+        animation: nvcBounce 2s infinite;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <polyline points="19 12 12 19 5 12"></polyline>
+      </svg>
+    </div>
+  {% endif %}
+</section>
+
+{%- comment -%} Responsive Styles {%- endcomment -%}
+<style>
+  @media (max-width: 768px) {
+    .hero-ultra-modern {
+      min-height: 70vh !important;
+    }
+
+    .hero-ultra-modern .nvc-display-1,
+    .hero-ultra-modern .nvc-display-2 {
+      font-size: clamp(2rem, 8vw, 3rem) !important;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero Banner (Ultra Modern)",
+  "tag": "section",
+  "class": "hero-ultra-modern-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "label": "Section height",
+      "default": 90
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "min": 600,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 900
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "select",
+      "id": "bg_type",
+      "label": "Background type",
+      "options": [
+        {
+          "value": "gradient",
+          "label": "Gradient"
+        },
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "gradient"
+    },
+    {
+      "type": "select",
+      "id": "gradient_style",
+      "label": "Gradient style",
+      "info": "Applied when background type is Gradient",
+      "options": [
+        {
+          "value": "var(--nvc-gradient-primary)",
+          "label": "Primary"
+        },
+        {
+          "value": "var(--nvc-gradient-sunset)",
+          "label": "Sunset"
+        },
+        {
+          "value": "var(--nvc-gradient-ocean)",
+          "label": "Ocean"
+        },
+        {
+          "value": "var(--nvc-gradient-forest)",
+          "label": "Forest"
+        },
+        {
+          "value": "var(--nvc-gradient-royal)",
+          "label": "Royal"
+        }
+      ],
+      "default": "var(--nvc-gradient-primary)"
+    },
+    {
+      "type": "checkbox",
+      "id": "animate_gradient",
+      "label": "Animate gradient",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video URL",
+      "info": "MP4 format recommended"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "show_decorative_shapes",
+      "label": "Show decorative shapes",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "New Collection"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Discover Purposeful Eyewear"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "checkbox",
+      "id": "heading_gradient",
+      "label": "Apply gradient to heading",
+      "default": false
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Well-crafted frames imported for comfort and clarity. Experience the perfect blend of style and function."
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "label": "Text color",
+      "options": [
+        {
+          "value": "light",
+          "label": "Light"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        }
+      ],
+      "default": "light"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_label_1",
+      "label": "Button 1 label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link_1",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Button 2 label",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "header",
+      "content": "Additional Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scroll_indicator",
+      "label": "Show scroll indicator",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_badge",
+      "name": "Trust Badge",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Icon SVG",
+          "default": "<svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><polyline points='20 6 9 17 4 12'></polyline></svg>"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free UK Shipping"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner (Ultra Modern)",
+      "category": "Hero",
+      "blocks": [
+        {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Free UK Shipping"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "text": "2-Year Guarantee"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "text": "30-Day Returns"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

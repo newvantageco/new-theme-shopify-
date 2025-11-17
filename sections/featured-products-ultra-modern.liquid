@@ -1,0 +1,248 @@
+{% comment %}
+  Ultra Modern Featured Products Section
+  Showcases products with the new ultra-modern design system
+{% endcomment %}
+
+<section
+  class="nvc-container-modern"
+  style="padding-top: var(--nvc-space-20); padding-bottom: var(--nvc-space-20); position: relative; overflow: hidden;"
+  data-section-id="{{ section.id }}"
+  data-section-type="featured-products-ultra">
+
+  {%- comment -%} Background Gradient Effect {%- endcomment -%}
+  {% if section.settings.show_gradient_bg %}
+    <div
+      style="
+        position: absolute;
+        top: -50%;
+        left: -25%;
+        width: 150%;
+        height: 150%;
+        background: var(--nvc-gradient-mesh-1);
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 0;">
+    </div>
+  {% endif %}
+
+  {%- comment -%} Section Header {%- endcomment -%}
+  <div style="text-align: center; margin-bottom: var(--nvc-space-16); position: relative; z-index: 1;">
+    {% if section.settings.eyebrow != blank %}
+      <p
+        class="nvc-label nvc-text-gradient"
+        data-reveal="float"
+        style="margin-bottom: var(--nvc-space-3);">
+        {{ section.settings.eyebrow }}
+      </p>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2
+        class="{% if section.settings.heading_size == 'large' %}nvc-display-1{% else %}nvc-heading-1{% endif %}"
+        data-reveal="float"
+        data-reveal-delay="100">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.description != blank %}
+      <p
+        class="nvc-body-lg"
+        data-reveal="float"
+        data-reveal-delay="200"
+        style="
+          max-width: 600px;
+          margin: var(--nvc-space-6) auto 0;
+          color: var(--nvc-gray-600);">
+        {{ section.settings.description }}
+      </p>
+    {% endif %}
+  </div>
+
+  {%- comment -%} Products Grid {%- endcomment -%}
+  {% if section.settings.collection != blank %}
+    {% assign collection = collections[section.settings.collection] %}
+    {% assign products_to_show = section.settings.products_to_show | default: 8 %}
+
+    <div
+      class="nvc-grid-modern"
+      style="
+        grid-template-columns: repeat(auto-fill, minmax({{ section.settings.grid_item_width }}px, 1fr));
+        gap: var(--nvc-space-8);
+        position: relative;
+        z-index: 1;">
+
+      {% for product in collection.products limit: products_to_show %}
+        {% render 'product-card-ultra-modern', product: product %}
+      {% endfor %}
+    </div>
+
+    {%- comment -%} View All Button {%- endcomment -%}
+    {% if section.settings.show_view_all %}
+      <div
+        style="text-align: center; margin-top: var(--nvc-space-16);"
+        data-reveal="scale"
+        data-reveal-delay="300">
+        <a
+          href="{{ collection.url }}"
+          class="nvc-btn-modern nvc-btn-gradient"
+          data-magnetic>
+          {{ section.settings.button_label | default: 'View All Products' }}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: var(--nvc-space-2);">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    {% endif %}
+
+  {% else %}
+    {%- comment -%} Placeholder for Theme Editor {%- endcomment -%}
+    <div style="text-align: center; padding: var(--nvc-space-20) var(--nvc-space-8);">
+      <div class="nvc-card-modern" style="max-width: 600px; margin: 0 auto;">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--nvc-gray-300)" stroke-width="1" style="margin: 0 auto var(--nvc-space-6);">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+        </svg>
+        <h3 class="nvc-heading-3" style="color: var(--nvc-gray-600); margin-bottom: var(--nvc-space-3);">
+          No Collection Selected
+        </h3>
+        <p class="nvc-body" style="color: var(--nvc-gray-500);">
+          Select a collection from the theme editor to display products here.
+        </p>
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+{%- comment -%} Responsive Styles {%- endcomment -%}
+<style>
+  @media (max-width: 768px) {
+    [data-section-id="{{ section.id }}"] .nvc-grid-modern {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+      gap: var(--nvc-space-6) !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    [data-section-id="{{ section.id }}"] .nvc-grid-modern {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Featured Products (Ultra Modern)",
+  "tag": "section",
+  "class": "featured-products-ultra-modern-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Featured Collection"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Discover Our Latest Frames"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Purposeful, well-crafted frames imported for comfort and clarity."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 24,
+      "step": 1,
+      "label": "Products to show",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "grid_item_width",
+      "min": 240,
+      "max": 400,
+      "step": 20,
+      "unit": "px",
+      "label": "Grid item minimum width",
+      "default": 300
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View All' button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View All Products"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gradient_bg",
+      "label": "Show gradient background",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products (Ultra Modern)",
+      "category": "Products"
+    }
+  ]
+}
+{% endschema %}
