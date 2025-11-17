@@ -109,9 +109,13 @@
     {%- render 'nvc-animations' -%}
     {%- render 'uk-compliance' -%}
 
+    <!-- NVC Modern Design System -->
+    <link rel="stylesheet" href="{{ 'nvc-modern-design-system.css' | asset_url }}" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="{{ 'nvc-modern-design-system.css' | asset_url }}"></noscript>
+
     <!-- Defer site JS (keeps your existing global file) -->
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    
+
     <!-- NVC Performance Optimization -->
     <script src="{{ 'nvc-performance.js' | asset_url }}" defer="defer"></script>
 
@@ -164,6 +168,7 @@
       render 'quickview'
       render 'popup-compare'
       render 'header-js'
+      render 'virtual-tryon-modal'
     -%}
   </body>
 </html>

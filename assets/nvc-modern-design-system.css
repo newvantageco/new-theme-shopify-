@@ -1,0 +1,639 @@
+/**
+ * NVC Modern Design System
+ * Inspired by: Warby Parker, Ray-Ban, SunGod, Bloobloom
+ * Features: Modern typography, smooth animations, optical-focused design
+ */
+
+/* ===========================
+   CSS Variables - Design Tokens
+   =========================== */
+:root {
+  /* Primary Brand Colors */
+  --nvc-primary: #a76111;
+  --nvc-primary-dark: #8b5209;
+  --nvc-primary-light: #c67b2d;
+
+  /* Neutral Colors */
+  --nvc-black: #000000;
+  --nvc-charcoal: #1a1a1a;
+  --nvc-gray-900: #222222;
+  --nvc-gray-800: #333333;
+  --nvc-gray-700: #4a4a4a;
+  --nvc-gray-600: #666666;
+  --nvc-gray-500: #888888;
+  --nvc-gray-400: #aaaaaa;
+  --nvc-gray-300: #cccccc;
+  --nvc-gray-200: #e5e5e5;
+  --nvc-gray-100: #f5f5f5;
+  --nvc-white: #ffffff;
+
+  /* Accent Colors */
+  --nvc-accent-blue: #667eea;
+  --nvc-accent-purple: #764ba2;
+  --nvc-accent-green: #2e7d32;
+  --nvc-accent-red: #d32f2f;
+  --nvc-accent-orange: #ff9800;
+
+  /* Background Colors */
+  --nvc-bg-primary: #ffffff;
+  --nvc-bg-secondary: #faf5f2;
+  --nvc-bg-tertiary: #f8f8f8;
+
+  /* Typography */
+  --nvc-font-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --nvc-font-secondary: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Font Weights */
+  --nvc-weight-light: 300;
+  --nvc-weight-regular: 400;
+  --nvc-weight-medium: 500;
+  --nvc-weight-semibold: 600;
+  --nvc-weight-bold: 700;
+  --nvc-weight-extrabold: 800;
+
+  /* Spacing Scale */
+  --nvc-space-xs: 0.25rem;   /* 4px */
+  --nvc-space-sm: 0.5rem;    /* 8px */
+  --nvc-space-md: 1rem;      /* 16px */
+  --nvc-space-lg: 1.5rem;    /* 24px */
+  --nvc-space-xl: 2rem;      /* 32px */
+  --nvc-space-2xl: 3rem;     /* 48px */
+  --nvc-space-3xl: 4rem;     /* 64px */
+  --nvc-space-4xl: 6rem;     /* 96px */
+
+  /* Border Radius */
+  --nvc-radius-sm: 4px;
+  --nvc-radius-md: 8px;
+  --nvc-radius-lg: 12px;
+  --nvc-radius-xl: 16px;
+  --nvc-radius-2xl: 24px;
+  --nvc-radius-full: 9999px;
+
+  /* Shadows */
+  --nvc-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --nvc-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --nvc-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --nvc-shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.15);
+
+  /* Transitions */
+  --nvc-transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --nvc-transition-base: 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  --nvc-transition-slow: 500ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Z-Index Scale */
+  --nvc-z-base: 1;
+  --nvc-z-dropdown: 1000;
+  --nvc-z-sticky: 1020;
+  --nvc-z-fixed: 1030;
+  --nvc-z-modal-backdrop: 1040;
+  --nvc-z-modal: 1050;
+  --nvc-z-popover: 1060;
+  --nvc-z-tooltip: 1070;
+}
+
+/* ===========================
+   Typography
+   =========================== */
+
+/* Heading Styles - Modern Optical Focused */
+.nvc-h1, h1.nvc-heading {
+  font-family: var(--nvc-font-primary);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: var(--nvc-weight-bold);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--nvc-charcoal);
+  margin-bottom: var(--nvc-space-lg);
+}
+
+.nvc-h2, h2.nvc-heading {
+  font-family: var(--nvc-font-primary);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--nvc-weight-semibold);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--nvc-charcoal);
+  margin-bottom: var(--nvc-space-md);
+}
+
+.nvc-h3, h3.nvc-heading {
+  font-family: var(--nvc-font-primary);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: var(--nvc-weight-semibold);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--nvc-charcoal);
+  margin-bottom: var(--nvc-space-md);
+}
+
+.nvc-h4, h4.nvc-heading {
+  font-family: var(--nvc-font-primary);
+  font-size: 1.25rem;
+  font-weight: var(--nvc-weight-semibold);
+  line-height: 1.4;
+  color: var(--nvc-charcoal);
+  margin-bottom: var(--nvc-space-sm);
+}
+
+/* Body Text */
+.nvc-body, body.nvc-text {
+  font-family: var(--nvc-font-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--nvc-gray-700);
+}
+
+.nvc-body-large {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--nvc-gray-600);
+}
+
+.nvc-body-small {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--nvc-gray-600);
+}
+
+/* Eyebrow / Overline Text */
+.nvc-eyebrow {
+  font-family: var(--nvc-font-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--nvc-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--nvc-primary);
+  margin-bottom: var(--nvc-space-sm);
+  display: block;
+}
+
+/* ===========================
+   Button Styles - Modern Optical
+   =========================== */
+
+.nvc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--nvc-space-sm);
+  padding: 1rem 2rem;
+  font-family: var(--nvc-font-secondary);
+  font-size: 0.875rem;
+  font-weight: var(--nvc-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: var(--nvc-radius-md);
+  transition: all var(--nvc-transition-base);
+  cursor: pointer;
+  border: 2px solid transparent;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nvc-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Primary Button */
+.nvc-btn-primary {
+  background: var(--nvc-primary);
+  color: var(--nvc-white);
+  border-color: var(--nvc-primary);
+  box-shadow: var(--nvc-shadow-sm);
+}
+
+.nvc-btn-primary:hover:not(:disabled) {
+  background: var(--nvc-primary-dark);
+  border-color: var(--nvc-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--nvc-shadow-lg);
+}
+
+/* Secondary Button */
+.nvc-btn-secondary {
+  background: transparent;
+  color: var(--nvc-primary);
+  border-color: var(--nvc-primary);
+}
+
+.nvc-btn-secondary:hover:not(:disabled) {
+  background: var(--nvc-primary);
+  color: var(--nvc-white);
+  transform: translateY(-2px);
+}
+
+/* Ghost Button */
+.nvc-btn-ghost {
+  background: transparent;
+  color: var(--nvc-charcoal);
+  border-color: var(--nvc-gray-300);
+}
+
+.nvc-btn-ghost:hover:not(:disabled) {
+  border-color: var(--nvc-charcoal);
+  background: var(--nvc-gray-100);
+}
+
+/* Dark Button */
+.nvc-btn-dark {
+  background: var(--nvc-charcoal);
+  color: var(--nvc-white);
+  border-color: var(--nvc-charcoal);
+}
+
+.nvc-btn-dark:hover:not(:disabled) {
+  background: var(--nvc-black);
+  transform: translateY(-2px);
+  box-shadow: var(--nvc-shadow-lg);
+}
+
+/* Button Sizes */
+.nvc-btn-sm {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.75rem;
+}
+
+.nvc-btn-lg {
+  padding: 1.25rem 2.5rem;
+  font-size: 1rem;
+}
+
+/* ===========================
+   Card Components
+   =========================== */
+
+.nvc-card {
+  background: var(--nvc-bg-primary);
+  border-radius: var(--nvc-radius-lg);
+  padding: var(--nvc-space-xl);
+  box-shadow: var(--nvc-shadow-md);
+  transition: all var(--nvc-transition-base);
+}
+
+.nvc-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--nvc-shadow-xl);
+}
+
+.nvc-card-flat {
+  background: var(--nvc-bg-secondary);
+  border-radius: var(--nvc-radius-lg);
+  padding: var(--nvc-space-xl);
+  box-shadow: none;
+}
+
+/* ===========================
+   Micro-Animations
+   =========================== */
+
+/* Fade In */
+@keyframes nvcFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.nvc-fade-in {
+  animation: nvcFadeIn 0.6s ease-out;
+}
+
+/* Fade In Up */
+@keyframes nvcFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nvc-fade-in-up {
+  animation: nvcFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Fade In Down */
+@keyframes nvcFadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nvc-fade-in-down {
+  animation: nvcFadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scale In */
+@keyframes nvcScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.nvc-scale-in {
+  animation: nvcScaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Slide In Left */
+@keyframes nvcSlideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.nvc-slide-in-left {
+  animation: nvcSlideInLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Slide In Right */
+@keyframes nvcSlideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.nvc-slide-in-right {
+  animation: nvcSlideInRight 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Shimmer Effect (for loading states) */
+@keyframes nvcShimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.nvc-shimmer {
+  background: linear-gradient(
+    to right,
+    var(--nvc-gray-200) 0%,
+    var(--nvc-gray-100) 50%,
+    var(--nvc-gray-200) 100%
+  );
+  background-size: 1000px 100%;
+  animation: nvcShimmer 2s linear infinite;
+}
+
+/* Pulse Animation */
+@keyframes nvcPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.nvc-pulse {
+  animation: nvcPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Bounce */
+@keyframes nvcBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.nvc-bounce {
+  animation: nvcBounce 1s ease-in-out infinite;
+}
+
+/* ===========================
+   Utility Classes
+   =========================== */
+
+/* Hover Effects */
+.nvc-hover-lift {
+  transition: transform var(--nvc-transition-base);
+}
+
+.nvc-hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+.nvc-hover-scale {
+  transition: transform var(--nvc-transition-base);
+}
+
+.nvc-hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.nvc-hover-brightness {
+  transition: filter var(--nvc-transition-base);
+}
+
+.nvc-hover-brightness:hover {
+  filter: brightness(1.1);
+}
+
+/* Smooth Scrolling */
+html.nvc-smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* Text Utilities */
+.nvc-text-center {
+  text-align: center;
+}
+
+.nvc-text-left {
+  text-align: left;
+}
+
+.nvc-text-right {
+  text-align: right;
+}
+
+.nvc-text-primary {
+  color: var(--nvc-primary);
+}
+
+.nvc-text-muted {
+  color: var(--nvc-gray-600);
+}
+
+/* Spacing Utilities */
+.nvc-mt-xs { margin-top: var(--nvc-space-xs); }
+.nvc-mt-sm { margin-top: var(--nvc-space-sm); }
+.nvc-mt-md { margin-top: var(--nvc-space-md); }
+.nvc-mt-lg { margin-top: var(--nvc-space-lg); }
+.nvc-mt-xl { margin-top: var(--nvc-space-xl); }
+
+.nvc-mb-xs { margin-bottom: var(--nvc-space-xs); }
+.nvc-mb-sm { margin-bottom: var(--nvc-space-sm); }
+.nvc-mb-md { margin-bottom: var(--nvc-space-md); }
+.nvc-mb-lg { margin-bottom: var(--nvc-space-lg); }
+.nvc-mb-xl { margin-bottom: var(--nvc-space-xl); }
+
+/* Container */
+.nvc-container {
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--nvc-space-lg);
+  padding-right: var(--nvc-space-lg);
+}
+
+.nvc-container-narrow {
+  width: 100%;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--nvc-space-lg);
+  padding-right: var(--nvc-space-lg);
+}
+
+/* Grid System */
+.nvc-grid {
+  display: grid;
+  gap: var(--nvc-space-xl);
+}
+
+.nvc-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.nvc-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.nvc-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 1024px) {
+  .nvc-grid-3,
+  .nvc-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .nvc-grid-2,
+  .nvc-grid-3,
+  .nvc-grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Flexbox Utilities */
+.nvc-flex {
+  display: flex;
+}
+
+.nvc-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nvc-flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ===========================
+   Optical-Specific Components
+   =========================== */
+
+/* Frame Specification Display */
+.nvc-frame-specs {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--nvc-space-sm);
+  padding: var(--nvc-space-sm) var(--nvc-space-md);
+  background: var(--nvc-gray-100);
+  border-radius: var(--nvc-radius-full);
+  font-size: 0.875rem;
+  font-weight: var(--nvc-weight-medium);
+  color: var(--nvc-gray-700);
+}
+
+/* Virtual Try-On Badge */
+.nvc-tryon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--nvc-space-xs);
+  padding: var(--nvc-space-xs) var(--nvc-space-sm);
+  background: linear-gradient(135deg, var(--nvc-accent-blue), var(--nvc-accent-purple));
+  color: var(--nvc-white);
+  border-radius: var(--nvc-radius-full);
+  font-size: 0.75rem;
+  font-weight: var(--nvc-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: var(--nvc-shadow-md);
+}
+
+/* Prescription Badge */
+.nvc-prescription-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--nvc-space-xs);
+  padding: var(--nvc-space-sm) var(--nvc-space-md);
+  background: var(--nvc-accent-green);
+  color: var(--nvc-white);
+  border-radius: var(--nvc-radius-md);
+  font-size: 0.75rem;
+  font-weight: var(--nvc-weight-semibold);
+}
+
+/* ===========================
+   Responsive Typography
+   =========================== */
+
+@media (max-width: 768px) {
+  :root {
+    --nvc-space-xl: 1.5rem;
+    --nvc-space-2xl: 2rem;
+    --nvc-space-3xl: 3rem;
+    --nvc-space-4xl: 4rem;
+  }
+}
+
+/* ===========================
+   Print Styles
+   =========================== */
+
+@media print {
+  .nvc-btn,
+  .nvc-action-btn,
+  .nvc-product-actions {
+    display: none !important;
+  }
+}

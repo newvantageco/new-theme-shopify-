@@ -1,7 +1,15 @@
 {% comment %}
-  ILS (Inventory Lookup System) SaaS Integration Snippet
-  Purpose: Provides hooks and data attributes for optical inventory management systems
+  ENHANCED ILS (Inventory Lookup System) SaaS Integration Snippet
+  Purpose: Provides advanced hooks and real-time integration for optical inventory management
   Compatible with: OpticsPro, Frames Data, OfficeMate, Eyefinity, and custom ILS solutions
+
+  New Features:
+  - Real-time inventory updates
+  - Multi-store availability checker
+  - Advanced prescription lens builder
+  - Virtual try-on integration
+  - Size recommendations
+  - ILS-powered product recommendations
 {% endcomment %}
 
 {%- liquid
@@ -96,10 +104,27 @@
   }
   
   .ils-inventory-status {
-    padding: 1rem;
-    background: rgba(var(--color-success-rgb, 46, 125, 50), 0.1);
-    border-radius: 8px;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, rgba(167, 97, 17, 0.1) 0%, rgba(167, 97, 17, 0.05) 100%);
+    border-radius: 12px;
     margin-bottom: 1rem;
+    border-left: 4px solid #a76111;
+    transition: all 0.3s ease;
+  }
+
+  .ils-inventory-status.in-stock {
+    background: linear-gradient(135deg, rgba(46, 125, 50, 0.1) 0%, rgba(46, 125, 50, 0.05) 100%);
+    border-left-color: #2e7d32;
+  }
+
+  .ils-inventory-status.low-stock {
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.05) 100%);
+    border-left-color: #ff9800;
+  }
+
+  .ils-inventory-status.out-of-stock {
+    background: linear-gradient(135deg, rgba(211, 47, 47, 0.1) 0%, rgba(211, 47, 47, 0.05) 100%);
+    border-left-color: #d32f2f;
   }
   
   .ils-loading {
